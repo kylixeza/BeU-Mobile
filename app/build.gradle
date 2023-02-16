@@ -87,9 +87,8 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:2.0.0"
 
     //Dependency Injection
-    implementation "org.koin:koin-core:2.1.6"
-    implementation "org.koin:koin-android:2.1.6"
-    implementation "org.koin:koin-android-viewmodel:2.1.6"
+    implementation "io.insert-koin:koin-core:3.3.0"
+    implementation "io.insert-koin:koin-android:3.3.0"
 
     //GMS
     implementation "com.google.android.gms:play-services-auth:20.4.1"
