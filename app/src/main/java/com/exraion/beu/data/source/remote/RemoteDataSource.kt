@@ -14,17 +14,17 @@ class RemoteDataSource(
         body: RegisterBody
     ) = object : BaseRemoteResponse<TokenResponse>() {
         override suspend fun call(): BaseResponse<TokenResponse> = apiService.signUp(body)
-    }
+    }.asFlow()
 
     suspend fun signIn(
         body: LoginBody
     ) = object : BaseRemoteResponse<TokenResponse>() {
         override suspend fun call(): BaseResponse<TokenResponse> = apiService.signIn(body)
-    }
+    }.asFlow()
 
     suspend fun signOut(
         token: String
     ) = object : BaseRemoteResponse<String>() {
         override suspend fun call(): BaseResponse<String> = apiService.signOut(token)
-    }
+    }.asFlow()
 }
