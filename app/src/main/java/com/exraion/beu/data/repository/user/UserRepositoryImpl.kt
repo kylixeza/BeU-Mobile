@@ -52,4 +52,21 @@ class UserRepositoryImpl(
         }
     }.asFlow()
 
+    override suspend fun savePrefIsLogin(isLogin: Boolean) {
+        localDataSource.savePrefIsLogin(isLogin)
+    }
+
+    override suspend fun savePrefHaveRunAppBefore(isFirstTime: Boolean) {
+        localDataSource.savePrefHaveRunAppBefore(isFirstTime)
+    }
+
+    override suspend fun savePrefToken(token: String) {
+        localDataSource.savePrefToken(token)
+    }
+
+    override fun readPrefToken(): Flow<String?> = localDataSource.readPrefToken()
+
+    override fun readPrefIsLogin(): Flow<Boolean> = localDataSource.readPrefIsLogin()
+
+    override fun readPrefHaveRunAppBefore(): Flow<Boolean> = localDataSource.readPrefHaveRunAppBefore()
 }
