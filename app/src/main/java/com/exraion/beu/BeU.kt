@@ -16,7 +16,7 @@ class BeU: Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidLogger(Level.ERROR)
+            androidLogger(Level.NONE)
             androidContext(this@BeU)
             modules(
                 listOf(

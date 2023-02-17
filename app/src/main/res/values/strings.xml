@@ -2,4 +2,12 @@
     <string name="app_name">BeU</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="title_first_screen">Cooking Tutorials</string>
+    <string name="subtitle_first_screen">Find cooking tutorials that match your desired category.</string>
+    <string name="title_second_screen"><![CDATA[Order & Delivery]]></string>
+    <string name="subtitle_second_screen">We provide the ingredients that fit the size of the cooking tutorial and we deliver the ingredients to your home.</string>
+    <string name="title_third_screen">Food Image Recognition</string>
+    <string name="subtitle_third_screen">You can search for recipes by pointing the camera at the food.</string>
 </resources>
