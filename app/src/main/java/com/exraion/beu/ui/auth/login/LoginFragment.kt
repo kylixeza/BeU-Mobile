@@ -10,6 +10,7 @@ import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.buildLottieDialog
+import com.exraion.beu.common.observeValue
 import com.exraion.beu.databinding.DialogLottieBinding
 import com.exraion.beu.databinding.FragmentLoginBinding
 import com.exraion.beu.ui.auth.register.RegisterFragment
@@ -39,17 +40,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         activity?.apply { lottieDialog = buildLottieDialog(lottieBinding, "loading_state.json") }
         
         lifecycleScope.launchWhenStarted {
-            edtEmail.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setEmail(it) }
+            edtEmail.observeValue { viewModel.setEmail(it) }
         }
         
         lifecycleScope.launchWhenStarted {
-            edtPassword.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setPassword(it) }
+            edtPassword.observeValue { viewModel.setPassword(it) }
         }
         
         btnLogin.setOnClickListener {

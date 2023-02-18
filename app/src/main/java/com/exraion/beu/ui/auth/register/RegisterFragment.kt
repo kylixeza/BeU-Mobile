@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.buildLottieDialog
+import com.exraion.beu.common.observeValue
 import com.exraion.beu.databinding.DialogLottieBinding
 import com.exraion.beu.databinding.FragmentRegisterBinding
 import com.exraion.beu.util.Constanta
@@ -37,38 +38,23 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         activity?.apply { lottieDialog = buildLottieDialog(lottieBinding, "loading_state.json") }
         
         lifecycleScope.launchWhenStarted {
-            edtEmail.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setEmail(it) }
+            edtEmail.observeValue { viewModel.setEmail(it) }
         }
         
         lifecycleScope.launchWhenStarted {
-            edtPassword.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setPassword(it) }
+            edtPassword.observeValue { viewModel.setPassword(it) }
         }
         
         lifecycleScope.launchWhenStarted {
-            edtUsername.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setName(it) }
+            edtUsername.observeValue { viewModel.setName(it) }
         }
         
         lifecycleScope.launchWhenStarted {
-            edtPhoneNumber.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setPhone(it) }
+            edtPhoneNumber.observeValue { viewModel.setPhone(it) }
         }
         
         lifecycleScope.launchWhenStarted {
-            edtLocation.textChanges()
-                .skipInitialValue()
-                .map { it.toString() }
-                .collectLatest { viewModel.setLocation(it) }
+            edtLocation.observeValue { viewModel.setLocation(it) }
         }
         
         lifecycleScope.launchWhenStarted {
