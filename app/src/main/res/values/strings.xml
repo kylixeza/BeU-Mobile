@@ -10,4 +10,18 @@
     <string name="subtitle_second_screen">We provide the ingredients that fit the size of the cooking tutorial and we deliver the ingredients to your home.</string>
     <string name="title_third_screen">Food Image Recognition</string>
     <string name="subtitle_third_screen">You can search for recipes by pointing the camera at the food.</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">forget password?</string>
+    <string name="or">OR</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="do_not_have_any_account">Don’t have an account?</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="already_have_accounts">Already have an account?</string>
+    <string name="location">Location</string>
 </resources>

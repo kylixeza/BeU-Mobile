@@ -1,32 +1,19 @@
 package com.exraion.beu.ui.auth.register
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.exraion.beu.R
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentRegisterBinding
+import com.exraion.beu.util.ScreenOrientation
 
-class RegisterFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RegisterFragment()
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
+    override fun inflateViewBinding(container: ViewGroup?): FragmentRegisterBinding =
+        FragmentRegisterBinding.inflate(layoutInflater, container, false)
+    
+    
+    override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
+    
+    override fun FragmentRegisterBinding.binder() {
+    
     }
-
-    private lateinit var viewModel: RegisterViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_register, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
+    
 }

@@ -1,32 +1,18 @@
 package com.exraion.beu.ui.auth.login
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.exraion.beu.R
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentLoginBinding
+import com.exraion.beu.util.ScreenOrientation
 
-class LoginFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LoginFragment()
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+    override fun inflateViewBinding(container: ViewGroup?): FragmentLoginBinding =
+        FragmentLoginBinding.inflate(layoutInflater, container, false)
+    
+    override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
+    
+    override fun FragmentLoginBinding.binder() {
+    
     }
-
-    private lateinit var viewModel: LoginViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
+    
 }
