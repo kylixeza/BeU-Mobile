@@ -9,19 +9,15 @@
         android:id="@+id/navigation_home"
         android:name="com.exraion.beu.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_imageRecognitionFragment"
-            app:destination="@id/navigation_image_recognition" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_voucher"
         android:name="com.exraion.beu.ui.voucher.VoucherFragment"
         android:label="fragment_voucher"
         tools:layout="@layout/fragment_voucher" >
         <action
-            android:id="@+id/action_voucherFragment_to_imageRecognitionFragment"
-            app:destination="@id/navigation_image_recognition" />
+            android:id="@+id/action_navigation_voucher_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -29,17 +25,17 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_imageRecognitionFragment"
-            app:destination="@id/navigation_image_recognition" />
+            android:id="@+id/action_navigation_profile_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/navigation_leaderboard"
-        android:name="com.exraion.beu.ui.leaderboard.LearderboardFragment"
+        android:name="com.exraion.beu.ui.leaderboard.LeaderboardFragment"
         android:label="fragment_learderboard"
-        tools:layout="@layout/fragment_learderboard" >
+        tools:layout="@layout/fragment_leaderboard" >
         <action
-            android:id="@+id/action_learderboardFragment_to_imageRecognitionFragment"
-            app:destination="@id/navigation_image_recognition" />
+            android:id="@+id/action_navigation_leaderboard_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/navigation_image_recognition"
@@ -47,7 +43,16 @@
         android:label="fragment_image_recognition"
         tools:layout="@layout/fragment_image_recognition" >
         <action
-            android:id="@+id/action_imageRecognitionFragment_to_homeFragment"
+            android:id="@+id/action_navigation_image_recognition_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_image_recognition_to_navigation_leaderboard"
+            app:destination="@id/navigation_leaderboard" />
+        <action
+            android:id="@+id/action_navigation_image_recognition_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_image_recognition_to_navigation_voucher"
+            app:destination="@id/navigation_voucher" />
     </fragment>
 </navigation>

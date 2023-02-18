@@ -1,4 +1,4 @@
-package com.exraion.beu.ui.profile
+package com.exraion.beu.ui.leaderboard
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,25 +9,26 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
-import com.exraion.beu.databinding.FragmentProfileBinding
+import com.exraion.beu.databinding.FragmentLeaderboardBinding
 import com.exraion.beu.util.ScreenOrientation
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
-    override fun inflateViewBinding(container: ViewGroup?): FragmentProfileBinding {
-        return FragmentProfileBinding.inflate(layoutInflater, container, false)
+class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
+    override fun inflateViewBinding(container: ViewGroup?): FragmentLeaderboardBinding {
+        return FragmentLeaderboardBinding.inflate(layoutInflater, container, false)
     }
     
     override fun determineScreenOrientation(): ScreenOrientation {
         return ScreenOrientation.PORTRAIT
     }
     
-    override fun FragmentProfileBinding.binder() {
+    override fun FragmentLeaderboardBinding.binder() {
     
     }
     
     override fun onBackPressedBehaviour() {
         findNavController().navigate(
-            ProfileFragmentDirections.actionNavigationProfileToNavigationHome()
+            LeaderboardFragmentDirections.actionNavigationLeaderboardToNavigationHome()
         )
     }
+    
 }

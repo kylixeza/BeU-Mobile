@@ -6,27 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.exraion.beu.R
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentVoucherBinding
+import com.exraion.beu.util.ScreenOrientation
 
-class VoucherFragment : Fragment() {
-    
-    companion object {
-        fun newInstance() = VoucherFragment()
+class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
+    override fun inflateViewBinding(container: ViewGroup?): FragmentVoucherBinding {
+        return FragmentVoucherBinding.inflate(layoutInflater, container, false)
     }
     
-    private lateinit var viewModel: VoucherViewModel
-    
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_voucher, container, false)
+    override fun determineScreenOrientation(): ScreenOrientation {
+        return ScreenOrientation.PORTRAIT
     }
     
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(VoucherViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun FragmentVoucherBinding.binder() {
+    
+    }
+    
+    override fun onBackPressedBehaviour() {
+        findNavController().navigate(
+            VoucherFragmentDirections.actionNavigationVoucherToNavigationHome()
+        )
     }
     
 }

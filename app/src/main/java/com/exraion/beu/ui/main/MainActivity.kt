@@ -1,13 +1,16 @@
 package com.exraion.beu.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
+import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.core.view.get
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseActivity
+import com.exraion.beu.common.deselectAllItems
 import com.exraion.beu.databinding.ActivityMainBinding
 import com.exraion.beu.util.ScreenOrientation
 
@@ -28,16 +31,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     
         setUpNavigation()
         
+        navView.itemIconTintList = null
+        
         fabImageRecognition.setOnClickListener {
             Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
                 .navigate(R.id.navigation_image_recognition)
-            navView.apply {
-                menu.setGroupCheckable(0, true, false)
-                for (i in 0 until menu.size()) {
-                    menu.getItem(i).isChecked = false
+           navView.deselectAllItems()
+        }
+        
+        navView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
+                        .navigate(R.id.navigation_home)
                 }
-                menu.setGroupCheckable(0, true, true)
+                R.id.navigation_voucher -> {
+                    Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
+                        .navigate(R.id.navigation_voucher)
+                }
+                R.id.navigation_leaderboard -> {
+                    Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
+                        .navigate(R.id.navigation_leaderboard)
+                }
+                R.id.navigation_profile -> {
+                    Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
+                        .navigate(R.id.navigation_profile)
+                }
             }
+            true
         }
     }
     
