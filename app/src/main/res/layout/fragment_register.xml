@@ -15,16 +15,6 @@
         android:src="@drawable/ic_arrow_back_black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    
-    <ImageView
-        android:id="@+id/iv_ilu_register"
-        android:layout_width="155dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/ic_ilu_register"
-        app:layout_constraintTop_toBottomOf="@id/iv_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tv_register"
@@ -36,7 +26,7 @@
         android:textColor="@color/neutral_900"
         android:text="@string/sign_up"
         android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/iv_ilu_register"
+        app:layout_constraintTop_toBottomOf="@id/iv_arrow_back"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
