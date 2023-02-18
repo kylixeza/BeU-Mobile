@@ -54,4 +54,6 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
     fun View.hide() = run { visibility = View.INVISIBLE }
     fun View.dispose() = run { visibility = View.GONE }
     
+    fun doNothing() = Unit
+    
 }
