@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.exraion.beu.MainActivity
+import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.buildLottieDialog

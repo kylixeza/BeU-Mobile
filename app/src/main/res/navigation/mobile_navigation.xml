@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.exraion.beu.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_imageRecognitionFragment"
+            app:destination="@id/navigation_image_recognition" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_voucher"
+        android:name="com.exraion.beu.ui.voucher.VoucherFragment"
+        android:label="fragment_voucher"
+        tools:layout="@layout/fragment_voucher" >
+        <action
+            android:id="@+id/action_voucherFragment_to_imageRecognitionFragment"
+            app:destination="@id/navigation_image_recognition" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.exraion.beu.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_imageRecognitionFragment"
+            app:destination="@id/navigation_image_recognition" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_leaderboard"
+        android:name="com.exraion.beu.ui.leaderboard.LearderboardFragment"
+        android:label="fragment_learderboard"
+        tools:layout="@layout/fragment_learderboard" >
+        <action
+            android:id="@+id/action_learderboardFragment_to_imageRecognitionFragment"
+            app:destination="@id/navigation_image_recognition" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_image_recognition"
+        android:name="com.exraion.beu.ui.recognition.ImageRecognitionFragment"
+        android:label="fragment_image_recognition"
+        tools:layout="@layout/fragment_image_recognition" >
+        <action
+            android:id="@+id/action_imageRecognitionFragment_to_homeFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+</navigation>

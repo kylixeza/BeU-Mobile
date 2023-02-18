@@ -1,0 +1,50 @@
+package com.exraion.beu.ui.main
+
+import android.os.Build
+import android.view.View
+import androidx.core.view.get
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.exraion.beu.R
+import com.exraion.beu.base.BaseActivity
+import com.exraion.beu.databinding.ActivityMainBinding
+import com.exraion.beu.util.ScreenOrientation
+
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override fun inflateViewBinding(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
+    
+    override fun determineScreenOrientation(): ScreenOrientation? {
+        return ScreenOrientation.PORTRAIT
+    }
+    
+    override fun ActivityMainBinding.binder() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = resources.getColor(R.color.white)
+        }
+    
+        setUpNavigation()
+        
+        fabImageRecognition.setOnClickListener {
+            Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment_activity_base)
+                .navigate(R.id.navigation_image_recognition)
+            navView.apply {
+                menu.setGroupCheckable(0, true, false)
+                for (i in 0 until menu.size()) {
+                    menu.getItem(i).isChecked = false
+                }
+                menu.setGroupCheckable(0, true, true)
+            }
+        }
+    }
+    
+    private fun setUpNavigation() {
+        val navController = findNavController(R.id.nav_host_fragment_activity_base)
+        binding.navView.setupWithNavController(navController)
+        binding.navView.menu.findItem(R.id.navigation_placeholder).isEnabled = false
+    }
+    
+}
