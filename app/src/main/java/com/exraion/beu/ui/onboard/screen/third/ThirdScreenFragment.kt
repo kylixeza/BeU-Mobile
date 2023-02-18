@@ -1,7 +1,6 @@
 package com.exraion.beu.ui.onboard.screen.third
 
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentThirdScreenBinding
 import com.exraion.beu.ui.onboard.OnBoardingViewModel

@@ -1,12 +1,9 @@
 package com.exraion.beu.ui.auth.login
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
-import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.util.Resource
 import com.exraion.beu.util.UIState
 import kotlinx.coroutines.flow.MutableStateFlow

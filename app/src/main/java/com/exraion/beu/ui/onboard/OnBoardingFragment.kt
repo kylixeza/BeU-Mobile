@@ -4,7 +4,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,9 +15,7 @@ import com.exraion.beu.ui.onboard.screen.first.FirstScreenFragment
 import com.exraion.beu.ui.onboard.screen.second.SecondScreenFragment
 import com.exraion.beu.ui.onboard.screen.third.ThirdScreenFragment
 import com.exraion.beu.util.ScreenOrientation
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
     
