@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.exraion.beu.R
@@ -15,11 +16,16 @@ import com.exraion.beu.ui.onboard.screen.first.FirstScreenFragment
 import com.exraion.beu.ui.onboard.screen.second.SecondScreenFragment
 import com.exraion.beu.ui.onboard.screen.third.ThirdScreenFragment
 import com.exraion.beu.util.ScreenOrientation
+import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
     
     private val args by navArgs<OnBoardingFragmentArgs>()
     lateinit var argSource: String
+    
+    private val viewModel by sharedViewModel<OnBoardingViewModel>()
     
     override fun inflateViewBinding(container: ViewGroup?): FragmentOnBoardingBinding {
         return FragmentOnBoardingBinding.inflate(layoutInflater, container, false)
@@ -59,17 +65,9 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
             pageIndicatorView.setViewPager2(viewPager)
         }
     
-        activity?.onBackPressedDispatcher?.addCallback {
-            when(binding?.viewPager?.currentItem) {
-                0 -> activity?.finish()
-                1 -> binding?.viewPager?.currentItem = 0
-                2 -> binding?.viewPager?.currentItem = 1
-            }
-        }
-        
         binding?.apply {
             btnNext.setOnClickListener {
-                when(binding?.viewPager?.currentItem) {
+                when (binding?.viewPager?.currentItem) {
                     0 -> binding?.viewPager?.currentItem = 1
                     1 -> binding?.viewPager?.currentItem = 2
                     2 -> view?.findNavController()?.navigate(
@@ -77,7 +75,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                     )
                 }
             }
-            
+        
             btnSkip.setOnClickListener {
                 view?.findNavController()?.navigate(
                     OnBoardingFragmentDirections.actionOnBoardingDestinationToLoginFragment()
@@ -85,8 +83,23 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
             }
         }
     
+        lifecycleScope.launchWhenStarted {
+            viewModel.pageIndex.collect {
+                binding?.viewPager?.currentItem = it
+            }
+        }
+    
+    
         if (argSource == "Login" || argSource == "Register") {
             binding?.viewPager?.currentItem = 3
+        }
+    }
+    
+    override fun onBackPressedBehaviour() {
+        when (binding?.viewPager?.currentItem) {
+            0 -> requireActivity().finish()
+            1 -> binding?.viewPager?.currentItem = 0
+            2 -> binding?.viewPager?.currentItem = 1
         }
     }
 }
