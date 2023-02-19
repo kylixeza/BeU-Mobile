@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp"
+    android:background="@color/primary_700"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_your_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/neutral_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_location_point"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:maxLines="1"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_semibold"
+        android:ellipsize="end"
+        app:drawableStartCompat="@drawable/ic_location"
+        app:layout_constraintStart_toStartOf="@id/tv_your_location"
+        app:layout_constraintTop_toBottomOf="@id/tv_your_location"
+        app:layout_constraintEnd_toStartOf="@id/iv_favorite"
+        android:drawablePadding="8dp"/>
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_search"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/neutral_50"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_search"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_search_cover"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:transitionName="cv_search_cover"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/neutral_50"
+        app:layout_constraintEnd_toStartOf="@id/btn_search"
+        app:layout_constraintStart_toStartOf="@id/tv_location_point"
+        app:layout_constraintTop_toBottomOf="@id/tv_location_point">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/sv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/neutral_400"
+            android:paddingStart="8dp"
+            android:drawablePadding="8dp"
+            android:transitionName="sv_home"
+            app:searchIcon="null"
+            app:queryHint="Search"
+            app:defaultQueryHint="Search"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageButton
+        android:id="@+id/iv_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_notification_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_search_cover"/>
+
+    <ImageButton
+        android:id="@+id/iv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_favorite_header"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@id/iv_notification"
+        app:layout_constraintTop_toTopOf="@id/iv_notification"
+        app:layout_constraintBottom_toBottomOf="@id/iv_notification"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

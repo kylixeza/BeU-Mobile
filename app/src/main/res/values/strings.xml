@@ -30,4 +30,10 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="profile">Profile</string>
     <string name="board">Board</string>
+    <string name="beu_pay">BeU-Pay</string>
+    <string name="top_up">Top up</string>
+    <string name="payment">Payment</string>
+    <string name="referral">Referral</string>
+    <string name="category">Category</string>
+    <string name="diet_menu">Diet Menu</string>
 </resources>
