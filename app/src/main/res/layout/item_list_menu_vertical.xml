@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_favorite_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/iv_menu"
+            app:layout_constraintEnd_toStartOf="@id/iv_favorite"
+            app:layout_constraintStart_toEndOf="@id/iv_menu"
+            app:layout_constraintTop_toTopOf="@id/iv_menu">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_semibold"
+                android:maxLines="1"
+                android:textColor="@color/neutral_900"
+                android:textSize="14sp"
+                tools:text="Fried Rice" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:cardCornerRadius="4dp"
+                tools:backgroundTint="@color/success_50">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:paddingHorizontal="2dp"
+                    android:paddingVertical="2dp"
+                    android:textSize="8sp"
+                    tools:text="Mudah"
+                    tools:textColor="@color/success_900" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_range_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/error_500"
+                android:textSize="10sp"
+                tools:text="Rp 15000 - Rp 45000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/primary_700"
+                    android:textSize="10sp"
+                    app:drawableStartCompat="@drawable/ic_star"
+                    tools:text="4.8" />
+
+                <TextView
+                    android:id="@+id/tv_estimated_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/neutral_300"
+                    android:textSize="10sp"
+                    app:drawableStartCompat="@drawable/ic_estimated_time"
+                    tools:text="4.8" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
