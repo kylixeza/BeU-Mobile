@@ -22,7 +22,19 @@
     <color name="neutral_700">#334155</color>
     <color name="neutral_800">#1E293B</color>
     <color name="neutral_900">#0F172A</color>
+    
+    <color name="success_50">#95FDB9</color>
+    <color name="success_300">#63FD97</color>
+    <color name="success_500">#31FC76</color>
+    <color name="success_700">#04F756</color>
+    <color name="success_900">#03C444</color>
 
+    <color name="error_50">#FF8A8A</color>
+    <color name="error_300">#FF5757</color>
+    <color name="error_500">#FF2424</color>
+    <color name="error_700">#EE0000</color>
+    <color name="error_900">#BD0000</color>
+    
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 </resources>
