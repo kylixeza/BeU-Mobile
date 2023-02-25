@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.voucher.VoucherFragment">
+    tools:context=".ui.voucher.my_voucher.MyVoucherActivity">
 
     <include
-        android:id="@+id/app_bar_voucher"
-        layout="@layout/include_app_bar_voucher"/>
+        android:id="@+id/app_bar_my_voucher"
+        layout="@layout/include_app_bar_voucher_user"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingVertical="12dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_voucher"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_my_voucher"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,14 +54,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/inter_semibold"
-                android:text="@string/shipping_voucher"
+                android:text="@string/your_vouchers"
                 android:textColor="@color/neutral_900"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@id/ll_voucher_attention"
                 app:layout_constraintTop_toBottomOf="@id/ll_voucher_attention" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_shipping"
+                android:id="@+id/rv_my_voucher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -73,41 +73,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_shipping_voucher"
                 app:layout_goneMarginTop="8dp" />
 
-            <View
-                android:id="@+id/separator_shipping_product"
-                android:layout_width="0dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="12dp"
-                android:background="#F1F5F9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_shipping" />
-
-            <TextView
-                android:id="@+id/tv_product_voucher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter_semibold"
-                android:text="@string/product_voucher"
-                android:textColor="@color/neutral_900"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="@id/tv_shipping_voucher"
-                app:layout_constraintTop_toBottomOf="@id/separator_shipping_product" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_product"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingHorizontal="24dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_product_voucher"
-                app:layout_goneMarginTop="8dp" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,4 +36,9 @@
     <string name="referral">Referral</string>
     <string name="category">Category</string>
     <string name="diet_menu">Diet Menu</string>
+    <string name="voucher_shop">Voucher Shop</string>
+    <string name="voucher_attention">Pick any voucher from below</string>
+    <string name="shipping_voucher">Shipping Voucher</string>
+    <string name="product_voucher"><![CDATA[Discount & Cashback]]></string>
+    <string name="your_vouchers">Your Vouchers</string>
 </resources>
