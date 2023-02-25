@@ -6,6 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".ui.voucher.detail.DetailVoucherActivity">
 
+    <include
+        android:id="@+id/app_bar_voucher_detail"
+        layout="@layout/include_app_bar_voucher_detail"/>
 
+    <include
+        android:id="@+id/voucher_preview"
+        layout="@layout/item_list_voucher"
+        android:layout_marginTop="12dp"
+        android:layout_height="128dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_voucher_detail"/>
+
+    <TextView
+        android:id="@+id/tv_terms_and_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/terms_and_conditions"
+        android:textColor="@color/neutral_900"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/voucher_preview"
+        app:layout_constraintTop_toBottomOf="@id/voucher_preview"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_terms_and_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_terms_and_conditions"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

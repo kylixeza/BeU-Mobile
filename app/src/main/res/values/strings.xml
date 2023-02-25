@@ -41,4 +41,5 @@
     <string name="shipping_voucher">Shipping Voucher</string>
     <string name="product_voucher"><![CDATA[Discount & Cashback]]></string>
     <string name="your_vouchers">Your Vouchers</string>
+    <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
 </resources>
