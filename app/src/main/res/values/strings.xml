@@ -42,4 +42,8 @@
     <string name="product_voucher"><![CDATA[Discount & Cashback]]></string>
     <string name="your_vouchers">Your Vouchers</string>
     <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="information">Information</string>
+    <string name="ok">Ok</string>
+    <string name="example_leaderboard_dialog_description">You are currently at rank 7. Keep increasing your orders to earn more XP points.</string>
+    <string name="leaderboard_dialog_description">You are currently at rank %d. Keep increasing your orders to earn more XP points.</string>
 </resources>
