@@ -76,7 +76,7 @@
             android:paddingStart="8dp"
             android:drawablePadding="8dp"
             android:transitionName="sv_home"
-            app:searchIcon="null"
+            app:searchIcon="@null"
             app:queryHint="Search"
             app:defaultQueryHint="Search"/>
 

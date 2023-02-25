@@ -72,7 +72,7 @@
             android:transitionName="sv_home"
             app:defaultQueryHint="Search"
             app:queryHint="Search"
-            app:searchIcon="null" />
+            app:searchIcon="@null" />
 
     </com.google.android.material.card.MaterialCardView>
 
