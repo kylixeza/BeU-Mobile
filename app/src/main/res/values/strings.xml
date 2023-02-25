@@ -48,4 +48,14 @@
     <string name="leaderboard_dialog_description">You are currently at rank %d. Keep increasing your orders to earn more XP points.</string>
     <string name="account">Account</string>
     <string name="more_info">More Info</string>
+    <string name="description">Description</string>
+    <string name="estimate_time">Estimated time</string>
+    <string name="benefit">Benefit</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="tools">Tools</string>
+    <string name="ratings">Ratings</string>
+    <string name="list">List</string>
+    <string name="availability">Availability of Materials</string>
+    <string name="order">Order</string>
 </resources>
