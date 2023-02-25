@@ -42,6 +42,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_menu">
 
             <TextView
+                android:id="@+id/tv_food_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -60,8 +61,9 @@
                 tools:backgroundTint="@color/success_50">
 
                 <TextView
+                    android:id="@+id/tv_difficulty"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/montserrat"
                     android:paddingHorizontal="2dp"
                     android:paddingVertical="2dp"
