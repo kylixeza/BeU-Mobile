@@ -1,5 +1,6 @@
 package com.exraion.beu.ui.leaderboard
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,7 +23,12 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
     }
     
     override fun FragmentLeaderboardBinding.binder() {
-    
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            activity?.window?.apply {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                statusBarColor = resources.getColor(R.color.primary_700)
+            }
+        }*/
     }
     
     override fun onBackPressedBehaviour() {

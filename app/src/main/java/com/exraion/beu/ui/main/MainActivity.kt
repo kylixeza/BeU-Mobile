@@ -1,10 +1,5 @@
 package com.exraion.beu.ui.main
 
-import android.annotation.SuppressLint
-import android.os.Build
-import android.view.View
-import androidx.appcompat.view.menu.MenuItemImpl
-import androidx.core.view.get
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -24,10 +19,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
     
     override fun ActivityMainBinding.binder() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.statusBarColor = resources.getColor(R.color.white)
-        }
     
         setUpNavigation()
         
