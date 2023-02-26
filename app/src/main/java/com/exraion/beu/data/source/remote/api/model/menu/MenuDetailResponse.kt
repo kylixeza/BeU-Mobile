@@ -39,10 +39,10 @@ data class MenuDetailResponse(
     val benefit: String,
 
     @field:SerializedName("reviews_count")
-    val reviewsCount: Long,
+    val reviewsCount: Int,
 
     @field:SerializedName("average_rating")
-    val averageRating: BigDecimal,
+    val averageRating: Double,
 
     @field:SerializedName("reviews")
     val reviews: List<ReviewResponse>
