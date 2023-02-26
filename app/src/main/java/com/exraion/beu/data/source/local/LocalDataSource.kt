@@ -1,7 +1,10 @@
 package com.exraion.beu.data.source.local
 
+import com.exraion.beu.base.BaseDatabaseAnswer
+import com.exraion.beu.data.source.local.database.entity.UserEntity
 import com.exraion.beu.data.source.local.database.room.BeUDao
 import com.exraion.beu.data.source.local.datastore.BeUDataStore
+import kotlinx.coroutines.flow.first
 
 class LocalDataSource(
     private val dao: BeUDao,
@@ -23,6 +26,16 @@ class LocalDataSource(
     suspend fun deleteToken(token: String) {
         dataStore.deletePrefToken()
     }
+    
+    suspend fun insertUser(user: UserEntity) {
+        dao.insertUser(user)
+    }
+    
+    fun getUserDetail(token: String) = object: BaseDatabaseAnswer<UserEntity>() {
+        override suspend fun callDatabase(): UserEntity {
+            return dao.getUser(token).first()
+        }
+    }.doObservable()
 
     fun readPrefIsLogin() = dataStore.readPrefIsLogin()
 

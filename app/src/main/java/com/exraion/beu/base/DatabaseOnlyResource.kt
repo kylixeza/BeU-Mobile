@@ -20,7 +20,7 @@ abstract class DatabaseOnlyResource<ResultType, RequestType> {
     }.flowOn(Dispatchers.IO)
 
     abstract suspend fun loadFromDb(): Flow<LocalAnswer<RequestType>>
-    abstract fun mapTransform(data: RequestType): ResultType
+    abstract suspend fun mapTransform(data: RequestType): ResultType
 
     fun asFlow() = flowResult
 

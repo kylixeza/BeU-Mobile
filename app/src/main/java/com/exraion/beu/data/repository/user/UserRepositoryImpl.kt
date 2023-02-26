@@ -1,14 +1,24 @@
 package com.exraion.beu.data.repository.user
 
+import com.exraion.beu.base.DatabaseOnlyResource
 import com.exraion.beu.base.NetworkBoundRequest
 import com.exraion.beu.base.NetworkOnlyResource
+import com.exraion.beu.data.source.local.LocalAnswer
 import com.exraion.beu.data.source.local.LocalDataSource
+import com.exraion.beu.data.source.local.database.entity.UserEntity
 import com.exraion.beu.data.source.remote.RemoteDataSource
 import com.exraion.beu.data.source.remote.RemoteResponse
 import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
 import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.source.remote.api.model.auth.TokenResponse
+import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
+import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.util.Resource
+import com.exraion.beu.model.User
+import com.exraion.beu.util.toUser
+import com.exraion.beu.util.toUserEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 
@@ -51,7 +61,55 @@ class UserRepositoryImpl(
             return
         }
     }.asFlow()
+    
+    override fun fetchUserDetail(): Flow<Resource<Unit>> = object : NetworkBoundRequest<UserResponse?>() {
+        override suspend fun createCall(): Flow<RemoteResponse<UserResponse?>> {
+            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
+            return remoteDataSource.fetchUserDetail(token)
+        }
 
+        override suspend fun saveCallResult(data: UserResponse?) {
+            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
+            if (data != null) {
+                localDataSource.insertUser(data.toUserEntity(token))
+            }
+        }
+    }.asFlow()
+    
+    override fun getUserDetail(): Flow<Resource<User>> = object : DatabaseOnlyResource<User, UserEntity>() {
+        override suspend fun loadFromDb(): Flow<LocalAnswer<UserEntity>> {
+            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
+            return localDataSource.getUserDetail(token)
+        }
+    
+        override suspend fun mapTransform(data: UserEntity): User {
+            return data.toUser()
+        }
+    
+    }.asFlow()
+    
+    override fun postFavorite(body: FavoriteBody): Flow<Resource<Unit>> = object : NetworkOnlyResource<Unit, String?>() {
+        override suspend fun createCall(): Flow<RemoteResponse<String?>> {
+            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
+            return remoteDataSource.postFavorite(token, body)
+        }
+    
+        override fun mapTransform(data: String?) {
+            return
+        }
+    }.asFlow()
+    
+    override fun deleteFavorite(menuId: String): Flow<Resource<Unit>> = object : NetworkOnlyResource<Unit, String?>() {
+        override suspend fun createCall(): Flow<RemoteResponse<String?>> {
+            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
+            return remoteDataSource.deleteFavorite(token, menuId)
+        }
+    
+        override fun mapTransform(data: String?) {
+            return
+        }
+    }.asFlow()
+    
     override suspend fun savePrefIsLogin(isLogin: Boolean) {
         localDataSource.savePrefIsLogin(isLogin)
     }
