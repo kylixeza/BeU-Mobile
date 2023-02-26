@@ -1,4 +1,4 @@
-package com.exraion.model.favorite
+package com.exraion.beu.data.source.remote.api.model.favorite
 
 import com.google.gson.annotations.SerializedName
 

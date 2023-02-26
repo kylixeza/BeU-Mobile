@@ -1,4 +1,4 @@
-package com.exraion.model.menu
+package com.exraion.beu.data.source.remote.api.model.menu
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal

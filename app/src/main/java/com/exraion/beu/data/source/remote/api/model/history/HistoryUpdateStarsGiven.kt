@@ -1,4 +1,4 @@
-package com.exraion.model.history
+package com.exraion.beu.data.source.remote.api.model.history
 
 import com.google.gson.annotations.SerializedName
 

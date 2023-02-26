@@ -1,4 +1,4 @@
-package com.exraion.model.ingredient
+package com.exraion.beu.data.source.remote.api.model.ingredient
 
 import com.google.gson.annotations.SerializedName
 

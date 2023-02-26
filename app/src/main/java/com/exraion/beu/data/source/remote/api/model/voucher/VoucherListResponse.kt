@@ -1,4 +1,4 @@
-package com.exraion.model.voucher
+package com.exraion.beu.data.source.remote.api.model.voucher
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.exraion.model.review
+package com.exraion.beu.data.source.remote.api.model.review
 
 import com.google.gson.annotations.SerializedName
 

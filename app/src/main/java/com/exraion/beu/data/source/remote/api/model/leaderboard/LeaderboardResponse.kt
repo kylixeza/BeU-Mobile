@@ -1,4 +1,4 @@
-package com.exraion.model.leaderboard
+package com.exraion.beu.data.source.remote.api.model.leaderboard
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.exraion.model.order
+package com.exraion.beu.data.source.remote.api.model.order
 
 import com.google.gson.annotations.SerializedName
 
