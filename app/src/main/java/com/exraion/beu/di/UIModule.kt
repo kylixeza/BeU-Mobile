@@ -6,6 +6,7 @@ import com.exraion.beu.ui.auth.login.LoginViewModel
 import com.exraion.beu.ui.auth.register.RegisterViewModel
 import com.exraion.beu.ui.home.HomeViewModel
 import com.exraion.beu.ui.onboard.OnBoardingViewModel
+import com.exraion.beu.ui.profile.ProfileViewModel
 import com.exraion.beu.ui.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -16,6 +17,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get()) }
 }
 
 val adapterModule = module {
