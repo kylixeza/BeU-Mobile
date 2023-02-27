@@ -33,10 +33,11 @@
             android:id="@+id/tv_beu_pay_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/neutral_900"
             android:textSize="20sp"
-            tools:text="52000" />
+            tools:text="0" />
 
     </LinearLayout>
 
