@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="4dp"
@@ -31,6 +32,7 @@
             tools:backgroundTint="@color/success_50">
 
             <TextView
+                android:id="@+id/tv_difficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/montserrat"
@@ -87,7 +89,7 @@
             tools:text="4.8" />
 
         <TextView
-            android:id="@+id/tv_estimated_time"
+            android:id="@+id/tv_cook_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

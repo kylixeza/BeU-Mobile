@@ -1,6 +1,8 @@
 package com.exraion.beu.di
 
 import androidx.room.Room
+import com.exraion.beu.data.repository.menu.MenuRepository
+import com.exraion.beu.data.repository.menu.MenuRepositoryImpl
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.repository.user.UserRepositoryImpl
 import com.exraion.beu.data.source.local.LocalDataSource
@@ -73,5 +75,9 @@ val dataSourceModule = module {
 val repositoryModule = module {
     single<UserRepository> {
         UserRepositoryImpl(get(), get())
+    }
+    
+    single<MenuRepository> {
+        MenuRepositoryImpl(get(), get())
     }
 }

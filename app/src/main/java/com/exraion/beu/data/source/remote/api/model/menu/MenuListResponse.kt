@@ -13,11 +13,14 @@ data class MenuListResponse(
     @field:SerializedName("title")
     val title: String,
 
+    @field:SerializedName("difficulty")
+    val difficulty: String,
+
     @field:SerializedName("range_price")
     val rangePrice: String,
 
     @field:SerializedName("rating")
-    val rating: BigDecimal,
+    val rating: Double,
 
     @field:SerializedName("cook_time")
     val cookTime: Int,

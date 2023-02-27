@@ -7,8 +7,9 @@ data class MenuList(
     val menuId: String,
     val image: String,
     val title: String,
+    val difficulty: String,
     val rangePrice: String,
-    val rating: BigDecimal,
+    val rating: Double,
     val cookTime: Int,
     val isFavorite: Boolean,
 )

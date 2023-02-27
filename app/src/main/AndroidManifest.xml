@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".BeU"
         android:allowBackup="true"
@@ -14,16 +16,16 @@
         android:theme="@style/Theme.BeU"
         tools:targetApi="31">
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".CategoryActivity"
+            android:name=".ui.category.CategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailVoucherActivity"
+            android:name=".ui.voucher.detail.DetailVoucherActivity"
             android:exported="false" />
         <activity
-            android:name=".MyVoucherActivity"
+            android:name=".ui.voucher.my_voucher.MyVoucherActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.AuthActivity"

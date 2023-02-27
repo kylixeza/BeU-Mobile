@@ -25,7 +25,7 @@
         android:layout_marginEnd="34dp"
         android:maxLines="1"
         android:textSize="14sp"
-        android:textColor="@color/black"
+        android:textColor="@color/neutral_50"
         android:fontFamily="@font/montserrat_semibold"
         android:ellipsize="end"
         app:drawableStartCompat="@drawable/ic_location"

@@ -20,7 +20,9 @@ class SplashViewModel(
                 if (hasRun) {
                    repository.readPrefIsLogin().collect { isLogin ->
                         if (isLogin) {
-                            _uiState.value = SplashUIState.LoggedIn
+                            repository.fetchUserDetail().collect {
+                                _uiState.value = SplashUIState.LoggedIn
+                            }
                         } else {
                             _uiState.value = SplashUIState.NotLoggedIn
                         }

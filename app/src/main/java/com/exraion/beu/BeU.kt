@@ -1,12 +1,7 @@
 package com.exraion.beu
 
 import android.app.Application
-import com.exraion.beu.di.dataSourceModule
-import com.exraion.beu.di.dataStoreModule
-import com.exraion.beu.di.databaseModule
-import com.exraion.beu.di.networkModule
-import com.exraion.beu.di.repositoryModule
-import com.exraion.beu.di.viewModelModule
+import com.exraion.beu.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,7 +20,8 @@ class BeU: Application() {
                     dataStoreModule,
                     dataSourceModule,
                     repositoryModule,
-                    viewModelModule
+                    viewModelModule,
+                    adapterModule
                 )
             )
         }

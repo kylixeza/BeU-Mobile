@@ -47,6 +47,7 @@ fun MenuListResponse.toMenuList() = MenuList(
     this.menuId,
     this.image,
     this.title,
+    this.difficulty,
     this.rangePrice,
     this.rating,
     this.cookTime,
