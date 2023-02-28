@@ -1,6 +1,8 @@
 package com.exraion.beu.di
 
 import androidx.room.Room
+import com.exraion.beu.data.repository.leaderboard.LeaderboardRepository
+import com.exraion.beu.data.repository.leaderboard.LeaderboardRepositoryImpl
 import com.exraion.beu.data.repository.menu.MenuRepository
 import com.exraion.beu.data.repository.menu.MenuRepositoryImpl
 import com.exraion.beu.data.repository.user.UserRepository
@@ -79,5 +81,9 @@ val repositoryModule = module {
     
     single<MenuRepository> {
         MenuRepositoryImpl(get(), get())
+    }
+    
+    single<LeaderboardRepository> {
+        LeaderboardRepositoryImpl(get(), get())
     }
 }

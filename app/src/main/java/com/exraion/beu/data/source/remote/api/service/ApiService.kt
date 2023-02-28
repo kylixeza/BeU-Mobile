@@ -85,7 +85,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): BaseResponse<List<LeaderboardResponse>>
     
-    @GET("leaderboard")
+    @GET("leaderboard/me")
     suspend fun fetchMyRank(
         @Header("Authorization") token: String
     ): BaseResponse<LeaderboardResponse>

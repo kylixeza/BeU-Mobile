@@ -11,7 +11,7 @@
         layout="@layout/include_app_bar_leaderboard"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_leaderboard"
+        android:id="@+id/rvleaderboard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingVertical="8dp"
@@ -20,6 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_leaderboard"/>
+        app:layout_constraintTop_toBottomOf="@id/app_bar_leaderboard"
+        tools:listitem="@layout/item_list_leaderboard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

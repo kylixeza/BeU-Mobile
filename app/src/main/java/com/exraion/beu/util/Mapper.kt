@@ -2,13 +2,11 @@ package com.exraion.beu.util
 
 import com.exraion.beu.data.source.local.database.entity.UserEntity
 import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientResponse
+import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
-import com.exraion.beu.model.Ingredient
-import com.exraion.beu.model.MenuDetail
-import com.exraion.beu.model.MenuList
-import com.exraion.beu.model.User
+import com.exraion.beu.model.*
 
 fun UserResponse.toUser() = User(
     this.location,
@@ -74,4 +72,8 @@ fun MenuDetailResponse.toMenuDetail() = MenuDetail(
 fun IngredientResponse.toIngredient() = Ingredient(
     menuId,
     ingredients
+)
+
+fun LeaderboardResponse.toLeaderboard() = Leaderboard(
+    name, avatar, xp, rank
 )
