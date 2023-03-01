@@ -5,6 +5,7 @@ import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientRespons
 import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
+import com.exraion.beu.data.source.remote.api.model.review.ReviewResponse
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.model.*
 
@@ -66,7 +67,13 @@ fun MenuDetailResponse.toMenuDetail() = MenuDetail(
     benefit,
     reviewsCount,
     averageRating,
-    reviews
+    reviews.map { it.toReview() }
+)
+
+fun ReviewResponse.toReview() = Review(
+    name,
+    avatar,
+    rating
 )
 
 fun IngredientResponse.toIngredient() = Ingredient(

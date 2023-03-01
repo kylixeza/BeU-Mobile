@@ -1,60 +1,131 @@
 package com.exraion.beu.ui.detail.menu
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.exraion.beu.R
+import com.exraion.beu.adapter.DetailMenuPageAdapter
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentDetailMenuBinding
+import com.exraion.beu.util.Constanta
+import com.exraion.beu.util.ScreenOrientation
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailMenuFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DetailMenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
     
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private var exoPlayer: ExoPlayer? = null
+    private lateinit var mediaDataSourceFactory: DataSource.Factory
+    private lateinit var videoUrl: String
+    
+    override fun inflateViewBinding(container: ViewGroup?): FragmentDetailMenuBinding {
+        return FragmentDetailMenuBinding.inflate(layoutInflater, container, false)
+    }
+    
+    override fun determineScreenOrientation(): ScreenOrientation {
+        return ScreenOrientation.PORTRAIT
+    }
+    
+    override fun FragmentDetailMenuBinding.binder() {
+        
+        viewModel.getMenuDetail()
+    
+        val menuId = ""
+        
+        val pagerAdapter = DetailMenuPageAdapter(
+            childFragmentManager,
+            lifecycle,
+            menuId
+        )
+        
+        pagerAdapter.apply {
+            vpMenuDetail.adapter = this
+        }
+    
+        TabLayoutMediator(tabDetail, vpMenuDetail) { tab, position ->
+            tab.text = Constanta.TAB_TITLES[position]
+        }.attach()
+        
+        lifecycleScope.launchWhenStarted {
+            viewModel.menuDetail.collect { menuDetail ->
+                if (menuDetail != null) {
+                    appBarDetailMenu.apply {
+                        tvTitle.text = menuDetail.title
+                        ivFavorite.setImageResource(
+                            if (menuDetail.isFavorite) R.drawable.ic_favorite_true else R.drawable.ic_favorite_false
+                        )
+                    }
+                    videoUrl = menuDetail.videoUrl
+                    binding?.includeBottomBarDetail?.availabilityStatus?.text =
+                        if (menuDetail.isAvailable) "Available" else "Not Available"
+                    initializePlayer(menuDetail.videoUrl)
+                }
+            }
         }
     }
     
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_menu, container, false)
-    }
-    
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailMenuFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailMenuFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun initializePlayer(streamUrl: String) {
+        mediaDataSourceFactory = DefaultDataSourceFactory(requireContext(), Util.getUserAgent(requireContext(), "mediaPlayerSample"))
+        
+        val mediaSource = ProgressiveMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
+            MediaItem.fromUri(streamUrl))
+        
+        val mediaSourceFactory: MediaSource.Factory = DefaultMediaSourceFactory(mediaDataSourceFactory)
+        
+        val playbackListener = object: Player.Listener {
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                when(playbackState) {
+                    ExoPlayer.STATE_READY -> {
+                        exoPlayer?.playWhenReady = true
+                        binding?.pbVideoPlayer?.hide()
+                    }
+                    ExoPlayer.STATE_BUFFERING -> binding?.pbVideoPlayer?.show()
+                    else -> super.onPlaybackStateChanged(playbackState)
                 }
             }
+        }
+        
+        exoPlayer = ExoPlayer.Builder(requireContext())
+            .setMediaSourceFactory(mediaSourceFactory)
+            .build()
+        
+        exoPlayer!!.addMediaSource(mediaSource)
+        exoPlayer!!.addListener(playbackListener)
+        exoPlayer!!.prepare()
+        binding?.playerView?.player = exoPlayer
+        binding?.playerView?.requestFocus()
     }
+    
+    private fun releasePlayer() {
+        exoPlayer?.release()
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        
+        if (Util.SDK_INT <= 23) initializePlayer(videoUrl)
+    }
+    
+    override fun onPause() {
+        super.onPause()
+        
+        if (Util.SDK_INT <= 23) releasePlayer()
+    }
+    
+    override fun onStop() {
+        super.onStop()
+        
+        if (Util.SDK_INT > 23) releasePlayer()
+    }
+    
 }

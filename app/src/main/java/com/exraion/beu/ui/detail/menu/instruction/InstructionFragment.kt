@@ -1,60 +1,62 @@
 package com.exraion.beu.ui.detail.menu.instruction
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.exraion.beu.R
+import androidx.lifecycle.lifecycleScope
+import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
+import com.exraion.beu.adapter.step.StepAdapter
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentInstructionBinding
+import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
+import com.exraion.beu.ui.detail.menu.about.AboutFragment
+import com.exraion.beu.util.Constanta
+import com.exraion.beu.util.ScreenOrientation
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [InstructionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class InstructionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class InstructionFragment : BaseFragment<FragmentInstructionBinding>() {
     
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private val ingredientAdapter by inject<IngredientToolAdapter>()
+    private val toolAdapter by inject<IngredientToolAdapter>()
+    private val stepAdapter by inject<StepAdapter>()
+    private lateinit var menuId: String
+    
+    companion object {
+        fun getInstance(menuId: String): InstructionFragment {
+            return InstructionFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constanta.ARG_MENU_ID, menuId)
+                }
+            }
         }
     }
     
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_instruction, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments.let {
+            menuId = it?.getString(Constanta.ARG_MENU_ID) ?: ""
+        }
     }
     
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment InstructionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            InstructionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun inflateViewBinding(container: ViewGroup?): FragmentInstructionBinding {
+        return FragmentInstructionBinding.inflate(layoutInflater, container, false)
+    }
+    
+    override fun determineScreenOrientation(): ScreenOrientation {
+        return ScreenOrientation.PORTRAIT
+    }
+    
+    override fun FragmentInstructionBinding.binder() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.menuDetail.collect { menuDetail ->
+                menuDetail?.apply {
+                    ingredientAdapter.submitList(ingredients)
+                    toolAdapter.submitList(tools)
+                    stepAdapter.submitList(steps)
                 }
             }
+        }
     }
+
 }

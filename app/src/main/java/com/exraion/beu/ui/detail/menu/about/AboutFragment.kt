@@ -1,60 +1,56 @@
 package com.exraion.beu.ui.detail.menu.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.exraion.beu.R
+import androidx.lifecycle.lifecycleScope
+import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.databinding.FragmentAboutBinding
+import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
+import com.exraion.beu.util.Constanta.ARG_MENU_ID
+import com.exraion.beu.util.ScreenOrientation
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AboutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AboutFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class AboutFragment : BaseFragment<FragmentAboutBinding>() {
     
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private lateinit var menuId: String
+    
+    companion object {
+        fun getInstance(menuId: String): AboutFragment {
+            return AboutFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_MENU_ID, menuId)
+                }
+            }
         }
     }
     
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments.let {
+            menuId = it?.getString(ARG_MENU_ID) ?: ""
+        }
     }
     
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AboutFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AboutFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun inflateViewBinding(container: ViewGroup?): FragmentAboutBinding {
+        return FragmentAboutBinding.inflate(layoutInflater, container, false)
+    }
+    
+    override fun determineScreenOrientation(): ScreenOrientation {
+        return ScreenOrientation.PORTRAIT
+    }
+    
+    override fun FragmentAboutBinding.binder() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.menuDetail.collect { menuDetail ->
+                if (menuDetail != null) {
+                    tvMenuDescription.text = menuDetail.description
+                    tvMenuEstimateTime.text = menuDetail.estimatedTime
+                    tvMenuBenefit.text = menuDetail.benefit
                 }
             }
+        }
     }
+    
 }

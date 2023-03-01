@@ -1,7 +1,5 @@
 package com.exraion.beu.model
 
-import com.exraion.beu.data.source.remote.api.model.review.ReviewResponse
-
 data class MenuDetail(
     val menuId: String,
     val title: String,
@@ -16,5 +14,5 @@ data class MenuDetail(
     val benefit: String,
     val reviewsCount: Int,
     val averageRating: Double,
-    val reviews: List<ReviewResponse>
+    val reviews: List<Review>
 )
