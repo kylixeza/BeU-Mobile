@@ -4,6 +4,7 @@ object Constanta {
     
     const val SOURCE_LOGOUT = "FROM_LOGOUT"
     const val SOURCE_SPLASH = "FROM_SPLASH"
+    var SOURCE = "SOURCE"
     
     const val ARG_MENU_ID = "MENU_ID"
     const val ARG_CATEGORY = "CATEGORY"
