@@ -78,7 +78,7 @@ interface ApiService {
     suspend fun fetchMenuIngredients(
         @Header("Authorization") token: String,
         @Path("menuId") menuId: String
-    ): BaseResponse<IngredientResponse>
+    ): BaseResponse<List<IngredientResponse>>
     
     @GET("leaderboard")
     suspend fun fetchLeaderboard(

@@ -58,4 +58,5 @@
     <string name="list">List</string>
     <string name="availability">Availability of Materials</string>
     <string name="order">Order</string>
+    <string name="choose_ingredients">Choose Ingredients:</string>
 </resources>

@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.detail.ingredient.IngredientFragment">
 
-    <TextView
+    <include
+        android:id="@+id/app_bar_ingredient"
+        layout="@layout/include_app_bar_default"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_choose_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="14sp"
+        android:textColor="@color/neutral_900"
+        android:text="@string/choose_ingredients"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_ingredient"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="24dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_choose_ingredient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_list_ingredient"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

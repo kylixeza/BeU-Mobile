@@ -18,5 +18,5 @@ interface MenuRepository {
     
     fun fetchMenuDetail(menuId: String): Flow<Resource<MenuDetail>>
     
-    fun fetchMenuIngredients(menuId: String): Flow<Resource<Ingredient>>
+    fun fetchMenuIngredients(menuId: String): Flow<Resource<List<Ingredient>>>
 }

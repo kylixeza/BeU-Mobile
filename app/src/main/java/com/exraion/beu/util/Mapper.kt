@@ -77,8 +77,7 @@ fun ReviewResponse.toReview() = Review(
 )
 
 fun IngredientResponse.toIngredient() = Ingredient(
-    menuId,
-    ingredients
+    ingredient, price
 )
 
 fun LeaderboardResponse.toLeaderboard() = Leaderboard(

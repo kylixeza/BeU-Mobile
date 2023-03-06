@@ -90,8 +90,8 @@ class RemoteDataSource(
     suspend fun fetchMenuIngredients(
         token: String,
         menuId: String
-    ) = object : BaseRemoteResponse<IngredientResponse>() {
-        override suspend fun call(): BaseResponse<IngredientResponse> = apiService.fetchMenuIngredients(token, menuId)
+    ) = object : BaseRemoteResponse<List<IngredientResponse>>() {
+        override suspend fun call(): BaseResponse<List<IngredientResponse>> = apiService.fetchMenuIngredients(token, menuId)
     }.asFlow()
     
     suspend fun fetchLeaderboard(
