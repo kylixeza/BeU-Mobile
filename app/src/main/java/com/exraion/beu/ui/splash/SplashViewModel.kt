@@ -11,7 +11,7 @@ class SplashViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<SplashUIState?>(null)
+    private val _uiState = MutableStateFlow(SplashUIState.Idle)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -37,6 +37,7 @@ class SplashViewModel(
 }
 
 enum class SplashUIState {
+    Idle,
     FirstRun,
     NotFirstRun,
     LoggedIn,
