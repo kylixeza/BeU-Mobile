@@ -9,12 +9,45 @@
         android:id="@+id/navigation_home"
         android:name="com.exraion.beu.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"
+        app:enterAnim="@anim/slide_in_from_left"
+        app:exitAnim="@anim/slide_out_to_right">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_leaderboard"
+            app:destination="@id/navigation_leaderboard"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_voucher"
+            app:destination="@id/navigation_voucher"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_image_recognition"
+            app:destination="@id/navigation_image_recognition"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
     <fragment
         android:id="@+id/navigation_voucher"
         android:name="com.exraion.beu.ui.voucher.VoucherFragment"
         android:label="fragment_voucher"
-        tools:layout="@layout/fragment_voucher" >
+        tools:layout="@layout/fragment_voucher"
+        app:enterAnim="@anim/slide_in_from_left"
+        app:exitAnim="@anim/slide_out_to_right">
         <action
             android:id="@+id/action_navigation_voucher_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -23,7 +56,9 @@
         android:id="@+id/navigation_profile"
         android:name="com.exraion.beu.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile"
+        app:enterAnim="@anim/slide_in_from_left"
+        app:exitAnim="@anim/slide_out_to_right">
         <action
             android:id="@+id/action_navigation_profile_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -32,7 +67,9 @@
         android:id="@+id/navigation_leaderboard"
         android:name="com.exraion.beu.ui.leaderboard.LeaderboardFragment"
         android:label="fragment_learderboard"
-        tools:layout="@layout/fragment_leaderboard" >
+        tools:layout="@layout/fragment_leaderboard"
+        app:enterAnim="@anim/slide_in_from_left"
+        app:exitAnim="@anim/slide_out_to_right">
         <action
             android:id="@+id/action_navigation_leaderboard_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -41,7 +78,9 @@
         android:id="@+id/navigation_image_recognition"
         android:name="com.exraion.beu.ui.recognition.ImageRecognitionFragment"
         android:label="fragment_image_recognition"
-        tools:layout="@layout/fragment_image_recognition" >
+        tools:layout="@layout/fragment_image_recognition"
+        app:enterAnim="@anim/slide_in_from_left"
+        app:exitAnim="@anim/slide_out_to_right">
         <action
             android:id="@+id/action_navigation_image_recognition_to_navigation_home"
             app:destination="@id/navigation_home" />
