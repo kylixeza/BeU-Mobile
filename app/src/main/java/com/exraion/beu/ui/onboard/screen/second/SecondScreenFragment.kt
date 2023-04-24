@@ -23,7 +23,7 @@ class SecondScreenFragment : BaseFragment<FragmentSecondScreenBinding>() {
     }
     
     override fun onBackPressedBehaviour() {
-        viewModel.previousPageTo(0)
+        viewModel.prevPage()
     }
     
 }

@@ -24,7 +24,7 @@ class ThirdScreenFragment : BaseFragment<FragmentThirdScreenBinding>() {
     }
     
     override fun onBackPressedBehaviour() {
-        viewModel.previousPageTo(1)
+        viewModel.prevPage()
     }
     
 }

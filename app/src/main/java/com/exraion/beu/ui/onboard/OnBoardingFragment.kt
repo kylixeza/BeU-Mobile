@@ -1,27 +1,25 @@
 package com.exraion.beu.ui.onboard
 
-import android.os.Build
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
-import com.exraion.beu.R
+import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.exraion.beu.adapter.OnBoardingViewPagerAdapter
+import com.exraion.beu.animation.PopPageTransformer
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentOnBoardingBinding
 import com.exraion.beu.ui.onboard.screen.first.FirstScreenFragment
 import com.exraion.beu.ui.onboard.screen.second.SecondScreenFragment
 import com.exraion.beu.ui.onboard.screen.third.ThirdScreenFragment
 import com.exraion.beu.util.ScreenOrientation
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import reactivecircus.flowbinding.viewpager2.pageSelections
 
 class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
-    
-    private val args by navArgs<OnBoardingFragmentArgs>()
-    lateinit var argSource: String
-    
+
     private val viewModel by sharedViewModel<OnBoardingViewModel>()
     
     override fun inflateViewBinding(container: ViewGroup?): FragmentOnBoardingBinding {
@@ -31,16 +29,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
     override fun determineScreenOrientation(): ScreenOrientation {
         return ScreenOrientation.PORTRAIT
     }
-    
-    override fun onCreateViewBehaviour(inflater: LayoutInflater, container: ViewGroup?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            activity?.window?.statusBarColor = resources.getColor(R.color.white)
-        }
-    }
 
     override fun FragmentOnBoardingBinding.binder() {
-        argSource = args.source
     
         val listOfFragment = listOf(
             FirstScreenFragment(),
@@ -56,47 +46,48 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
         adapter.apply {
             setAllFragments(listOfFragment)
             binding?.viewPager?.adapter = this
+            viewPager.setPageTransformer(PopPageTransformer())
+            viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         }
-    
-        binding?.apply {
-            pageIndicatorView.setViewPager2(viewPager)
+        pageIndicatorView.setViewPager2(viewPager)
+
+        viewPager.pageSelections().onEach { viewModel.setPage(it.plus(1)) }
+            .launchIn(lifecycleScope)
+
+        lifecycleScope.launch {
+            viewModel.page.collect {
+                viewPager.currentItem = it.minus(1)
+            }
         }
-    
-        binding?.apply {
-            btnNext.setOnClickListener {
-                when (binding?.viewPager?.currentItem) {
-                    0 -> binding?.viewPager?.currentItem = 1
-                    1 -> binding?.viewPager?.currentItem = 2
-                    2 -> view?.findNavController()?.navigate(
-                        OnBoardingFragmentDirections.actionOnBoardingDestinationToLoginFragment()
+
+        lifecycleScope.launch {
+            viewModel.isMaxPage.collect {
+                if(it) {
+                    findNavController().navigate(
+                        OnBoardingFragmentDirections.actionOnBoardingDestinationToAuthDestination()
                     )
                 }
             }
-        
-            btnSkip.setOnClickListener {
-                view?.findNavController()?.navigate(
-                    OnBoardingFragmentDirections.actionOnBoardingDestinationToLoginFragment()
-                )
+        }
+
+        lifecycleScope.launch {
+            viewModel.isMinPage.collect {
+                if (it) activity?.finish()
             }
         }
-    
-        lifecycleScope.launchWhenStarted {
-            viewModel.pageIndex.collect {
-                binding?.viewPager?.currentItem = it
-            }
+
+        btnNext.setOnClickListener {
+            viewModel.nextPage()
         }
-    
-    
-        if (argSource == "Login" || argSource == "Register") {
-            binding?.viewPager?.currentItem = 3
+
+        btnSkip.setOnClickListener {
+            findNavController().navigate(
+                OnBoardingFragmentDirections.actionOnBoardingDestinationToAuthDestination()
+            )
         }
     }
     
     override fun onBackPressedBehaviour() {
-        when (binding?.viewPager?.currentItem) {
-            0 -> requireActivity().finish()
-            1 -> binding?.viewPager?.currentItem = 0
-            2 -> binding?.viewPager?.currentItem = 1
-        }
+        activity?.finish()
     }
 }
