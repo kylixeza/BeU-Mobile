@@ -11,6 +11,9 @@ import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardRespo
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
 import com.exraion.beu.data.source.remote.api.service.ApiService
 
 class RemoteDataSource(
@@ -104,5 +107,47 @@ class RemoteDataSource(
         token: String
     ) = object : BaseRemoteResponse<LeaderboardResponse>() {
         override suspend fun call(): BaseResponse<LeaderboardResponse> = apiService.fetchMyRank(token)
+    }.asFlow()
+
+    suspend fun fetchAvailableVouchers(
+        token: String
+    ) = object : BaseRemoteResponse<VoucherAvailableResponse>() {
+        override suspend fun call(): BaseResponse<VoucherAvailableResponse> {
+            return apiService.fetchAvailableVouchers(token)
+        }
+    }.asFlow()
+
+    suspend fun redeemVoucher(
+        token: String,
+        voucherId: String
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.redeemVoucher(token, voucherId)
+    }.asFlow()
+
+    suspend fun fetchUserVouchers(
+        token: String
+    ) = object : BaseRemoteResponse<List<VoucherListResponse>>() {
+        override suspend fun call(): BaseResponse<List<VoucherListResponse>> = apiService.fetchUserVouchers(token)
+    }.asFlow()
+
+    suspend fun fetchVoucherDetail(
+        token: String,
+        voucherId: String
+    ) = object : BaseRemoteResponse<VoucherDetailResponse>() {
+        override suspend fun call(): BaseResponse<VoucherDetailResponse> = apiService.fetchVoucherDetail(token, voucherId)
+    }.asFlow()
+
+    suspend fun useVoucher(
+        token: String,
+        voucherId: String
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.useVoucher(token, voucherId)
+    }.asFlow()
+
+    suspend fun redeemVoucherBySecretKey(
+        token: String,
+        secretKey: String
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.redeemVoucherBySecretKey(token, secretKey)
     }.asFlow()
 }

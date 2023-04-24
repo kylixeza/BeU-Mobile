@@ -10,6 +10,9 @@ import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardRespo
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -89,4 +92,38 @@ interface ApiService {
     suspend fun fetchMyRank(
         @Header("Authorization") token: String
     ): BaseResponse<LeaderboardResponse>
+    
+    @GET("voucher/available")
+    suspend fun fetchAvailableVouchers(
+        @Header("Authorization") token: String
+    ): BaseResponse<VoucherAvailableResponse>
+
+    @PUT("voucher/{voucherId}/redeem")
+    suspend fun redeemVoucher(
+        @Header("Authorization") token: String,
+        @Path("voucherId") voucherId: String
+    ): BaseResponse<String>
+
+    @GET("voucher/user")
+    suspend fun fetchUserVouchers(
+        @Header("Authorization") token: String
+    ): BaseResponse<List<VoucherListResponse>>
+
+    @GET("voucher/{voucherId}")
+    suspend fun fetchVoucherDetail(
+        @Header("Authorization") token: String,
+        @Path("voucherId") voucherId: String
+    ): BaseResponse<VoucherDetailResponse>
+
+    @PUT("voucher/{voucherId}/use")
+    suspend fun useVoucher(
+        @Header("Authorization") token: String,
+        @Path("voucherId") voucherId: String
+    ): BaseResponse<String>
+
+    @PUT("voucher/secret/{secretKey}/redeem")
+    suspend fun redeemVoucherBySecretKey(
+        @Header("Authorization") token: String,
+        @Path("secretKey") secretKey: String
+    ): BaseResponse<String>
 }
