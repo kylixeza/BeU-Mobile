@@ -7,6 +7,7 @@ import com.exraion.beu.adapter.leaderboard.LeaderboardAdapter
 import com.exraion.beu.adapter.menu_list_horizontal.MenuListHorizontalAdapter
 import com.exraion.beu.adapter.profile_additional_settings.ProfileAdditionalSettingAdapter
 import com.exraion.beu.adapter.step.StepAdapter
+import com.exraion.beu.adapter.voucher.VoucherAdapter
 import com.exraion.beu.ui.auth.login.LoginViewModel
 import com.exraion.beu.ui.auth.register.RegisterViewModel
 import com.exraion.beu.ui.detail.ingredient.IngredientViewModel
@@ -16,6 +17,7 @@ import com.exraion.beu.ui.leaderboard.LeaderboardViewModel
 import com.exraion.beu.ui.onboard.OnBoardingViewModel
 import com.exraion.beu.ui.profile.ProfileViewModel
 import com.exraion.beu.ui.splash.SplashViewModel
+import com.exraion.beu.ui.voucher.VoucherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -29,6 +31,7 @@ val viewModelModule = module {
     viewModel { IngredientViewModel(get()) }
     viewModel { LeaderboardViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { VoucherViewModel(get()) }
 }
 
 val adapterModule = module {
@@ -39,4 +42,5 @@ val adapterModule = module {
     factory { StepAdapter() }
     factory { IngredientAdapter() }
     factory { ProfileAdditionalSettingAdapter() }
+    factory { VoucherAdapter() }
 }

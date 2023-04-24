@@ -7,6 +7,8 @@ import com.exraion.beu.data.repository.menu.MenuRepository
 import com.exraion.beu.data.repository.menu.MenuRepositoryImpl
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.repository.user.UserRepositoryImpl
+import com.exraion.beu.data.repository.voucher.VoucherRepository
+import com.exraion.beu.data.repository.voucher.VoucherRepositoryImpl
 import com.exraion.beu.data.source.local.LocalDataSource
 import com.exraion.beu.data.source.local.database.room.BeUDatabase
 import com.exraion.beu.data.source.local.datastore.BeUDataStore
@@ -85,5 +87,9 @@ val repositoryModule = module {
     
     single<LeaderboardRepository> {
         LeaderboardRepositoryImpl(get(), get())
+    }
+
+    single<VoucherRepository> {
+        VoucherRepositoryImpl(get(), get())
     }
 }
