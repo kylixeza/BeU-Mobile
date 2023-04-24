@@ -42,7 +42,7 @@ class TFLiteHelper(
         private const val PROBABILITY_MEAN = 0.0f
         private const val PROBABILITY_STD = 255.0f
     
-        private const val MODEL_PATH = "beu_v5.tflite"
+        private const val MODEL_PATH = "beu_lite_v1.tflite"
         private const val LABELS_PATH = "beu_labels.txt"
     }
     
