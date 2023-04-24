@@ -5,8 +5,6 @@ import android.content.Intent
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.buildLottieDialog
@@ -14,15 +12,13 @@ import com.exraion.beu.common.observeValue
 import com.exraion.beu.databinding.DialogLottieBinding
 import com.exraion.beu.databinding.FragmentLoginBinding
 import com.exraion.beu.ui.auth.register.RegisterFragment
-import com.exraion.beu.util.Constanta
+import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.UIState
 import com.google.android.material.snackbar.Snackbar
 import io.github.tonnyl.light.Light
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import reactivecircus.flowbinding.android.widget.textChanges
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     
@@ -52,16 +48,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     
         tvRegister.setOnClickListener {
-            if (Constanta.SOURCE == Constanta.SOURCE_LOGOUT) {
-                parentFragmentManager.commit {
-                    replace(R.id.auth_container, RegisterFragment())
-                }
-            } else {
-                view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            parentFragmentManager.commit {
+                replace(R.id.auth_container, RegisterFragment())
             }
         }
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.uiState.collect {
                 when(it) {
                     UIState.IDLE -> doNothing()
@@ -72,10 +64,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     
                     UIState.SUCCESS -> {
                         lottieDialog.dismiss()
-                        if (Constanta.SOURCE == Constanta.SOURCE_LOGOUT)
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                        else
-                            view?.findNavController()?.navigate(LoginFragmentDirections.actionLoginDestinationToMainDestination())
+                        startActivity(Intent(requireContext(), MainActivity::class.java))
                         viewModel.savePrefIsLogin(true)
                         viewModel.savePrefHaveRunAppBefore(true)
                         activity?.finish()
@@ -93,13 +82,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
     
     override fun onBackPressedBehaviour() {
-        if (Constanta.SOURCE == Constanta.SOURCE_LOGOUT) {
-            activity?.finish()
-        } else {
-            view?.findNavController()?.navigate(
-                LoginFragmentDirections.actionLoginDestinationToOnBoardingDestination("Login")
-            )
-        }
+        activity?.finish()
     }
     
 }

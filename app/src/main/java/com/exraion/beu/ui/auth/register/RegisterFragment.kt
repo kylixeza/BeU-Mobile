@@ -3,23 +3,21 @@ package com.exraion.beu.ui.auth.register
 import android.app.Dialog
 import android.content.Intent
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import com.exraion.beu.ui.main.MainActivity
+import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.buildLottieDialog
 import com.exraion.beu.common.observeValue
 import com.exraion.beu.databinding.DialogLottieBinding
 import com.exraion.beu.databinding.FragmentRegisterBinding
-import com.exraion.beu.util.Constanta
+import com.exraion.beu.ui.auth.login.LoginFragment
+import com.exraion.beu.ui.main.MainActivity
 import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.UIState
 import com.google.android.material.snackbar.Snackbar
 import io.github.tonnyl.light.Light
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import reactivecircus.flowbinding.android.widget.textChanges
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     
@@ -63,10 +61,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     UIState.LOADING -> lottieDialog.show()
                     UIState.SUCCESS -> {
                         lottieDialog.dismiss()
-                        if (Constanta.SOURCE == Constanta.SOURCE_LOGOUT)
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                        else
-                            view?.findNavController()?.navigate(RegisterFragmentDirections.actionRegisterDestinationToMainDestination())
+                        startActivity(Intent(requireContext(), MainActivity::class.java))
                         viewModel.savePrefIsLogin(true)
                         viewModel.savePrefHaveRunAppBefore(true)
                         activity?.finish()
@@ -86,9 +81,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
     
     override fun onBackPressedBehaviour() {
-        view?.findNavController()?.navigate(
-            RegisterFragmentDirections.actionRegisterDestinationToOnBoardingDestination("Register")
-        )
+        parentFragmentManager.commit {
+            replace(R.id.auth_container, LoginFragment())
+        }
     }
     
 }
