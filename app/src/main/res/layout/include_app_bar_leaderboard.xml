@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_700"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="12dp">
+    android:paddingBottom="12dp"
+    android:paddingTop="32dp">
 
     <TextView
         android:id="@+id/tv_leaderboard_title"

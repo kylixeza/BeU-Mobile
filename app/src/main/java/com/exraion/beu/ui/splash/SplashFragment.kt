@@ -19,10 +19,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         FragmentSplashBinding.inflate(layoutInflater, container, false)
 
     override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
-    
-    override fun onCreateViewBehaviour(inflater: LayoutInflater, container: ViewGroup?) {
-        requireActivity().window.statusBarColor = View.GONE
-    }
 
     override fun FragmentSplashBinding.binder() {
         lifecycleScope.launchWhenStarted {
@@ -32,16 +28,19 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
                     when (it) {
                         SplashUIState.FirstRun -> {
                             findNavController().navigate(
-                                SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment("Splash")
+                                SplashFragmentDirections.actionSplashFragmentToOnBoardingFragment()
                             )
                         }
-                        SplashUIState.NotFirstRun -> {}
                         SplashUIState.LoggedIn -> {
-                            view?.findNavController()?.navigate(R.id.action_splashFragment_to_baseActivity)
+                            findNavController().navigate(
+                                SplashFragmentDirections.actionSplashFragmentToBaseActivity()
+                            )
                             activity?.finish()
                         }
                         SplashUIState.NotLoggedIn -> {
-                            findNavController().navigate(R.id.action_splash_destination_to_loginFragment)
+                            findNavController().navigate(
+                                SplashFragmentDirections.actionSplashDestinationToAuthDestination()
+                            )
                         }
                         else -> {}
                     }
