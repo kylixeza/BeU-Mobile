@@ -66,6 +66,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
                     findNavController().navigate(
                         OnBoardingFragmentDirections.actionOnBoardingDestinationToAuthDestination()
                     )
+                    activity?.finish()
                 }
             }
         }
@@ -84,6 +85,7 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>() {
             findNavController().navigate(
                 OnBoardingFragmentDirections.actionOnBoardingDestinationToAuthDestination()
             )
+            activity?.finish()
         }
     }
     
