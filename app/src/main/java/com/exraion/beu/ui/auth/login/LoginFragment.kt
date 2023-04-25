@@ -64,9 +64,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     
                     UIState.SUCCESS -> {
                         lottieDialog.dismiss()
-                        startActivity(Intent(requireContext(), MainActivity::class.java))
-                        viewModel.savePrefIsLogin(true)
-                        viewModel.savePrefHaveRunAppBefore(true)
+                        requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
                         activity?.finish()
                     }
                     

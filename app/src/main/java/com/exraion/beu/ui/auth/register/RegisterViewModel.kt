@@ -54,7 +54,11 @@ class RegisterViewModel(
         viewModelScope.launch {
             repository.signUp(body).collect {
                 when(it) {
-                    is Resource.Success -> _uiState.value = UIState.SUCCESS
+                    is Resource.Success -> {
+                        _uiState.value = UIState.SUCCESS
+                        repository.savePrefIsLogin(true)
+                        repository.savePrefHaveRunAppBefore(true)
+                    }
                     is Resource.Error -> {
                         _uiState.value = UIState.ERROR
                         message = it.message.toString()
@@ -64,13 +68,5 @@ class RegisterViewModel(
                 }
             }
         }
-    }
-    
-    fun savePrefIsLogin(isLogin: Boolean) = viewModelScope.launch {
-        repository.savePrefIsLogin(isLogin)
-    }
-    
-    fun savePrefHaveRunAppBefore(isFirstTime: Boolean) = viewModelScope.launch {
-        repository.savePrefHaveRunAppBefore(isFirstTime)
     }
 }

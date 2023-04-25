@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.view.ViewGroup
 import androidx.fragment.app.commit
+import androidx.fragment.app.commitNow
 import androidx.lifecycle.lifecycleScope
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
@@ -61,9 +62,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     UIState.LOADING -> lottieDialog.show()
                     UIState.SUCCESS -> {
                         lottieDialog.dismiss()
-                        startActivity(Intent(requireContext(), MainActivity::class.java))
-                        viewModel.savePrefIsLogin(true)
-                        viewModel.savePrefHaveRunAppBefore(true)
+                        requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
                         activity?.finish()
                     }
                     UIState.ERROR -> {
@@ -81,7 +80,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
     
     override fun onBackPressedBehaviour() {
-        parentFragmentManager.commit {
+        parentFragmentManager.commitNow {
             replace(R.id.auth_container, LoginFragment())
         }
     }

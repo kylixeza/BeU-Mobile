@@ -8,6 +8,7 @@ import com.exraion.beu.data.util.Resource
 import com.exraion.beu.util.UIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -29,30 +30,37 @@ class LoginViewModel(
     }
     
     fun login() {
+        _uiState.value = UIState.LOADING
         val body = LoginBody(
             email = email,
             password = password
         )
         viewModelScope.launch {
-            repository.signIn(body).collect {
+            repository.signIn(body).collectLatest {
                 when(it) {
-                    is Resource.Success -> _uiState.value = UIState.SUCCESS
-                    is Resource.Error -> {
-                        _uiState.value = UIState.ERROR
-                        message = it.message.toString()
+                    is Resource.Success -> {
+                        repository.fetchUserDetail().collectLatest {
+                            when(it) {
+                                is Resource.Success -> {
+                                    _uiState.value = UIState.SUCCESS
+                                    repository.savePrefIsLogin(true)
+                                    repository.savePrefHaveRunAppBefore(true)
+                                }
+                                is Resource.Error -> {
+                                    message = it.message.toString()
+                                    _uiState.value = UIState.ERROR
+                                }
+                                else -> {}
+                            }
+                        }
                     }
-                    is Resource.Loading -> _uiState.value = UIState.LOADING
-                    else -> _uiState.value = UIState.ERROR
+                    is Resource.Error -> {
+                        message = it.message.toString()
+                        _uiState.value = UIState.ERROR
+                    }
+                    else -> {}
                 }
             }
         }
-    }
-    
-    fun savePrefIsLogin(isLogin: Boolean) = viewModelScope.launch {
-        repository.savePrefIsLogin(isLogin)
-    }
-    
-    fun savePrefHaveRunAppBefore(isFirstTime: Boolean) = viewModelScope.launch {
-        repository.savePrefHaveRunAppBefore(isFirstTime)
     }
 }
