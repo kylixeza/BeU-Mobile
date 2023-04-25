@@ -18,6 +18,7 @@ import com.exraion.beu.ui.onboard.OnBoardingViewModel
 import com.exraion.beu.ui.profile.ProfileViewModel
 import com.exraion.beu.ui.splash.SplashViewModel
 import com.exraion.beu.ui.voucher.VoucherViewModel
+import com.exraion.beu.ui.voucher.my_voucher.MyVoucherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -32,6 +33,7 @@ val viewModelModule = module {
     viewModel { LeaderboardViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { VoucherViewModel(get()) }
+    viewModel { MyVoucherViewModel(get()) }
 }
 
 val adapterModule = module {
