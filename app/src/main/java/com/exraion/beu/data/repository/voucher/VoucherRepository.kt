@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface VoucherRepository {
     fun fetchAvailableVouchers(): Flow<Resource<VoucherAvailable>>
-    fun redeemVoucher(voucherId: String): Flow<Resource<String>>
+    fun redeemVoucher(voucherId: String, costXp: Int): Flow<Resource<Unit>>
     fun fetchUserVouchers(): Flow<Resource<List<VoucherList>>>
     fun fetchVoucherDetail(voucherId: String): Flow<Resource<VoucherDetail>>
     fun useVoucher(voucherId: String): Flow<Resource<String>>

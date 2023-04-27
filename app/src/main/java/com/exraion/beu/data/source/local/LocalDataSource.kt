@@ -37,6 +37,18 @@ class LocalDataSource(
         }
     }.doObservable()
 
+    fun getUserXp(token: String) = dao.getUserXp(token)
+
+    suspend fun increaseXp(token: String, givenXp: Int) {
+        val currentXp = dao.getUserXp(token).first()
+        dao.updateXp(token, currentXp + givenXp)
+    }
+
+    suspend fun decreaseXp(token: String, costXp: Int) {
+        val currentXp = dao.getUserXp(token).first()
+        dao.updateXp(token, currentXp - costXp)
+    }
+
     fun readPrefIsLogin() = dataStore.readPrefIsLogin()
 
     fun readPrefHaveRunAppBefore() = dataStore.readPrefHaveRunAppBefore()

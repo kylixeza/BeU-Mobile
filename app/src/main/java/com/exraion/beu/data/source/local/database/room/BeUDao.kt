@@ -15,5 +15,11 @@ interface BeUDao {
     
     @Query("SELECT * FROM user_table WHERE token = :token")
     fun getUser(token: String): Flow<UserEntity>
+
+    @Query("SELECT xp FROM user_table WHERE token = :token")
+    fun getUserXp(token: String): Flow<Int>
+
+    @Query("UPDATE user_table SET xp = :xp WHERE token = :token")
+    fun updateXp(token: String, xp: Int)
     
 }

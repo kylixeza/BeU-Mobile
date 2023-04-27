@@ -1,5 +1,6 @@
 package com.exraion.beu.data.repository.voucher
 
+import com.exraion.beu.base.NetworkBoundRequest
 import com.exraion.beu.base.NetworkOnlyResource
 import com.exraion.beu.data.source.local.LocalDataSource
 import com.exraion.beu.data.source.remote.RemoteDataSource
@@ -34,19 +35,20 @@ class VoucherRepositoryImpl(
 
         }.asFlow()
 
-    override fun redeemVoucher(voucherId: String): Flow<Resource<String>> {
-        return object : NetworkOnlyResource<String, String?>() {
+    override fun redeemVoucher(voucherId: String, costXp: Int): Flow<Resource<Unit>> =
+        object : NetworkBoundRequest<String?>() {
             override suspend fun createCall(): Flow<RemoteResponse<String?>> {
                 val token = localDataSource.readPrefToken().first().orEmpty()
                 return remoteDataSource.redeemVoucher(token, voucherId)
             }
 
-            override fun mapTransform(data: String?): String {
-                return data.orEmpty()
+            override suspend fun saveCallResult(data: String?) {
+                val token = localDataSource.readPrefToken().first().orEmpty()
+                localDataSource.decreaseXp(token, costXp)
             }
 
         }.asFlow()
-    }
+
 
     override fun fetchUserVouchers(): Flow<Resource<List<VoucherList>>> =
         object : NetworkOnlyResource<List<VoucherList>, List<VoucherListResponse>?>() {

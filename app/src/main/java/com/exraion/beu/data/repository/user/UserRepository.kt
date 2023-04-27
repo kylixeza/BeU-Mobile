@@ -13,6 +13,9 @@ interface UserRepository {
     fun signOut(): Flow<Resource<Unit>>
     fun fetchUserDetail(): Flow<Resource<Unit>>
     fun getUserDetail(): Flow<Resource<User>>
+    fun getUserXp(): Flow<Int>
+    suspend fun increaseUserXp(givenXp: Int)
+    suspend fun decreaseUserXp(costXp: Int)
     fun postFavorite(body: FavoriteBody): Flow<Resource<Unit>>
     fun deleteFavorite(menuId: String): Flow<Resource<Unit>>
 

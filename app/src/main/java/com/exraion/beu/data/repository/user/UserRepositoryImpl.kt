@@ -20,7 +20,9 @@ import com.exraion.beu.util.toUserEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flow
 
 class UserRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
@@ -87,7 +89,22 @@ class UserRepositoryImpl(
         }
     
     }.asFlow()
-    
+
+    override fun getUserXp(): Flow<Int> = flow {
+        val token = localDataSource.readPrefToken().firstOrNull().orEmpty()
+        emit(localDataSource.getUserXp(token).first())
+    }
+
+    override suspend fun increaseUserXp(givenXp: Int) {
+        val token = localDataSource.readPrefToken().firstOrNull().orEmpty()
+        localDataSource.increaseXp(token, givenXp)
+    }
+
+    override suspend fun decreaseUserXp(costXp: Int) {
+        val token = localDataSource.readPrefToken().firstOrNull().orEmpty()
+        localDataSource.decreaseXp(token, costXp)
+    }
+
     override fun postFavorite(body: FavoriteBody): Flow<Resource<Unit>> = object : NetworkOnlyResource<Unit, String?>() {
         override suspend fun createCall(): Flow<RemoteResponse<String?>> {
             val token = localDataSource.readPrefToken().firstOrNull() ?: ""

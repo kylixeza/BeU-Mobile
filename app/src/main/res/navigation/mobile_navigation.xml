@@ -53,9 +53,10 @@
             app:destination="@id/navigation_home" />
         <action
             android:id="@+id/action_navigation_voucher_to_navigation_my_voucher"
-            app:destination="@id/navigation_my_voucher"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/navigation_my_voucher"/>
+        <action
+            android:id="@+id/action_navigation_voucher_to_navigation_detail_voucher"
+            app:destination="@id/navigation_detail_voucher" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -104,4 +105,13 @@
         android:name="com.exraion.beu.ui.voucher.my_voucher.MyVoucherActivity"
         android:label="activity_my_voucher"
         tools:layout="@layout/activity_my_voucher" />
+    <activity
+        android:id="@+id/navigation_detail_voucher"
+        android:name="com.exraion.beu.ui.voucher.detail.DetailVoucherActivity"
+        android:label="activity_detail_voucher"
+        tools:layout="@layout/activity_detail_voucher" >
+        <argument
+            android:name="voucherId"
+            app:argType="string" />
+    </activity>
 </navigation>
