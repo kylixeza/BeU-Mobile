@@ -77,4 +77,9 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
             VoucherFragmentDirections.actionNavigationVoucherToNavigationHome()
         )
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchAvailableVouchers()
+    }
 }

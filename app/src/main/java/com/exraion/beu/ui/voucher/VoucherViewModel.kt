@@ -30,6 +30,14 @@ class VoucherViewModel(
 
     init {
         _uiState.value = UIState.LOADING
+        fetchAvailableVouchers()
+    }
+
+    fun showMoreItems() {
+        _isExpanded.value = !_isExpanded.value
+    }
+
+    fun fetchAvailableVouchers() {
         viewModelScope.launch {
             repository.fetchAvailableVouchers().collect {
                 when(it) {
@@ -47,10 +55,6 @@ class VoucherViewModel(
                 }
             }
         }
-    }
-
-    fun showMoreItems() {
-        _isExpanded.value = !_isExpanded.value
     }
 
 }
