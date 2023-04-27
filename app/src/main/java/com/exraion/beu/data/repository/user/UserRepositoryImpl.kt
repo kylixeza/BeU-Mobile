@@ -17,8 +17,6 @@ import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.User
 import com.exraion.beu.util.toUser
 import com.exraion.beu.util.toUserEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -71,10 +69,8 @@ class UserRepositoryImpl(
         }
 
         override suspend fun saveCallResult(data: UserResponse?) {
-            val token = localDataSource.readPrefToken().firstOrNull() ?: ""
-            if (data != null) {
-                localDataSource.insertUser(data.toUserEntity(token))
-            }
+            val token = localDataSource.readPrefToken().first().orEmpty()
+            localDataSource.insertUser(data!!.toUserEntity(token))
         }
     }.asFlow()
     
