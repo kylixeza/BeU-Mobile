@@ -27,13 +27,64 @@
         app:layout_constraintTop_toBottomOf="@id/app_bar_ingredient"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ingredient"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="24dp"
         android:clipToPadding="false"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/tv_choose_ingredient"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_list_ingredient"/>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/pb_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="24dp"
+        android:clipToPadding="false"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/tv_choose_ingredient"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <include
+                layout="@layout/item_list_ingredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

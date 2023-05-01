@@ -1,12 +1,16 @@
 package com.exraion.beu.adapter.ingredient
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseRecyclerViewAdapter
 import com.exraion.beu.databinding.ItemListIngredientBinding
 import com.exraion.beu.model.Ingredient
+import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.then
 
 class IngredientAdapter: BaseRecyclerViewAdapter<ItemListIngredientBinding, Ingredient>() {
     
@@ -22,6 +26,7 @@ class IngredientAdapter: BaseRecyclerViewAdapter<ItemListIngredientBinding, Ingr
         get() = { old, new -> IngredientDiffCallback(old, new) }
     
     override val binder: (Ingredient, ItemListIngredientBinding) -> Unit
+        @RequiresApi(Build.VERSION_CODES.M)
         get() = { data, item ->
             item.apply {
                 tvIngredient.text = data.ingredient
@@ -29,11 +34,20 @@ class IngredientAdapter: BaseRecyclerViewAdapter<ItemListIngredientBinding, Ingr
                 
                 ivCheckbox.setOnClickListener {
                     checkedIngredient[data.ingredient] = !checkedIngredient[data.ingredient]!!
-                    ivCheckbox.setImageResource(if (checkedIngredient[data.ingredient]!!) {
-                        R.drawable.ic_checkbox_checked
-                    } else {
-                        R.drawable.ic_checkbox_unchecked
-                    })
+                    ivCheckbox.setImageResource(
+                        checkedIngredient[data.ingredient]!! then {
+                            R.drawable.ic_checkbox_checked
+                        } otherwise {
+                            R.drawable.ic_checkbox_unchecked
+                        }
+                    )
+                    cvIngredient.setCardBackgroundColor(
+                        if (checkedIngredient[data.ingredient]!!) {
+                            itemView.context.getColor(R.color.secondary_50)
+                        } else {
+                            itemView.context.getColor(R.color.white)
+                        }
+                    )
                 }
             }
         }

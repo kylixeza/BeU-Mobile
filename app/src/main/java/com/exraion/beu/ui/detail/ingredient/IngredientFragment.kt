@@ -6,7 +6,14 @@ import com.exraion.beu.adapter.ingredient.IngredientAdapter
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentIngredientBinding
 import com.exraion.beu.util.ScreenOrientation
-import com.exraion.beu.util.UIState
+import com.exraion.beu.util.hideWhen
+import com.exraion.beu.util.isError
+import com.exraion.beu.util.isLoading
+import com.exraion.beu.util.isSuccess
+import com.exraion.beu.util.showWhen
+import com.exraion.beu.util.then
+import io.github.tonnyl.light.Light
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,19 +38,15 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
         
         viewModel.fetchIngredients("")
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.uiState.collect {
-                when(it) {
-                    UIState.IDLE -> {}
-                    UIState.LOADING -> {}
-                    UIState.EMPTY -> {}
-                    UIState.ERROR -> {}
-                    UIState.SUCCESS -> {}
-                }
+                pbIngredient showWhen it.isLoading() hideWhen it.isSuccess()
+                rvIngredient showWhen it.isSuccess() hideWhen it.isLoading()
+                it.isError() then { Light.error(root, viewModel.message, Light.LENGTH_SHORT).show() }
             }
         }
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.ingredients.collect { ingredient ->
                 adapter.submitList(ingredient)
             }
