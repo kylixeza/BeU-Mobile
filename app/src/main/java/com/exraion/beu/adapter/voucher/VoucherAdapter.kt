@@ -3,16 +3,17 @@ package com.exraion.beu.adapter.voucher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseRecyclerViewAdapter
 import com.exraion.beu.databinding.ItemListVoucherBinding
 import com.exraion.beu.model.VoucherList
-import com.exraion.beu.ui.voucher.VoucherFragmentDirections
 import com.exraion.beu.util.VoucherCategory
 
 class VoucherAdapter: BaseRecyclerViewAdapter<ItemListVoucherBinding, VoucherList>() {
+
+    lateinit var listener: VoucherAdapterListener
+
     override fun inflateViewBinding(parent: ViewGroup): ItemListVoucherBinding {
         return ItemListVoucherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
@@ -42,9 +43,11 @@ class VoucherAdapter: BaseRecyclerViewAdapter<ItemListVoucherBinding, VoucherLis
         }
 
         itemView.setOnClickListener {
-            itemView.findNavController().navigate(
-                VoucherFragmentDirections.actionNavigationVoucherToNavigationDetailVoucher(item.voucherId)
-            )
+            listener.onVoucherClick(item.voucherId)
         }
     }
+}
+
+interface VoucherAdapterListener {
+    fun onVoucherClick(voucherId: String)
 }
