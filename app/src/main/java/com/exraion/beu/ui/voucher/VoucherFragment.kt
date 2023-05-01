@@ -1,12 +1,15 @@
 package com.exraion.beu.ui.voucher
 
+import android.content.Intent
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exraion.beu.adapter.voucher.VoucherAdapter
+import com.exraion.beu.adapter.voucher.VoucherAdapterListener
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentVoucherBinding
+import com.exraion.beu.ui.voucher.detail.DetailVoucherActivity
 import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.UIState
 import io.github.tonnyl.light.Light
@@ -30,6 +33,18 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
     }
     
     override fun FragmentVoucherBinding.binder() {
+
+        val voucherAdapterListener = object : VoucherAdapterListener {
+            override fun onVoucherClick(voucherId: String) {
+                val intent = Intent(requireContext(), DetailVoucherActivity::class.java)
+                intent.putExtra(DetailVoucherActivity.VOUCHER_ID, voucherId)
+                intent.putExtra(DetailVoucherActivity.REDEEM_BUTTON_SHOWS, true)
+                startActivity(intent)
+            }
+        }
+
+        shippingAdapter.listener = voucherAdapterListener
+        productAdapter.listener = voucherAdapterListener
 
         rvShipping.apply {
             adapter = shippingAdapter

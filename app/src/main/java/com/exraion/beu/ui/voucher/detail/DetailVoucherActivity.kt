@@ -24,7 +24,11 @@ class DetailVoucherActivity : BaseActivity<ActivityDetailVoucherBinding>() {
 
     private val viewModel by viewModel<DetailVoucherViewModel>()
     private val adapter by inject<VoucherTermsAndConditionsAdapter>()
-    private val args by navArgs<DetailVoucherActivityArgs>()
+
+    companion object {
+        const val VOUCHER_ID = "voucher_id"
+        const val REDEEM_BUTTON_SHOWS = "redeem_button_shows"
+    }
 
     override fun inflateViewBinding(): ActivityDetailVoucherBinding =
         ActivityDetailVoucherBinding.inflate(layoutInflater)
@@ -32,7 +36,8 @@ class DetailVoucherActivity : BaseActivity<ActivityDetailVoucherBinding>() {
     override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
 
     override fun ActivityDetailVoucherBinding.binder() {
-        val voucherId = args.voucherId
+        val voucherId = intent.getStringExtra(VOUCHER_ID).orEmpty()
+        val isRedeemButtonShown = intent.getBooleanExtra(REDEEM_BUTTON_SHOWS, true)
         viewModel.fetchVoucherDetail(voucherId)
 
         rvTermsAndConditions.apply {
@@ -43,8 +48,15 @@ class DetailVoucherActivity : BaseActivity<ActivityDetailVoucherBinding>() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 when(it) {
-                    UIState.LOADING -> { }
-                    UIState.SUCCESS -> { }
+                    UIState.LOADING -> {
+                        btnRedeem.visibility = View.INVISIBLE
+                    }
+                    UIState.SUCCESS -> {
+                        if(isRedeemButtonShown)
+                            btnRedeem.visibility = View.VISIBLE
+                        else
+                            btnRedeem.visibility = View.INVISIBLE
+                    }
                     UIState.ERROR -> Light.error(this@binder.root, viewModel.message, Light.LENGTH_SHORT).show()
                     else -> doNothing()
                 }
