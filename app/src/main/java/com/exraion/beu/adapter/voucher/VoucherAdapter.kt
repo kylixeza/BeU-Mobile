@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseRecyclerViewAdapter
 import com.exraion.beu.databinding.ItemListVoucherBinding
+import com.exraion.beu.model.VoucherDetail
 import com.exraion.beu.model.VoucherList
 import com.exraion.beu.util.VoucherCategory
+import com.exraion.beu.util.toVoucherDetail
 
 class VoucherAdapter: BaseRecyclerViewAdapter<ItemListVoucherBinding, VoucherList>() {
 
@@ -44,10 +46,12 @@ class VoucherAdapter: BaseRecyclerViewAdapter<ItemListVoucherBinding, VoucherLis
 
         itemView.setOnClickListener {
             listener.onVoucherClick(item.voucherId)
+            listener.onVoucherUse(item.toVoucherDetail())
         }
     }
 }
 
-interface VoucherAdapterListener {
-    fun onVoucherClick(voucherId: String)
+abstract class VoucherAdapterListener {
+    open fun onVoucherClick(voucherId: String) { }
+    open fun onVoucherUse(voucher: VoucherDetail) { }
 }
