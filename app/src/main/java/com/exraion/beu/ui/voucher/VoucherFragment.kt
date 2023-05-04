@@ -34,7 +34,7 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
     
     override fun FragmentVoucherBinding.binder() {
 
-        val voucherAdapterListener = object : VoucherAdapterListener {
+        val voucherAdapterListener = object : VoucherAdapterListener() {
             override fun onVoucherClick(voucherId: String) {
                 val intent = Intent(requireContext(), DetailVoucherActivity::class.java)
                 intent.putExtra(DetailVoucherActivity.VOUCHER_ID, voucherId)
