@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.detail.order.OrderFragment">
+
+    <include
+        android:id="@+id/app_bar_order"
+        layout="@layout/include_app_bar_default"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingVertical="12dp"
+        app:layout_constraintBottom_toTopOf="@id/container_bottom_bar_order"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_order">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_location_pointer"
+                app:layout_constraintTop_toBottomOf="@+id/iv_location_pointer">
+
+                <ImageView
+                    android:id="@+id/iv_location_pointer"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_location_red"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_change_location"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="@string/change"
+                    android:textColor="@color/secondary_700"
+                    android:textSize="13sp"
+                    android:textAllCaps="false"
+                    app:strokeColor="@color/secondary_700"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_location_pointer" />
+
+                <TextView
+                    android:id="@+id/tv_delivery_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Delivery location"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@id/btn_change_location"
+                    app:layout_constraintStart_toEndOf="@id/iv_location_pointer"
+                    app:layout_constraintTop_toTopOf="@id/iv_location_pointer" />
+
+                <TextView
+                    android:id="@+id/tv_delivery_pointer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/home"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    app:layout_constraintStart_toStartOf="@id/tv_delivery_location"
+                    app:layout_constraintEnd_toEndOf="@id/tv_delivery_location"
+                    app:layout_constraintTop_toBottomOf="@id/tv_delivery_location"/>
+
+                <TextView
+                    android:id="@+id/tv_name_and_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_delivery_pointer"
+                    app:layout_constraintStart_toStartOf="@id/tv_delivery_pointer"
+                    app:layout_constraintEnd_toEndOf="@id/tv_delivery_pointer"
+                    tools:text="Dhamar | (+62) 111-1111-1111"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_name_and_phone"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_and_phone"
+                    app:layout_constraintEnd_toEndOf="@id/btn_change_location"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="4dp"
+                android:background="#F1F5F9" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="24dp">
+
+                <ImageView
+                    android:id="@+id/iv_driver_order"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_driver_order"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="6dp"
+                    android:text="Delivery"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/iv_driver_order"
+                    app:layout_constraintTop_toTopOf="@id/iv_driver_order"/>
+
+                <TextView
+                    android:id="@+id/tv_estimated_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Delivered in 15 min"
+                    android:textSize="10sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order"
+                    app:layout_constraintStart_toStartOf="@id/tv_order"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="#F1F5F9" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:id="@+id/tv_ingredients"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:text="@string/ingredients"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_variant_img" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle_variant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_ingredients"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients"
+                    app:layout_constraintEnd_toStartOf="@id/iv_variant_img"
+                    tools:text="Sayur-sayuran, telur, nasi, cabai, daging, jeruk"/>
+
+                <TextView
+                    android:id="@+id/tv_variant_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/error_700"
+                    app:layout_constraintStart_toStartOf="@id/tv_subtitle_variant"
+                    app:layout_constraintTop_toBottomOf="@id/tv_subtitle_variant"
+                    tools:text="20.000"/>
+
+                <ImageView
+                    android:id="@+id/iv_variant_img"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    app:circularflow_radiusInDP="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:src="@drawable/ic_favorite_true"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="4dp"
+                android:background="#F1F5F9" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="10dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/card_secondary_50">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondary_900"
+                        android:text="@string/shipping_detail"
+                        android:fontFamily="@font/inter_semibold"
+                        android:textSize="16sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:text="@string/price"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            tools:text="42000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:text="@string/shipping_cost"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_shipping_cost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            tools:text="42000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:text="@string/discount"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_discount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            tools:text="42000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:text="@string/admin"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_admin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            tools:text="42000"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:textColor="@color/neutral_900"
+                            android:textSize="16sp"
+                            android:text="@string/total"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:textColor="@color/error_700"
+                            android:textSize="16sp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            tools:text="Rp42.000"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="4dp"
+                android:background="#F1F5F9" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:id="@+id/iv_voucher"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_voucher_order"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_voucher_selection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/voucher"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_voucher"
+                    app:layout_constraintStart_toEndOf="@+id/iv_voucher"
+                    app:layout_constraintTop_toTopOf="@+id/iv_voucher" />
+
+                <ImageView
+                    android:id="@+id/iv_checklist"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_checklist"
+                    app:layout_constraintStart_toEndOf="@id/tv_voucher_selection"
+                    app:layout_constraintTop_toTopOf="@id/tv_voucher_selection"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_voucher_selection"/>
+
+                <ImageView
+                    android:id="@+id/iv_arrow_voucher"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_next_ios_grey"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="4dp"
+                android:background="#F1F5F9" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/tv_payment_method"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/payment_method"
+                    android:textColor="@color/neutral_900"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/iv_arrow_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/view_all"
+                    android:textColor="@color/secondary_700"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_payment_method"
+                    tools:listitem="@layout/item_list_payment_method"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/container_bottom_bar_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/include_bottom_bar_detail"
+            layout="@layout/include_bottom_bar_detail_menu" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

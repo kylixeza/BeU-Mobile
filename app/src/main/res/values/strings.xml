@@ -60,4 +60,13 @@
     <string name="order">Order</string>
     <string name="choose_ingredients">Choose Ingredients:</string>
     <string name="redeem">Redeem</string>
+    <string name="change">Change</string>
+    <string name="shipping_detail">Shipping Detail</string>
+    <string name="price">Price</string>
+    <string name="shipping_cost">Shipping Cost</string>
+    <string name="discount">Discount</string>
+    <string name="admin">Admin</string>
+    <string name="total">Total</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="view_all">View all</string>
 </resources>
