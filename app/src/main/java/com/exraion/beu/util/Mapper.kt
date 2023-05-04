@@ -99,3 +99,7 @@ fun VoucherListResponse.toVoucherList() = VoucherList(
 fun VoucherDetailResponse.toVoucherDetail() = VoucherDetail(
     voucherId, category, xpCost, validUntil, discount, minimumSpend, maximumDiscount
 )
+
+fun VoucherList.toVoucherDetail() = VoucherDetail(
+    voucherId, category, xpCost, validUntil, discount, minimumSpend, maximumDiscount
+)
