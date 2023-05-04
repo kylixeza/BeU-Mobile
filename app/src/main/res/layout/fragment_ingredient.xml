@@ -35,7 +35,7 @@
         android:clipToPadding="false"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/tv_choose_ingredient"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/container_bottom_bar_ingredient"
         tools:listitem="@layout/item_list_ingredient"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -72,19 +72,20 @@
                 layout="@layout/item_list_ingredient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/container_bottom_bar_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/include_bottom_bar_detail"
+            layout="@layout/include_bottom_bar_detail_menu" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
