@@ -13,6 +13,7 @@ import com.exraion.beu.ui.auth.login.LoginViewModel
 import com.exraion.beu.ui.auth.register.RegisterViewModel
 import com.exraion.beu.ui.detail.ingredient.IngredientViewModel
 import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
+import com.exraion.beu.ui.detail.order.OrderViewModel
 import com.exraion.beu.ui.home.HomeViewModel
 import com.exraion.beu.ui.leaderboard.LeaderboardViewModel
 import com.exraion.beu.ui.onboard.OnBoardingViewModel
@@ -32,6 +33,7 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { DetailMenuViewModel(get()) }
     viewModel { IngredientViewModel(get()) }
+    viewModel { OrderViewModel(get(), get()) }
     viewModel { LeaderboardViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { VoucherViewModel(get()) }
