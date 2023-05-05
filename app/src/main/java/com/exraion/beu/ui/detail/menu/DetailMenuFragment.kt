@@ -2,6 +2,7 @@ package com.exraion.beu.ui.detail.menu
 
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.exraion.beu.R
 import com.exraion.beu.adapter.DetailMenuPageAdapter
 import com.exraion.beu.base.BaseFragment
@@ -11,6 +12,7 @@ import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.hideWhen
 import com.exraion.beu.util.isError
 import com.exraion.beu.util.isLoading
+import com.exraion.beu.util.isNotNullThen
 import com.exraion.beu.util.isSuccess
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.showWhen
@@ -26,12 +28,15 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.tabs.TabLayoutMediator
 import io.github.tonnyl.light.Light
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
     
-    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private val viewModel by activityViewModel<DetailMenuViewModel>()
     private var exoPlayer: ExoPlayer? = null
     private lateinit var mediaDataSourceFactory: DataSource.Factory
     private lateinit var videoUrl: String
@@ -45,24 +50,32 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
     }
     
     override fun FragmentDetailMenuBinding.binder() {
+
+        var menuId = ""
+
+        lifecycleScope.launch {
+            viewModel.menuId.collectLatest {
+                it isNotNullThen {
+                    menuId = it
+
+                    val pagerAdapter = DetailMenuPageAdapter(
+                        childFragmentManager,
+                        lifecycle,
+                        it
+                    )
+
+                    pagerAdapter.apply {
+                        vpMenuDetail.adapter = this
+                    }
+
+                    TabLayoutMediator(tabDetail, vpMenuDetail) { tab, position ->
+                        tab.text = Constanta.TAB_TITLES[position]
+                    }.attach()
+                }
+            }
+        }
         
         viewModel.getMenuDetail()
-    
-        val menuId = ""
-        
-        val pagerAdapter = DetailMenuPageAdapter(
-            childFragmentManager,
-            lifecycle,
-            menuId
-        )
-        
-        pagerAdapter.apply {
-            vpMenuDetail.adapter = this
-        }
-    
-        TabLayoutMediator(tabDetail, vpMenuDetail) { tab, position ->
-            tab.text = Constanta.TAB_TITLES[position]
-        }.attach()
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
@@ -99,6 +112,14 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
 
         appBarDetailMenu.ivFavorite.setOnClickListener {
             viewModel.toggleFavorite()
+        }
+
+        includeBottomBarDetail.btnOrder.setOnClickListener {
+            findNavController().navigate(
+                DetailMenuFragmentDirections.actionDetailMenuDestinationToIngredientNavigation(
+                    menuId
+                )
+            )
         }
     }
     

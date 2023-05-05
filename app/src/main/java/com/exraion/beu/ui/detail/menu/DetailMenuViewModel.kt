@@ -14,7 +14,6 @@ import com.exraion.beu.util.then
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class DetailMenuViewModel(
@@ -22,7 +21,8 @@ class DetailMenuViewModel(
     private val menuRepository: MenuRepository
 ) : ViewModel() {
     
-    var menuId: String = ""
+    private val _menuId = MutableStateFlow<String?>(null)
+    val menuId = _menuId.asStateFlow()
     
     private val _uiState = MutableStateFlow(UIState.IDLE)
     val uiState = _uiState.asStateFlow()
@@ -34,11 +34,15 @@ class DetailMenuViewModel(
     val isFavorite = _isFavorite.asStateFlow()
     
     var message: String = ""
-    
+
+    fun setMenuId(menuId: String) {
+        _menuId.value = menuId
+    }
+
     fun getMenuDetail() {
         _uiState.value = UIState.LOADING
         viewModelScope.launch {
-            menuRepository.fetchMenuDetail(menuId).collect {
+            menuRepository.fetchMenuDetail(_menuId.value!!).collect {
                 when(it) {
                     is Resource.Error -> {
                         _uiState.value = UIState.ERROR
@@ -62,7 +66,7 @@ class DetailMenuViewModel(
 
     private fun insertFavorite() {
         viewModelScope.launch {
-            userRepository.postFavorite(FavoriteBody(menuId)).collectLatest {
+            userRepository.postFavorite(FavoriteBody(_menuId.value!!)).collectLatest {
                 when(it) {
                     is Resource.Success -> _isFavorite.value = true
                     is Resource.Error -> {
@@ -77,7 +81,7 @@ class DetailMenuViewModel(
 
     private fun removeFavorite() {
         viewModelScope.launch {
-            userRepository.deleteFavorite(menuId).collectLatest {
+            userRepository.deleteFavorite(_menuId.value!!).collectLatest {
                 when(it) {
                     is Resource.Success -> _isFavorite.value = false
                     is Resource.Error -> {
