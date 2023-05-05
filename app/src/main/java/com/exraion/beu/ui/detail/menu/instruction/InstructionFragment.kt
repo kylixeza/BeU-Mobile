@@ -8,15 +8,14 @@ import com.exraion.beu.adapter.step.StepAdapter
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentInstructionBinding
 import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
-import com.exraion.beu.ui.detail.menu.about.AboutFragment
 import com.exraion.beu.util.Constanta
 import com.exraion.beu.util.ScreenOrientation
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class InstructionFragment : BaseFragment<FragmentInstructionBinding>() {
     
-    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private val viewModel by activityViewModel<DetailMenuViewModel>()
     private val ingredientAdapter by inject<IngredientToolAdapter>()
     private val toolAdapter by inject<IngredientToolAdapter>()
     private val stepAdapter by inject<StepAdapter>()

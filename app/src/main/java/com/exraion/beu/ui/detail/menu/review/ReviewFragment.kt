@@ -10,11 +10,11 @@ import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
 import com.exraion.beu.util.Constanta
 import com.exraion.beu.util.ScreenOrientation
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ReviewFragment : BaseFragment<FragmentReviewBinding>() {
     
-    private val viewModel by sharedViewModel<DetailMenuViewModel>()
+    private val viewModel by activityViewModel<DetailMenuViewModel>()
     private val reviewAdapter by inject<ReviewAdapter>()
     private lateinit var menuId: String
     
