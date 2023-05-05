@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_navigation"
+    app:startDestination="@id/detail_menu_destination">
+
+    <fragment
+        android:id="@+id/detail_menu_destination"
+        android:name="com.exraion.beu.ui.detail.menu.DetailMenuFragment"
+        android:label="fragment_detail_menu"
+        tools:layout="@layout/fragment_detail_menu" >
+        <action
+            android:id="@+id/action_detail_menu_destination_to_ingredient_navigation"
+            app:destination="@id/ingredient_navigation" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingredient_navigation"
+        android:name="com.exraion.beu.ui.detail.ingredient.IngredientFragment"
+        android:label="fragment_ingredient"
+        tools:layout="@layout/fragment_ingredient" >
+        <action
+            android:id="@+id/action_ingredient_navigation_to_order_destination"
+            app:destination="@id/order_destination" />
+        <action
+            android:id="@+id/action_ingredient_navigation_to_detail_menu_destination"
+            app:destination="@id/detail_menu_destination" />
+    </fragment>
+    <fragment
+        android:id="@+id/order_destination"
+        android:name="com.exraion.beu.ui.detail.order.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_order_destination_to_ingredient_navigation"
+            app:destination="@id/ingredient_navigation" />
+    </fragment>
+</navigation>
