@@ -7,7 +7,9 @@ import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentOrderBinding
 import com.exraion.beu.util.ScreenOrientation
+import com.exraion.beu.util.isError
 import com.exraion.beu.util.isNotNullThen
+import com.exraion.beu.util.isSuccess
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.then
 import kotlinx.coroutines.launch
@@ -23,6 +25,13 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
     override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
 
     override fun FragmentOrderBinding.binder() {
+
+        lifecycleScope.launch {
+            viewModel.uiState.collect {
+                includeBottomBarDetail.btnOrder.isEnabled = it.isError() or it.isSuccess()
+            }
+        }
+
         lifecycleScope.launch { viewModel.user.collect {
                 it isNotNullThen { user ->
                     tvNameAndPhone.text = "${user.name} | ${user.phoneNumber}"
@@ -75,6 +84,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
                     )
                 }
             }
+        }
+
+        includeBottomBarDetail.btnOrder.setOnClickListener {
+            viewModel.postOrder()
         }
     }
 }

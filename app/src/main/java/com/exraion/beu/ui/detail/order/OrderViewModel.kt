@@ -2,8 +2,10 @@ package com.exraion.beu.ui.detail.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.exraion.beu.data.repository.order.OrderRepository
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.repository.voucher.VoucherRepository
+import com.exraion.beu.data.source.remote.api.model.order.OrderBody
 import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.User
 import com.exraion.beu.model.VoucherDetail
@@ -14,16 +16,20 @@ import com.exraion.beu.util.doNothing
 import com.exraion.beu.util.isEqualTo
 import com.exraion.beu.util.isGreaterThan
 import com.exraion.beu.util.isLessThanOrEqual
+import com.exraion.beu.util.isNotNullThen
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.then
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class OrderViewModel(
     private val userRepository: UserRepository,
-    private val voucherRepository: VoucherRepository
+    private val voucherRepository: VoucherRepository,
+    private val orderRepository: OrderRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UIState.IDLE)
@@ -60,10 +66,11 @@ class OrderViewModel(
     val selectedVoucher = _selectedVoucher.asStateFlow()
 
     var message = ""
+    var menuId = ""
+    var ingredients = listOf<String>()
 
     init {
         viewModelScope.launch {
-            _uiState.value = UIState.LOADING
             userRepository.getUserDetail().collect {
                 when(it) {
                     is Resource.Success -> _user.value = it.data
@@ -111,6 +118,43 @@ class OrderViewModel(
             voucherRepository.fetchUserVouchers().collectLatest {
                 when(it) {
                     is Resource.Success -> _vouchers.value = it.data!!
+                    is Resource.Error -> {
+                        _uiState.value = UIState.ERROR
+                        message = it.message!!
+                    }
+                    else -> doNothing()
+                }
+            }
+        }
+    }
+
+    private fun useVoucher() {
+        viewModelScope.launch {
+            voucherRepository.useVoucher(_selectedVoucher.value!!.voucherId).collect {
+                when(it) {
+                    is Resource.Success -> _uiState.value = UIState.SUCCESS
+                    is Resource.Error -> {
+                        _uiState.value = UIState.ERROR
+                        message = it.message!!
+                    }
+                    else -> doNothing()
+                }
+            }
+        }
+    }
+
+    fun postOrder() {
+        val orderBody = OrderBody(
+            menuId, ingredients, _total.value
+        )
+        _uiState.value = UIState.LOADING
+        viewModelScope.launch {
+            orderRepository.postOrder(orderBody).collect {
+                when(it) {
+                    is Resource.Success -> {
+                        if (_isVoucherApplied.value) useVoucher()
+                        else _uiState.value = UIState.SUCCESS
+                    }
                     is Resource.Error -> {
                         _uiState.value = UIState.ERROR
                         message = it.message!!
