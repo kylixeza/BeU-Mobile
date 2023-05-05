@@ -1,6 +1,7 @@
 package com.exraion.beu.util
 
 import com.exraion.beu.data.source.local.database.entity.UserEntity
+import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
 import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientResponse
 import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
@@ -102,4 +103,15 @@ fun VoucherDetailResponse.toVoucherDetail() = VoucherDetail(
 
 fun VoucherList.toVoucherDetail() = VoucherDetail(
     voucherId, category, xpCost, validUntil, discount, minimumSpend, maximumDiscount
+)
+
+fun HistoryResponse.toHistory() = History(
+    orderId,
+    menuId,
+    title,
+    image,
+    timeStamp,
+    ingredients,
+    status,
+    starsGiven
 )
