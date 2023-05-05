@@ -67,6 +67,10 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 pbVideoPlayer showWhen it.isLoading() hideWhen it.isSuccess()
+                appBarDetailMenu.ivFavorite showWhen it.isSuccess() hideWhen it.isLoading()
+                appBarDetailMenu.tvTitle showWhen it.isSuccess() hideWhen it.isLoading()
+                includeBottomBarDetail.availabilityStatus showWhen it.isSuccess() hideWhen it.isLoading()
+                includeBottomBarDetail.btnOrder showWhen it.isSuccess() hideWhen it.isLoading()
                 it.isError() then { Light.error(root, viewModel.message, Light.LENGTH_SHORT).show() }
             }
         }
