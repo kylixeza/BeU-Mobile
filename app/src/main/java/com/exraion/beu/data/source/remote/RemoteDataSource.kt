@@ -6,10 +6,13 @@ import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
 import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.source.remote.api.model.auth.TokenResponse
 import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
+import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
+import com.exraion.beu.data.source.remote.api.model.history.HistoryUpdateStarsGiven
 import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientResponse
 import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
+import com.exraion.beu.data.source.remote.api.model.order.OrderBody
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
@@ -149,5 +152,33 @@ class RemoteDataSource(
         secretKey: String
     ) = object : BaseRemoteResponse<String>() {
         override suspend fun call(): BaseResponse<String> = apiService.redeemVoucherBySecretKey(token, secretKey)
+    }.asFlow()
+
+    suspend fun postOrder(
+        token: String,
+        body: OrderBody
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.postOrder(token, body)
+    }.asFlow()
+
+    suspend fun fetchUserOrders(
+        token: String
+    ) = object : BaseRemoteResponse<List<HistoryResponse>>() {
+        override suspend fun call(): BaseResponse<List<HistoryResponse>> = apiService.fetchUserOrders(token)
+    }.asFlow()
+
+    suspend fun cancelOrder(
+        token: String,
+        orderId: String
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.cancelOrder(token, orderId)
+    }.asFlow()
+
+    suspend fun rateOrder(
+        token: String,
+        orderId: String,
+        body: HistoryUpdateStarsGiven
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.rateOrder(token, orderId, body)
     }.asFlow()
 }

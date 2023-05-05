@@ -5,10 +5,13 @@ import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
 import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.source.remote.api.model.auth.TokenResponse
 import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
+import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
+import com.exraion.beu.data.source.remote.api.model.history.HistoryUpdateStarsGiven
 import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientResponse
 import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuDetailResponse
 import com.exraion.beu.data.source.remote.api.model.menu.MenuListResponse
+import com.exraion.beu.data.source.remote.api.model.order.OrderBody
 import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
@@ -126,4 +129,29 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("secretKey") secretKey: String
     ): BaseResponse<String>
+
+    @POST("user/order")
+    suspend fun postOrder(
+        @Header("Authorization") token: String,
+        @Body body: OrderBody
+    ): BaseResponse<String>
+
+    @GET("user/order")
+    suspend fun fetchUserOrders(
+        @Header("Authorization") token: String
+    ): BaseResponse<List<HistoryResponse>>
+
+    @PUT("user/order/{orderId}/cancel")
+    suspend fun cancelOrder(
+        @Header("Authorization") token: String,
+        @Path("orderId") orderId: String
+    ): BaseResponse<String>
+
+    @PUT("user/order/{orderId}/rating")
+    suspend fun rateOrder(
+        @Header("Authorization") token: String,
+        @Path("orderId") orderId: String,
+        @Body body: HistoryUpdateStarsGiven
+    ): BaseResponse<String>
+
 }
