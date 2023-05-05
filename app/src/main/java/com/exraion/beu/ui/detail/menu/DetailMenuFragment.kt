@@ -8,7 +8,12 @@ import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentDetailMenuBinding
 import com.exraion.beu.util.Constanta
 import com.exraion.beu.util.ScreenOrientation
+import com.exraion.beu.util.hideWhen
+import com.exraion.beu.util.isError
+import com.exraion.beu.util.isLoading
+import com.exraion.beu.util.isSuccess
 import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.showWhen
 import com.exraion.beu.util.then
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -20,6 +25,7 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.tabs.TabLayoutMediator
+import io.github.tonnyl.light.Light
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -57,6 +63,13 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
         TabLayoutMediator(tabDetail, vpMenuDetail) { tab, position ->
             tab.text = Constanta.TAB_TITLES[position]
         }.attach()
+
+        lifecycleScope.launch {
+            viewModel.uiState.collect {
+                pbVideoPlayer showWhen it.isLoading() hideWhen it.isSuccess()
+                it.isError() then { Light.error(root, viewModel.message, Light.LENGTH_SHORT).show() }
+            }
+        }
         
         lifecycleScope.launch {
             viewModel.menuDetail.collect { menuDetail ->
