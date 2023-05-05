@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_ingredient_navigation_to_detail_menu_destination"
             app:destination="@id/detail_menu_destination" />
+        <argument
+            android:name="menuId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/order_destination"
