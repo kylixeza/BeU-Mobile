@@ -8,6 +8,8 @@ import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentDetailMenuBinding
 import com.exraion.beu.util.Constanta
 import com.exraion.beu.util.ScreenOrientation
+import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.then
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -56,14 +58,11 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
             tab.text = Constanta.TAB_TITLES[position]
         }.attach()
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.menuDetail.collect { menuDetail ->
                 if (menuDetail != null) {
                     appBarDetailMenu.apply {
                         tvTitle.text = menuDetail.title
-                        ivFavorite.setImageResource(
-                            if (menuDetail.isFavorite) R.drawable.ic_favorite_true else R.drawable.ic_favorite_false
-                        )
                     }
                     videoUrl = menuDetail.videoUrl
                     binding?.includeBottomBarDetail?.availabilityStatus?.text =
@@ -71,6 +70,18 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
                     initializePlayer(menuDetail.videoUrl)
                 }
             }
+        }
+
+        lifecycleScope.launch {
+            viewModel.isFavorite.collect {
+                appBarDetailMenu.ivFavorite.setImageResource(
+                    it then { R.drawable.ic_favorite_true } otherwise { R.drawable.ic_favorite_false }
+                )
+            }
+        }
+
+        appBarDetailMenu.ivFavorite.setOnClickListener {
+            viewModel.toggleFavorite()
         }
     }
     

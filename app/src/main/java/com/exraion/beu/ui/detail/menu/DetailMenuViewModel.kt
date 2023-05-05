@@ -3,15 +3,23 @@ package com.exraion.beu.ui.detail.menu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.exraion.beu.data.repository.menu.MenuRepository
+import com.exraion.beu.data.repository.user.UserRepository
+import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
 import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.MenuDetail
 import com.exraion.beu.util.UIState
+import com.exraion.beu.util.doNothing
+import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.then
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class DetailMenuViewModel(
-    private val repository: MenuRepository
+    private val userRepository: UserRepository,
+    private val menuRepository: MenuRepository
 ) : ViewModel() {
     
     var menuId: String = ""
@@ -21,27 +29,64 @@ class DetailMenuViewModel(
     
     private val _menuDetail = MutableStateFlow<MenuDetail?>(null)
     val menuDetail = _menuDetail.asStateFlow()
+
+    private val _isFavorite = MutableStateFlow(false)
+    val isFavorite = _isFavorite.asStateFlow()
     
     var message: String = ""
     
     fun getMenuDetail() {
+        _uiState.value = UIState.LOADING
         viewModelScope.launch {
-            repository.fetchMenuDetail(menuId).collect {
+            menuRepository.fetchMenuDetail(menuId).collect {
                 when(it) {
-                    is Resource.Empty -> _uiState.value = UIState.EMPTY
                     is Resource.Error -> {
                         _uiState.value = UIState.ERROR
                         message = it.message.toString()
                     }
-                    is Resource.Loading -> _uiState.value = UIState.LOADING
                     is Resource.Success -> {
                         _uiState.value = UIState.SUCCESS
                         _menuDetail.value = it.data
+                        _isFavorite.value = it.data?.isFavorite ?: false
                     }
+
+                    else -> doNothing()
                 }
             }
         }
     }
-    
-    
+
+    fun toggleFavorite() {
+        _isFavorite.value then { insertFavorite() } otherwise { removeFavorite() }
+    }
+
+    private fun insertFavorite() {
+        viewModelScope.launch {
+            userRepository.postFavorite(FavoriteBody(menuId)).collectLatest {
+                when(it) {
+                    is Resource.Success -> _isFavorite.value = true
+                    is Resource.Error -> {
+                        _isFavorite.value = false
+                        message = it.message.toString()
+                    }
+                    else -> doNothing()
+                }
+            }
+        }
+    }
+
+    private fun removeFavorite() {
+        viewModelScope.launch {
+            userRepository.deleteFavorite(menuId).collectLatest {
+                when(it) {
+                    is Resource.Success -> _isFavorite.value = false
+                    is Resource.Error -> {
+                        _uiState.value = UIState.ERROR
+                        message = it.message.toString()
+                    }
+                    else -> doNothing()
+                }
+            }
+        }
+    }
 }
