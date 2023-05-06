@@ -37,3 +37,7 @@ infix fun Number.isGreaterThan(other: Number): Boolean = this.toDouble() > other
 infix fun Number.isLessThan(other: Number): Boolean = this.toDouble() < other.toDouble()
 infix fun Number.isGreaterThanOrEqual(other: Number): Boolean = this.toDouble() >= other.toDouble()
 infix fun Number.isLessThanOrEqual(other: Number): Boolean = this.toDouble() <= other.toDouble()
+
+infix fun<T> T.not(block: T.() -> Boolean): Boolean {
+    return !this.block()
+}
