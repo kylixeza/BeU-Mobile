@@ -2,7 +2,10 @@ package com.exraion.beu.ui.detail.ingredient
 
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.exraion.beu.adapter.ingredient.IngredientAdapter
+import com.exraion.beu.adapter.ingredient.IngredientAdapterListener
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentIngredientBinding
 import com.exraion.beu.util.ScreenOrientation
@@ -21,6 +24,7 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
     
     private val viewModel by viewModel<IngredientViewModel>()
     private val adapter by inject<IngredientAdapter>()
+    private val args by navArgs<IngredientFragmentArgs>()
     
     override fun inflateViewBinding(container: ViewGroup?): FragmentIngredientBinding {
         return FragmentIngredientBinding.inflate(layoutInflater, container, false)
@@ -35,9 +39,19 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
             tvTitle.text = "Order Details"
             ivFavorite.hide()
         }
-        
-        viewModel.fetchIngredients("")
-        
+
+        rvIngredient.apply {
+            adapter = this@IngredientFragment.adapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+
+        includeBottomBarDetail.apply {
+            availability.text = "Payment"
+            availabilityStatus.text = "Rp0"
+        }
+
+        viewModel.fetchIngredients(args.menuId)
+
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 pbIngredient showWhen it.isLoading() hideWhen it.isSuccess()
@@ -51,6 +65,15 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
                 adapter.submitList(ingredient)
             }
         }
-        
+
+        adapter.listener = object : IngredientAdapterListener {
+            override fun onIngredientClicked(isCheckedAtLeastOne: Boolean, totalPrice: Int) {
+                includeBottomBarDetail.apply {
+                    availabilityStatus.text = "Rp$totalPrice"
+                    btnOrder.isEnabled = isCheckedAtLeastOne
+                }
+            }
+
+        }
     }
 }
