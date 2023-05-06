@@ -1,6 +1,7 @@
 package com.exraion.beu.di
 
 import com.exraion.beu.adapter.category.CategoryAdapter
+import com.exraion.beu.adapter.history.HistoryAdapter
 import com.exraion.beu.adapter.ingredient.IngredientAdapter
 import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
 import com.exraion.beu.adapter.leaderboard.LeaderboardAdapter
@@ -51,4 +52,5 @@ val adapterModule = module {
     factory { ProfileAdditionalSettingAdapter() }
     factory { VoucherAdapter() }
     factory { VoucherTermsAndConditionsAdapter() }
+    factory { HistoryAdapter() }
 }
