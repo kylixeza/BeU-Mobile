@@ -3,6 +3,7 @@ package com.exraion.beu.ui.detail.order
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
@@ -31,6 +32,16 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
         viewModel.setPrice(args.totalPrice)
         viewModel.ingredients = args.ingredients.toList()
         viewModel.menuId = args.menuId
+
+        appBarOrder.apply {
+            ivFavorite.hide()
+            tvTitle.text = "Order Details"
+            ivArrowBack.setOnClickListener {
+                findNavController().navigate(
+                    OrderFragmentDirections.actionOrderDestinationToIngredientNavigation(args.menuId)
+                )
+            }
+        }
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
