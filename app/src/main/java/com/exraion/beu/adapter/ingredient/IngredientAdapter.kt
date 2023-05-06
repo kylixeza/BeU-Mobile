@@ -9,14 +9,17 @@ import com.exraion.beu.R
 import com.exraion.beu.base.BaseRecyclerViewAdapter
 import com.exraion.beu.databinding.ItemListIngredientBinding
 import com.exraion.beu.model.Ingredient
+import com.exraion.beu.util.not
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.then
 
 class IngredientAdapter: BaseRecyclerViewAdapter<ItemListIngredientBinding, Ingredient>() {
+
+    //pair ingredient name and price
+    private val checkedIngredient = mutableMapOf<String, Int>()
+    lateinit var listener: IngredientAdapterListener
     
-    private val checkedIngredient = mutableMapOf<String, Boolean>()
-    
-    fun getTrueCheckedIngredient() = checkedIngredient.filterValues { it }.keys.toList()
+    fun getTrueCheckedIngredient() = checkedIngredient
     
     override fun inflateViewBinding(parent: ViewGroup): ItemListIngredientBinding {
         return ItemListIngredientBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,22 +36,25 @@ class IngredientAdapter: BaseRecyclerViewAdapter<ItemListIngredientBinding, Ingr
                 tvPrice.text = "Rp${data.price}"
                 
                 ivCheckbox.setOnClickListener {
-                    checkedIngredient[data.ingredient] = !checkedIngredient[data.ingredient]!!
-                    ivCheckbox.setImageResource(
-                        checkedIngredient[data.ingredient]!! then {
-                            R.drawable.ic_checkbox_checked
-                        } otherwise {
-                            R.drawable.ic_checkbox_unchecked
-                        }
-                    )
-                    cvIngredient.setCardBackgroundColor(
-                        if (checkedIngredient[data.ingredient]!!) {
-                            itemView.context.getColor(R.color.secondary_50)
-                        } else {
-                            itemView.context.getColor(R.color.white)
-                        }
+                    checkedIngredient not { containsKey(data.ingredient) } then {
+                        checkedIngredient[data.ingredient] = data.price
+                        ivCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
+                        cvIngredient.setCardBackgroundColor(itemView.context.getColor(R.color.secondary_50))
+                    } otherwise {
+                        checkedIngredient.remove(data.ingredient)
+                        ivCheckbox.setImageResource(R.drawable.ic_checkbox_unchecked)
+                        cvIngredient.setCardBackgroundColor(itemView.context.getColor(R.color.white))
+                    }
+
+                    listener.onIngredientClicked(
+                        checkedIngredient.isNotEmpty(),
+                        checkedIngredient.values.sum()
                     )
                 }
             }
         }
+}
+
+interface IngredientAdapterListener {
+    fun onIngredientClicked(isCheckedAtLeastOne: Boolean, totalPrice: Int)
 }
