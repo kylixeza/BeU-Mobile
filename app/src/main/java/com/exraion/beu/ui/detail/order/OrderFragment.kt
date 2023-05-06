@@ -3,6 +3,7 @@ package com.exraion.beu.ui.detail.order
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentOrderBinding
@@ -18,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class OrderFragment : BaseFragment<FragmentOrderBinding>() {
 
     private val viewModel by activityViewModel<OrderViewModel>()
+    private val args by navArgs<OrderFragmentArgs>()
 
     override fun inflateViewBinding(container: ViewGroup?): FragmentOrderBinding =
         FragmentOrderBinding.inflate(layoutInflater, container, false)
@@ -25,6 +27,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
     override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
 
     override fun FragmentOrderBinding.binder() {
+
+        viewModel.setPrice(args.totalPrice)
+        viewModel.ingredients = args.ingredients.toList()
+        viewModel.menuId = args.menuId
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
