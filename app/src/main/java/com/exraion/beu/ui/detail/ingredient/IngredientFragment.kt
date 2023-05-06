@@ -2,6 +2,7 @@ package com.exraion.beu.ui.detail.ingredient
 
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exraion.beu.adapter.ingredient.IngredientAdapter
@@ -73,7 +74,16 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
                     btnOrder.isEnabled = isCheckedAtLeastOne
                 }
             }
+        }
 
+        includeBottomBarDetail.btnOrder.setOnClickListener {
+            val ingredients = adapter.getTrueCheckedIngredient()
+            val action = IngredientFragmentDirections.actionIngredientNavigationToOrderDestination(
+                ingredients.map { it.key }.toTypedArray(),
+                ingredients.values.sum(),
+                args.menuId
+            )
+            findNavController().navigate(action)
         }
     }
 }
