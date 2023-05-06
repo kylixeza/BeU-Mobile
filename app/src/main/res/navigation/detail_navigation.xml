@@ -37,5 +37,14 @@
         <action
             android:id="@+id/action_order_destination_to_ingredient_navigation"
             app:destination="@id/ingredient_navigation" />
+        <argument
+            android:name="ingredients"
+            app:argType="string[]" />
+        <argument
+            android:name="totalPrice"
+            app:argType="integer" />
+        <argument
+            android:name="menuId"
+            app:argType="string" />
     </fragment>
 </navigation>
