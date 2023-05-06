@@ -37,4 +37,10 @@
     
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="gold_50">#FFF8E5</color>
+    <color name="gold_300">#FFE6B2</color>
+    <color name="gold_500">#FFD47F</color>
+    <color name="gold_700">#FFC24C</color>
+    <color name="gold_900">#FFA219</color>
 </resources>
