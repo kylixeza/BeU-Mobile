@@ -39,6 +39,7 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
         appBarIngredient.apply {
             tvTitle.text = "Order Details"
             ivFavorite.hide()
+            ivArrowBack.setOnClickListener { findNavController().navigateUp() }
         }
 
         rvIngredient.apply {
