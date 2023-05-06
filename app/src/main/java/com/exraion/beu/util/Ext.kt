@@ -1,5 +1,7 @@
 package com.exraion.beu.util
 
+import android.view.View
+
 fun doNothing() = Unit
 
 infix fun <T> T.isEqualTo(other: T): Boolean = this == other
@@ -41,3 +43,7 @@ infix fun Number.isLessThanOrEqual(other: Number): Boolean = this.toDouble() <= 
 infix fun<T> T.not(block: T.() -> Boolean): Boolean {
     return !this.block()
 }
+
+fun View.show() = run { visibility = View.VISIBLE }
+fun View.hide() = run { visibility = View.INVISIBLE }
+fun View.disappear() = run { visibility = View.GONE }
