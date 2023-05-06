@@ -31,9 +31,9 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
-    viewModel { DetailMenuViewModel(get()) }
+    viewModel { DetailMenuViewModel(get(), get()) }
     viewModel { IngredientViewModel(get()) }
-    viewModel { OrderViewModel(get(), get()) }
+    viewModel { OrderViewModel(get(), get(), get()) }
     viewModel { LeaderboardViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { VoucherViewModel(get()) }
