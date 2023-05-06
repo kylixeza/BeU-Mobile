@@ -46,6 +46,11 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 includeBottomBarDetail.btnOrder.isEnabled = it.isError() or it.isSuccess()
+                it.isSuccess() then {
+                    findNavController().navigate(
+                        OrderFragmentDirections.actionOrderDestinationToVerificationDestination()
+                    )
+                }
             }
         }
 

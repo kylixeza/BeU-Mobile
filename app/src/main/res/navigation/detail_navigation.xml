@@ -46,5 +46,13 @@
         <argument
             android:name="menuId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_order_destination_to_verification_destination"
+            app:destination="@id/verification_destination" />
     </fragment>
+    <fragment
+        android:id="@+id/verification_destination"
+        android:name="com.exraion.beu.ui.detail.verification.VerificationFragment"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_verification" />
 </navigation>
