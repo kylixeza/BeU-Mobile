@@ -22,9 +22,11 @@ infix fun<T> Boolean.then(block: () -> T): ThenOtherwise<T> {
     return ThenOtherwise(this, call)
 }
 
+/*
 infix fun<T: Any> ThenOtherwise<T?>.otherwise(block: () -> T?): T? =
     if (!currentBooleanState) block()
     else data!!
+*/
 
 infix fun<T: Any> ThenOtherwise<T>.otherwise(block: () -> T): T =
     if (!currentBooleanState) block()

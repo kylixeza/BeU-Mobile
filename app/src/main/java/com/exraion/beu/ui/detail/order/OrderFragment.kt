@@ -96,8 +96,8 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             viewModel.isVoucherApplied.collect {
                 tvVoucherSelection.apply {
                     typeface = it then {
-                        ResourcesCompat.getFont(context, R.font.inter_semibold)
-                    } otherwise { ResourcesCompat.getFont(context, R.font.montserrat) }
+                        ResourcesCompat.getFont(context, R.font.inter_semibold)!!
+                    } otherwise { ResourcesCompat.getFont(context, R.font.montserrat)!! }
                     text = it then { "Voucher applied" } otherwise { "Select Voucher" }
                     setTextColor(
                         it then {

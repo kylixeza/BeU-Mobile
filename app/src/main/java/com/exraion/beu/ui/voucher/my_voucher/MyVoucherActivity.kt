@@ -36,7 +36,7 @@ class MyVoucherActivity : BaseActivity<ActivityMyVoucherBinding>() {
             layoutManager = LinearLayoutManager(this@MyVoucherActivity, LinearLayoutManager.VERTICAL, false)
         }
 
-        adapter.listener = object : VoucherAdapterListener {
+        adapter.listener = object : VoucherAdapterListener() {
             override fun onVoucherClick(voucherId: String) {
                 val intent = Intent(this@MyVoucherActivity, DetailVoucherActivity::class.java)
                 intent.putExtra(DetailVoucherActivity.VOUCHER_ID, voucherId)
