@@ -13,6 +13,9 @@ import com.exraion.beu.databinding.ItemListMenuHorizontalBinding
 import com.exraion.beu.model.MenuList
 
 class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalBinding, MenuList>() {
+
+    lateinit var listener: MenuListHorizontalListener
+
     override fun inflateViewBinding(parent: ViewGroup): ItemListMenuHorizontalBinding {
         return ItemListMenuHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
@@ -27,6 +30,7 @@ class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalB
                 tvFoodName.text = item.title
                 Glide.with(itemView.context).load(item.image)
                     .transform(RoundedCorners(5))
+                    .centerCrop()
                     .into(ivFood)
                 
                 when(item.difficulty) {
@@ -50,6 +54,14 @@ class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalB
                 tvRangePrice.text = item.rangePrice
                 tvRating.text = item.rating.toString()
                 tvCookTime.text = item.cookTime.toString()
+
+                root.setOnClickListener {
+                    listener.onMenuClicked(item.menuId)
+                }
             }
         }
+}
+
+interface MenuListHorizontalListener {
+    fun onMenuClicked(menuId: String)
 }
