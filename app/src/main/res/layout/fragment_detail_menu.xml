@@ -58,13 +58,9 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_menu_detail"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginVertical="16dp"
         app:layout_constraintTop_toBottomOf="@id/tab_detail"
-        app:layout_constraintBottom_toTopOf="@id/container_bottom_bar_detail"
-        app:layout_constraintStart_toStartOf="@id/tab_detail"
-        app:layout_constraintEnd_toEndOf="@id/tab_detail"
-        tools:ignore="NotSibling" />
+        app:layout_constraintBottom_toTopOf="@id/container_bottom_bar_detail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
