@@ -9,10 +9,13 @@ import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentOrderBinding
 import com.exraion.beu.util.ScreenOrientation
+import com.exraion.beu.util.hideWhen
 import com.exraion.beu.util.isError
 import com.exraion.beu.util.isNotNullThen
 import com.exraion.beu.util.isSuccess
+import com.exraion.beu.util.not
 import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.showWhen
 import com.exraion.beu.util.then
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -28,7 +31,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
     override fun determineScreenOrientation(): ScreenOrientation = ScreenOrientation.PORTRAIT
 
     override fun FragmentOrderBinding.binder() {
-
+        viewModel.clearAllStates()
         viewModel.setPrice(args.totalPrice)
         viewModel.ingredients = args.ingredients.toList()
         viewModel.menuId = args.menuId
@@ -105,12 +108,18 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
                         } otherwise { ResourcesCompat.getColor(resources, R.color.neutral_900, null) }
                     )
                 }
+                ivChecklist showWhen it hideWhen not { it }
             }
         }
 
         includeBottomBarDetail.btnOrder.setOnClickListener {
             viewModel.postOrder()
         }
+
+        ivArrowVoucher.setOnClickListener {
+            OrderSelectionVoucherFragment().show(parentFragmentManager, OrderSelectionVoucherFragment::class.java.simpleName)
+        }
+
     }
 
     override fun onBackPressedBehaviour() {

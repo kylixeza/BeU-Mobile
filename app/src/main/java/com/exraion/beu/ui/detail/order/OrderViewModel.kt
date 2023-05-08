@@ -16,14 +16,11 @@ import com.exraion.beu.util.doNothing
 import com.exraion.beu.util.isEqualTo
 import com.exraion.beu.util.isGreaterThan
 import com.exraion.beu.util.isLessThanOrEqual
-import com.exraion.beu.util.isNotNullThen
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.then
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class OrderViewModel(
@@ -56,10 +53,13 @@ class OrderViewModel(
     private val _vouchers = MutableStateFlow(listOf<VoucherList>())
     val vouchers = _vouchers.asStateFlow()
 
+    private val _voucherUiState = MutableStateFlow(UIState.IDLE)
+    val voucherUiState = _voucherUiState.asStateFlow()
+
     private val _isVoucherApplied = MutableStateFlow(false)
     val isVoucherApplied = _isVoucherApplied.asStateFlow()
 
-    private val _isVoucherCanBeApplied = MutableStateFlow(false)
+    private val _isVoucherCanBeApplied = MutableStateFlow<Boolean?>(null)
     val isVoucherCanBeApplied = _isVoucherCanBeApplied.asStateFlow()
 
     private val _selectedVoucher = MutableStateFlow<VoucherDetail?>(null)
@@ -96,10 +96,11 @@ class OrderViewModel(
                 }
                 _isVoucherApplied.value = true
                 _isVoucherCanBeApplied.value = true
-                _total.value = _price.value + _shippingCost.value + _admin.value - voucher.discount
+                _total.value = _price.value + _shippingCost.value + _admin.value - _discount.value
             } otherwise {
                 _isVoucherCanBeApplied.value = false
                 message = "Voucher tidak dapat digunakan"
+                _isVoucherCanBeApplied.value = null
             }
         } otherwise {
             voucher.discount isEqualTo 100 then {
@@ -113,13 +114,16 @@ class OrderViewModel(
     }
 
     fun getUserVouchers() {
-        _uiState.value = UIState.LOADING
+        _voucherUiState.value = UIState.LOADING
         viewModelScope.launch {
             voucherRepository.fetchUserVouchers().collectLatest {
                 when(it) {
-                    is Resource.Success -> _vouchers.value = it.data!!
+                    is Resource.Success -> {
+                        _voucherUiState.value = UIState.SUCCESS
+                        _vouchers.value = it.data!!
+                    }
                     is Resource.Error -> {
-                        _uiState.value = UIState.ERROR
+                        _voucherUiState.value = UIState.ERROR
                         message = it.message!!
                     }
                     else -> doNothing()
@@ -141,6 +145,16 @@ class OrderViewModel(
                 }
             }
         }
+    }
+
+    fun clearAllStates() {
+        _uiState.value = UIState.IDLE
+        _voucherUiState.value = UIState.IDLE
+        _isVoucherApplied.value = false
+        _isVoucherCanBeApplied.value = null
+        _selectedVoucher.value = null
+        _discount.value = 0
+        _shippingCost.value = listOf(3000, 5000, 9000, 11000).random()
     }
 
     fun postOrder() {
