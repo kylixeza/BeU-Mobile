@@ -13,9 +13,10 @@ class StepAdapter: BaseRecyclerViewAdapter<ItemListStepBinding, String>() {
     
     override val diffUtilBuilder: (List<String>, List<String>) -> DiffUtil.Callback?
         get() = { _, _ -> null }
-    
-    override val binder: (String, ItemListStepBinding) -> Unit
-        get() = { data, item ->
+
+    override val binderWithPosition: (String, ItemListStepBinding, Int) -> Unit
+        get() = { data, item, position ->
             item.tvStep.text = data
+            item.tvOrderedNumber.text = (position + 1).toString()
         }
 }
