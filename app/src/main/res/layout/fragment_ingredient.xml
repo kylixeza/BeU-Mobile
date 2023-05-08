@@ -52,26 +52,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <include
-                layout="@layout/item_list_ingredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
+            <include layout="@layout/item_list_ingredient"/>
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
