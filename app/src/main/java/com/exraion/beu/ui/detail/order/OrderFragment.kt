@@ -112,4 +112,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             viewModel.postOrder()
         }
     }
+
+    override fun onBackPressedBehaviour() {
+        findNavController().navigate(
+            OrderFragmentDirections.actionOrderDestinationToIngredientNavigation(args.menuId)
+        )
+    }
 }

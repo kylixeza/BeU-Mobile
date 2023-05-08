@@ -3,6 +3,7 @@ package com.exraion.beu.ui.detail.menu
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.exraion.beu.R
 import com.exraion.beu.adapter.DetailMenuPageAdapter
 import com.exraion.beu.base.BaseFragment
@@ -29,10 +30,8 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.material.tabs.TabLayoutMediator
 import io.github.tonnyl.light.Light
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
     
@@ -50,6 +49,10 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
     }
     
     override fun FragmentDetailMenuBinding.binder() {
+
+        appBarDetailMenu.ivArrowBack.setOnClickListener {
+            activity?.finish()
+        }
 
         var menuId = ""
 
@@ -104,9 +107,9 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
 
         lifecycleScope.launch {
             viewModel.isFavorite.collect {
-                appBarDetailMenu.ivFavorite.setImageResource(
+                Glide.with(requireContext()).load(
                     it then { R.drawable.ic_favorite_true } otherwise { R.drawable.ic_favorite_false }
-                )
+                ).into(appBarDetailMenu.ivFavorite)
             }
         }
 
@@ -176,5 +179,8 @@ class DetailMenuFragment : BaseFragment<FragmentDetailMenuBinding>() {
         
         if (Util.SDK_INT > 23) releasePlayer()
     }
-    
+
+    override fun onBackPressedBehaviour() {
+        activity?.finish()
+    }
 }

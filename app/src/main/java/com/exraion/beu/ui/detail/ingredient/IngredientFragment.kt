@@ -39,7 +39,11 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
         appBarIngredient.apply {
             tvTitle.text = "Order Details"
             ivFavorite.hide()
-            ivArrowBack.setOnClickListener { findNavController().navigateUp() }
+            ivArrowBack.setOnClickListener {
+                findNavController().navigate(
+                    IngredientFragmentDirections.actionIngredientNavigationToDetailMenuDestination()
+                )
+            }
         }
         includeBottomBarDetail.btnOrder.isEnabled = false
 
@@ -87,5 +91,11 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
             )
             findNavController().navigate(action)
         }
+    }
+
+    override fun onBackPressedBehaviour() {
+        findNavController().navigate(
+            IngredientFragmentDirections.actionIngredientNavigationToDetailMenuDestination()
+        )
     }
 }
