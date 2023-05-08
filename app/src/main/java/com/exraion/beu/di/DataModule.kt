@@ -5,6 +5,8 @@ import com.exraion.beu.data.repository.leaderboard.LeaderboardRepository
 import com.exraion.beu.data.repository.leaderboard.LeaderboardRepositoryImpl
 import com.exraion.beu.data.repository.menu.MenuRepository
 import com.exraion.beu.data.repository.menu.MenuRepositoryImpl
+import com.exraion.beu.data.repository.order.OrderRepository
+import com.exraion.beu.data.repository.order.OrderRepositoryImpl
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.repository.user.UserRepositoryImpl
 import com.exraion.beu.data.repository.voucher.VoucherRepository
@@ -91,5 +93,9 @@ val repositoryModule = module {
 
     single<VoucherRepository> {
         VoucherRepositoryImpl(get(), get())
+    }
+
+    single<OrderRepository> {
+        OrderRepositoryImpl(get(), get())
     }
 }
