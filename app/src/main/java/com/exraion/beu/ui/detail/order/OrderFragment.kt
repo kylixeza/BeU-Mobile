@@ -45,6 +45,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
                 )
             }
         }
+        tvIngredientsValue.text = viewModel.ingredients.joinToString(", ")
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
@@ -68,6 +69,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
         lifecycleScope.launch {
             viewModel.price.collect {
                 tvPrice.text = it.toString()
+                tvIngredientPrice.text = "Rp$it"
             }
         }
 
