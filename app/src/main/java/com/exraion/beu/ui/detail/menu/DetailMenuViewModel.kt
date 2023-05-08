@@ -61,7 +61,7 @@ class DetailMenuViewModel(
     }
 
     fun toggleFavorite() {
-        _isFavorite.value then { insertFavorite() } otherwise { removeFavorite() }
+        _isFavorite.value then { removeFavorite() } otherwise { insertFavorite() }
     }
 
     private fun insertFavorite() {
