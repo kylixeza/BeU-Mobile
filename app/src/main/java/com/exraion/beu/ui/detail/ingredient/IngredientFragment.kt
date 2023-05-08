@@ -41,6 +41,7 @@ class IngredientFragment : BaseFragment<FragmentIngredientBinding>() {
             ivFavorite.hide()
             ivArrowBack.setOnClickListener { findNavController().navigateUp() }
         }
+        includeBottomBarDetail.btnOrder.isEnabled = false
 
         rvIngredient.apply {
             adapter = this@IngredientFragment.adapter
