@@ -6,10 +6,13 @@ import androidx.lifecycle.lifecycleScope
 import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
 import com.exraion.beu.adapter.step.StepAdapter
 import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.common.initGridVertical
 import com.exraion.beu.databinding.FragmentInstructionBinding
 import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
 import com.exraion.beu.util.Constanta
 import com.exraion.beu.util.ScreenOrientation
+import com.exraion.beu.util.isNotNullThen
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -47,12 +50,17 @@ class InstructionFragment : BaseFragment<FragmentInstructionBinding>() {
     }
     
     override fun FragmentInstructionBinding.binder() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.menuDetail.collect { menuDetail ->
-                menuDetail?.apply {
-                    ingredientAdapter.submitList(ingredients)
-                    toolAdapter.submitList(tools)
-                    stepAdapter.submitList(steps)
+
+        rvIngredients.initGridVertical(requireContext(), ingredientAdapter, 2)
+        rvTools.initGridVertical(requireContext(), toolAdapter, 2)
+        rvSteps.initGridVertical(requireContext(), stepAdapter, 1)
+
+        lifecycleScope.launch {
+            viewModel.menuDetail.collect {
+                it isNotNullThen  {menuDetail ->
+                    ingredientAdapter.submitList(menuDetail.ingredients)
+                    toolAdapter.submitList(menuDetail.tools)
+                    stepAdapter.submitList(menuDetail.steps)
                 }
             }
         }
