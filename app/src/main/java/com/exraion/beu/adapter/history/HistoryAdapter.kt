@@ -33,6 +33,7 @@ class HistoryAdapter: BaseRecyclerViewAdapter<ItemListHistoryBinding, History>()
                 Glide.with(itemView.context)
                     .load(data.image)
                     .transform(RoundedCorners(16))
+                    .centerCrop()
                     .into(ivImgMenu)
                 tvIngredients.text = data.ingredients.joinToString(", ") + "."
                 tvStatus.text = data.status
@@ -42,7 +43,7 @@ class HistoryAdapter: BaseRecyclerViewAdapter<ItemListHistoryBinding, History>()
                     OrderStatus.PROCESSED.status -> {
                         tvStatus.text = OrderStatus.PROCESSED.status
                         tvStatus.setTextColor(itemView.resources.getColor(R.color.primary_900))
-                        cvStatus.setBackgroundColor(itemView.resources.getColor(R.color.primary_50))
+                        cvStatus.setCardBackgroundColor(itemView.resources.getColor(R.color.primary_50))
                         btnDecision.apply {
                             text = "Cancel Order"
                             setTextColor(itemView.resources.getColor(R.color.error_900))
@@ -56,7 +57,7 @@ class HistoryAdapter: BaseRecyclerViewAdapter<ItemListHistoryBinding, History>()
                     OrderStatus.DONE.status -> {
                         tvStatus.text = OrderStatus.DONE.status
                         tvStatus.setTextColor(itemView.resources.getColor(R.color.secondary_900))
-                        cvStatus.setBackgroundColor(itemView.resources.getColor(R.color.secondary_50))
+                        cvStatus.setCardBackgroundColor(itemView.resources.getColor(R.color.secondary_50))
                         includeSendRating.apply {
                             root.show()
                             ratingBar.rating = data.starsGiven.toFloat()
@@ -92,7 +93,7 @@ class HistoryAdapter: BaseRecyclerViewAdapter<ItemListHistoryBinding, History>()
                     OrderStatus.CANCELLED.status -> {
                         tvStatus.text = OrderStatus.CANCELLED.status
                         tvStatus.setTextColor(itemView.resources.getColor(R.color.error_900))
-                        cvStatus.setBackgroundColor(itemView.resources.getColor(R.color.error_50))
+                        cvStatus.setCardBackgroundColor(itemView.resources.getColor(R.color.error_50))
                         btnDecision.disappear()
                     }
                 }

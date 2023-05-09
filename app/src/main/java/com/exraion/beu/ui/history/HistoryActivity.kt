@@ -31,6 +31,12 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>() {
 
     override fun ActivityHistoryBinding.binder() {
 
+        includeAppBarHistory.apply {
+            ivArrowBack.setOnClickListener { finish() }
+            tvTitle.text = "Order History"
+            ivFavorite.hide()
+        }
+
         rvHistory.apply {
             adapter = this@HistoryActivity.adapter
             layoutManager = LinearLayoutManager(this@HistoryActivity, LinearLayoutManager.VERTICAL, false)
@@ -38,7 +44,7 @@ class HistoryActivity : BaseActivity<ActivityHistoryBinding>() {
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
-                pbHistory showWhen it.isLoading() hideWhen it.isSuccess()
+                pbHistory showWhen it.isLoading() hideWhen (it.isSuccess() or it.isEmpty())
                 rvHistory showWhen it.isSuccess() hideWhen (it.isLoading() or it.isEmpty())
                 tvHistoryEmpty showWhen it.isEmpty() hideWhen (it.isSuccess() or it.isLoading())
                 it isErrorDo { Light.error(root, viewModel.message, Light.LENGTH_SHORT).show() }

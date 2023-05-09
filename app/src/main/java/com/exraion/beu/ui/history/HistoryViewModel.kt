@@ -32,7 +32,6 @@ class HistoryViewModel(
     }
 
     fun cancelOrder(orderId: String) {
-        _uiState.value = UIState.LOADING
         viewModelScope.launch {
             repository.cancelOrder(orderId).collect {
                 when(it) {
