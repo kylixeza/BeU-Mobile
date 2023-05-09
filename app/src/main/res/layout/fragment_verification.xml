@@ -14,8 +14,11 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="300dp"
         android:layout_height="300dp"
+        app:lottie_fileName="success_state.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         android:layout_marginTop="16dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
