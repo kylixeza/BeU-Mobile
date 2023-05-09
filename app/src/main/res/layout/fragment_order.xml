@@ -457,13 +457,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingHorizontal="24dp"
                 android:paddingVertical="12dp">
 
                 <TextView
                     android:id="@+id/tv_payment_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:text="@string/payment_method"
                     android:textColor="@color/neutral_900"
@@ -475,6 +475,7 @@
                     android:id="@+id/iv_arrow_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/montserrat"
                     android:text="@string/view_all"
                     android:textColor="@color/secondary_700"
@@ -483,9 +484,11 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_payment_method"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginTop="12dp"
                     android:clipToPadding="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_payment_method"
                     tools:listitem="@layout/item_list_payment_method"/>

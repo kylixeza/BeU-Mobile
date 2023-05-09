@@ -8,7 +8,12 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.exraion.beu.R
+import com.exraion.beu.adapter.payment_method.PaymentMethodAdapter
+import com.exraion.beu.adapter.payment_method.PaymentMethodListener
 import com.exraion.beu.base.BaseFragment
+import com.exraion.beu.common.initLinearHorizontal
+import com.exraion.beu.data.source.dummy.PaymentMethod
+import com.exraion.beu.data.source.dummy.getPaymentMethods
 import com.exraion.beu.databinding.FragmentOrderBinding
 import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.hideWhen
@@ -20,11 +25,13 @@ import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.showWhen
 import com.exraion.beu.util.then
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class OrderFragment : BaseFragment<FragmentOrderBinding>() {
 
     private val viewModel by activityViewModel<OrderViewModel>()
+    private val paymentMethodAdapter by inject<PaymentMethodAdapter>()
     private val args by navArgs<OrderFragmentArgs>()
 
     override fun inflateViewBinding(container: ViewGroup?): FragmentOrderBinding =
@@ -48,6 +55,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             }
         }
         tvIngredientsValue.text = viewModel.ingredients.joinToString(", ")
+
+        rvPaymentMethod.initLinearHorizontal(requireContext(), paymentMethodAdapter)
+        paymentMethodAdapter.submitList(getPaymentMethods())
         viewModel.fetchMenuDetail()
 
         lifecycleScope.launch {
@@ -134,9 +144,14 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
         }
 
         ivArrowVoucher.setOnClickListener {
-            OrderSelectionVoucherFragment().show(parentFragmentManager, OrderSelectionVoucherFragment::class.java.simpleName)
+            OrderSelectionVoucherFragment().show(requireActivity().supportFragmentManager, OrderSelectionVoucherFragment::class.java.simpleName)
         }
 
+        paymentMethodAdapter.listener = object : PaymentMethodListener {
+            override fun onPaymentMethodClicked(paymentMethod: PaymentMethod?) {
+                includeBottomBarDetail.btnOrder.isEnabled = paymentMethod != null
+            }
+        }
     }
 
     override fun onBackPressedBehaviour() {

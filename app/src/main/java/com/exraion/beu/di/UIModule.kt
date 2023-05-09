@@ -6,6 +6,7 @@ import com.exraion.beu.adapter.ingredient.IngredientAdapter
 import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
 import com.exraion.beu.adapter.leaderboard.LeaderboardAdapter
 import com.exraion.beu.adapter.menu_list_horizontal.MenuListHorizontalAdapter
+import com.exraion.beu.adapter.payment_method.PaymentMethodAdapter
 import com.exraion.beu.adapter.profile_additional_settings.ProfileAdditionalSettingAdapter
 import com.exraion.beu.adapter.review.ReviewAdapter
 import com.exraion.beu.adapter.step.StepAdapter
@@ -57,4 +58,5 @@ val adapterModule = module {
     factory { VoucherAdapter() }
     factory { VoucherTermsAndConditionsAdapter() }
     factory { HistoryAdapter() }
+    factory { PaymentMethodAdapter() }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:id="@+id/container_payment_method"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -8,6 +9,7 @@
     android:background="@drawable/circle_white">
     
     <ImageView
+        android:id="@+id/iv_payment_method"
         android:layout_width="36dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
