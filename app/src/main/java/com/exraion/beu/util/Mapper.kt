@@ -11,7 +11,16 @@ import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
-import com.exraion.beu.model.*
+import com.exraion.beu.model.History
+import com.exraion.beu.model.Ingredient
+import com.exraion.beu.model.Leaderboard
+import com.exraion.beu.model.MenuDetail
+import com.exraion.beu.model.MenuList
+import com.exraion.beu.model.Review
+import com.exraion.beu.model.User
+import com.exraion.beu.model.VoucherAvailable
+import com.exraion.beu.model.VoucherDetail
+import com.exraion.beu.model.VoucherList
 
 fun UserResponse.toUser() = User(
     this.location,
@@ -60,6 +69,7 @@ fun MenuListResponse.toMenuList() = MenuList(
 fun MenuDetailResponse.toMenuDetail() = MenuDetail(
     menuId,
     title,
+    image,
     videoUrl,
     isFavorite,
     isAvailable,

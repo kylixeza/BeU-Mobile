@@ -3,6 +3,7 @@ package com.exraion.beu.model
 data class MenuDetail(
     val menuId: String,
     val title: String,
+    val image: String,
     val videoUrl: String,
     val isFavorite: Boolean,
     val isAvailable: Boolean,

@@ -2,7 +2,6 @@ package com.exraion.beu.data.source.remote.api.model.menu
 
 import com.exraion.beu.data.source.remote.api.model.review.ReviewResponse
 import com.google.gson.annotations.SerializedName
-import java.math.BigDecimal
 
 data class MenuDetailResponse(
     @field:SerializedName("menu_id")
@@ -10,6 +9,9 @@ data class MenuDetailResponse(
 
     @field:SerializedName("title")
     val title: String,
+
+    @field:SerializedName("image")
+    val image: String,
 
     @field:SerializedName("video_url")
     val videoUrl: String,
