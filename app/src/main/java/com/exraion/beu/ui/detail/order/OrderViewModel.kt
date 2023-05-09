@@ -2,11 +2,13 @@ package com.exraion.beu.ui.detail.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.exraion.beu.data.repository.menu.MenuRepository
 import com.exraion.beu.data.repository.order.OrderRepository
 import com.exraion.beu.data.repository.user.UserRepository
 import com.exraion.beu.data.repository.voucher.VoucherRepository
 import com.exraion.beu.data.source.remote.api.model.order.OrderBody
 import com.exraion.beu.data.util.Resource
+import com.exraion.beu.model.MenuDetail
 import com.exraion.beu.model.User
 import com.exraion.beu.model.VoucherDetail
 import com.exraion.beu.model.VoucherList
@@ -27,6 +29,7 @@ class OrderViewModel(
     private val userRepository: UserRepository,
     private val voucherRepository: VoucherRepository,
     private val orderRepository: OrderRepository,
+    private val menuRepository: MenuRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UIState.IDLE)
@@ -34,6 +37,9 @@ class OrderViewModel(
 
     private val _user = MutableStateFlow<User?>(null)
     val user = _user.asStateFlow()
+
+    private val _menuDetail = MutableStateFlow<MenuDetail?>(null)
+    val menuDetail = _menuDetail.asStateFlow()
 
     private val _price = MutableStateFlow(0)
     val price = _price.asStateFlow()
@@ -74,6 +80,21 @@ class OrderViewModel(
             userRepository.getUserDetail().collect {
                 when(it) {
                     is Resource.Success -> _user.value = it.data
+                    else -> doNothing()
+                }
+            }
+        }
+    }
+
+    fun fetchMenuDetail() {
+        viewModelScope.launch {
+            menuRepository.fetchMenuDetail(menuId).collect {
+                when(it) {
+                    is Resource.Success -> _menuDetail.value = it.data
+                    is Resource.Error -> {
+                        _uiState.value = UIState.ERROR
+                        message = it.message!!
+                    }
                     else -> doNothing()
                 }
             }
