@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_history"
+            app:destination="@id/navigation_history" />
     </fragment>
     <fragment
         android:id="@+id/navigation_leaderboard"
@@ -114,4 +117,9 @@
             android:name="voucherId"
             app:argType="string" />
     </activity>
+    <activity
+        android:id="@+id/navigation_history"
+        android:name="com.exraion.beu.ui.history.HistoryActivity"
+        android:label="activity_history"
+        tools:layout="@layout/activity_history" />
 </navigation>

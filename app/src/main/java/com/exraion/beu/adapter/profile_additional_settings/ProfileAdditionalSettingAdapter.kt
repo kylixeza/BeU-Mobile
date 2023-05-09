@@ -9,6 +9,9 @@ import com.exraion.beu.databinding.ItemListProfileAdditionalSettingsBinding
 import com.exraion.beu.model.AdditionalSetting
 
 class ProfileAdditionalSettingAdapter: BaseRecyclerViewAdapter<ItemListProfileAdditionalSettingsBinding, AdditionalSetting>() {
+
+    lateinit var listener: ProfileAdditionalSettingListener
+
     override fun inflateViewBinding(parent: ViewGroup): ItemListProfileAdditionalSettingsBinding {
         return ItemListProfileAdditionalSettingsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
@@ -22,5 +25,13 @@ class ProfileAdditionalSettingAdapter: BaseRecyclerViewAdapter<ItemListProfileAd
                 Glide.with(this.root).load(data.icon).into(ivIcon)
                 tvTitle.text = data.title
             }
+
+            itemView.setOnClickListener {
+                listener.onProfileAdditionalSettingClicked(data.direction)
+            }
         }
+}
+
+interface ProfileAdditionalSettingListener {
+    fun onProfileAdditionalSettingClicked(direction: String)
 }

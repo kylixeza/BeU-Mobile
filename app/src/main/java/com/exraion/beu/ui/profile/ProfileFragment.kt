@@ -6,12 +6,14 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.exraion.beu.R
 import com.exraion.beu.adapter.profile_additional_settings.ProfileAdditionalSettingAdapter
+import com.exraion.beu.adapter.profile_additional_settings.ProfileAdditionalSettingListener
 import com.exraion.beu.base.BaseFragment
-import com.exraion.beu.common.initLinearHorizontal
 import com.exraion.beu.common.initLinearVertical
 import com.exraion.beu.databinding.FragmentProfileBinding
+import com.exraion.beu.util.AdditionalSettingConfig
 import com.exraion.beu.util.ScreenOrientation
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,7 +36,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         rvAccountSettings.initLinearVertical(requireContext(), accountAdditionalSettingsAdapter)
         rvMoreInfoSettings.initLinearVertical(requireContext(), moreInfoAdditionalSettingAdapter)
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.user.collect {
                 Glide.with(requireContext())
                     .load(it?.avatar)
@@ -46,15 +48,25 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.accountAdditionalSettings.collectLatest {
                 accountAdditionalSettingsAdapter.submitList(it)
             }
         }
         
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.moreInfoAdditionalSettings.collectLatest {
                 moreInfoAdditionalSettingAdapter.submitList(it)
+            }
+        }
+
+        accountAdditionalSettingsAdapter.listener = object : ProfileAdditionalSettingListener {
+            override fun onProfileAdditionalSettingClicked(direction: String) {
+                when(direction) {
+                    AdditionalSettingConfig.ORDER_HISTORY.direction -> findNavController().navigate(
+                        ProfileFragmentDirections.actionNavigationProfileToNavigationHistory()
+                    )
+                }
             }
         }
     }
