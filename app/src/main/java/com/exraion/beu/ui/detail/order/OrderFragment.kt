@@ -5,6 +5,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.exraion.beu.R
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentOrderBinding
@@ -46,6 +48,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             }
         }
         tvIngredientsValue.text = viewModel.ingredients.joinToString(", ")
+        viewModel.fetchMenuDetail()
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
@@ -54,6 +57,18 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
                     findNavController().navigate(
                         OrderFragmentDirections.actionOrderDestinationToVerificationDestination()
                     )
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.menuDetail.collect {
+                it isNotNullThen { menu ->
+                    Glide.with(requireContext())
+                        .load(menu.image)
+                        .transform(RoundedCorners(6))
+                        .centerCrop()
+                        .into(ivMenu)
                 }
             }
         }
