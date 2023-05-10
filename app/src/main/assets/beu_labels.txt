@@ -1,9 +1,5 @@
-ayam goreng
-bakso
-bubur
+meatball
+porridge
 capcay
-mie goreng
-nasi goreng
-rendang
-sate
-telur balado
+fried rice
+balado egg
