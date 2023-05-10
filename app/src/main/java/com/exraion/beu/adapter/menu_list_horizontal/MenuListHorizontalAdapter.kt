@@ -53,7 +53,7 @@ class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalB
                 
                 tvRangePrice.text = item.rangePrice
                 tvRating.text = item.rating.toString()
-                tvCookTime.text = item.cookTime.toString()
+                tvCookTime.text = "${item.cookTime} min"
 
                 root.setOnClickListener {
                     listener.onMenuClicked(item.menuId)
