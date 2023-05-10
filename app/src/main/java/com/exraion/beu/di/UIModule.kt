@@ -6,6 +6,7 @@ import com.exraion.beu.adapter.ingredient.IngredientAdapter
 import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
 import com.exraion.beu.adapter.leaderboard.LeaderboardAdapter
 import com.exraion.beu.adapter.menu_list_horizontal.MenuListHorizontalAdapter
+import com.exraion.beu.adapter.menu_list_vertical.MenuListVerticalAdapter
 import com.exraion.beu.adapter.payment_method.PaymentMethodAdapter
 import com.exraion.beu.adapter.profile_additional_settings.ProfileAdditionalSettingAdapter
 import com.exraion.beu.adapter.review.ReviewAdapter
@@ -22,6 +23,7 @@ import com.exraion.beu.ui.home.HomeViewModel
 import com.exraion.beu.ui.leaderboard.LeaderboardViewModel
 import com.exraion.beu.ui.onboard.OnBoardingViewModel
 import com.exraion.beu.ui.profile.ProfileViewModel
+import com.exraion.beu.ui.recognition.ImageRecognitionViewModel
 import com.exraion.beu.ui.splash.SplashViewModel
 import com.exraion.beu.ui.voucher.VoucherViewModel
 import com.exraion.beu.ui.voucher.detail.DetailVoucherViewModel
@@ -44,10 +46,12 @@ val viewModelModule = module {
     viewModel { MyVoucherViewModel(get()) }
     viewModel { DetailVoucherViewModel(get(),get()) }
     viewModel { HistoryViewModel(get()) }
+    viewModel { ImageRecognitionViewModel(get()) }
 }
 
 val adapterModule = module {
     factory { MenuListHorizontalAdapter() }
+    factory { MenuListVerticalAdapter() }
     factory { CategoryAdapter() }
     factory { LeaderboardAdapter() }
     factory { IngredientToolAdapter() }
