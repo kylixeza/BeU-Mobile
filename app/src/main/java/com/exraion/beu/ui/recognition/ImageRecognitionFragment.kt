@@ -1,7 +1,6 @@
 package com.exraion.beu.ui.recognition
 
 import android.Manifest
-import android.R.attr.bitmap
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,7 +8,14 @@ import android.graphics.BitmapFactory
 import android.provider.MediaStore
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.*
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.CameraControl
+import androidx.camera.core.CameraInfo
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
@@ -18,6 +24,7 @@ import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentImageRecognitionBinding
 import com.exraion.beu.tflite.TFLiteHelper
 import com.exraion.beu.util.ScreenOrientation
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.io.IOException
 import java.util.concurrent.Executors
 
@@ -30,10 +37,10 @@ class ImageRecognitionFragment : BaseFragment<FragmentImageRecognitionBinding>()
     private var cameraInfo: CameraInfo? = null
     
     private lateinit var tfLiteHelper: TFLiteHelper
+
+    private val viewModel by activityViewModel<ImageRecognitionViewModel>()
     
     companion object {
-        private const val PHOTO_EXTENSION = ".jpg"
-        
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         
@@ -85,7 +92,6 @@ class ImageRecognitionFragment : BaseFragment<FragmentImageRecognitionBinding>()
                 this,
                 cameraSelector,
                 imagePreview,
-                // imageAnalysis,
                 imageCapture,
             )
             binding!!.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
@@ -109,7 +115,8 @@ class ImageRecognitionFragment : BaseFragment<FragmentImageRecognitionBinding>()
                 tfLiteHelper.classifyImage(bitmap)
                 activity?.runOnUiThread {
                     val label = tfLiteHelper.showResult()
-                    Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT).show()
+                    viewModel.setQuery(label.orEmpty())
+                    PredictionResultFragment().show(childFragmentManager, PredictionResultFragment::class.java.simpleName)
                 }
                 image.close()
             }
