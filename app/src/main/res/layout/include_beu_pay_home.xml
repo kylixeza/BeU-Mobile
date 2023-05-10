@@ -105,7 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_referral"
+            android:id="@+id/btn_checkin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -116,13 +116,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_referral"/>
+                android:src="@drawable/ic_pig_checkin"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/referral"
+                android:text="@string/check_in"
                 android:textColor="@color/neutral_50"
                 android:fontFamily="@font/montserrat"
                 android:textSize="12sp"/>
