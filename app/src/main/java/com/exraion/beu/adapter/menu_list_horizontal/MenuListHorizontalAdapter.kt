@@ -21,7 +21,7 @@ class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalB
     }
     
     override val diffUtilBuilder: (List<MenuList>, List<MenuList>) -> DiffUtil.Callback?
-        get() = { old, new -> null }
+        get() = { old, new -> MenuListHorizontalDiffCallback(old, new) }
     
     override val binder: (MenuList, ItemListMenuHorizontalBinding) -> Unit
         @RequiresApi(Build.VERSION_CODES.M)
