@@ -1,13 +1,16 @@
 package com.exraion.beu.ui.recognition
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.exraion.beu.adapter.menu_list_vertical.MenuListVerticalAdapter
+import com.exraion.beu.adapter.menu_list_vertical.MenuListVerticalListener
 import com.exraion.beu.common.initLinearVertical
 import com.exraion.beu.databinding.FragmentPredictionResultBinding
+import com.exraion.beu.ui.detail.DetailActivity
 import com.exraion.beu.util.hideWhen
 import com.exraion.beu.util.isLoading
 import com.exraion.beu.util.isSuccess
@@ -53,6 +56,19 @@ class PredictionResultFragment : BottomSheetDialogFragment() {
                 viewModel.relatedMenus.collect {
                     adapter.submitList(it)
                 }
+            }
+
+            adapter.listener = object : MenuListVerticalListener {
+                override fun onFavoriteClicked(menuId: String) {
+
+                }
+
+                override fun onMenuClicked(menuId: String) {
+                    val intent = Intent(requireContext(), DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.MENU_ID, menuId)
+                    startActivity(intent)
+                }
+
             }
         }
     }
