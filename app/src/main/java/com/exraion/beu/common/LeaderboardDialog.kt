@@ -25,7 +25,7 @@ fun Context.buildLeaderboardDialog(
             .load(data?.avatar)
             .placeholder(R.drawable.ilu_default_profile_picture)
             .into(rankBinding.ivProfile)
-        tvDescRank.text = getString(R.string.leaderboard_dialog_description, data?.rank)
+        tvDescRank.text = getString(R.string.leaderboard_dialog_description, data?.rank, data?.xp)
         btnOk.setOnClickListener { dismiss() }
         ivClose.setOnClickListener { dismiss() }
     }

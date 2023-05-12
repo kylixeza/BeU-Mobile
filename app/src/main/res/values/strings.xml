@@ -45,7 +45,7 @@
     <string name="information">Information</string>
     <string name="ok">Ok</string>
     <string name="example_leaderboard_dialog_description">You are currently at rank 7. Keep increasing your orders to earn more XP points.</string>
-    <string name="leaderboard_dialog_description">You are currently at rank %d. Keep increasing your orders to earn more XP points.</string>
+    <string name="leaderboard_dialog_description">You are currently at rank %d with %d XP. Keep increasing your orders to earn more XP points.</string>
     <string name="account">Account</string>
     <string name="more_info">More Info</string>
     <string name="description">Description</string>
