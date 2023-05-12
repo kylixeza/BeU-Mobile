@@ -129,6 +129,7 @@ class OrderViewModel(
             } otherwise {
                 _shippingCost.value = (_shippingCost.value * voucher.discount) / 100
             }
+            _total.value = _price.value + _shippingCost.value + _admin.value - _discount.value
             _isVoucherApplied.value = true
             _isVoucherCanBeApplied.value = true
         }
