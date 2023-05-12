@@ -63,6 +63,10 @@ class MenuListVerticalAdapter: BaseRecyclerViewAdapter<ItemListMenuVerticalBindi
                 ivFavorite.setOnClickListener {
                     listener.onFavoriteClicked(data.menuId)
                 }
+
+                itemView.setOnClickListener {
+                    listener.onMenuClicked(data.menuId)
+                }
             }
         }
 }
