@@ -9,6 +9,7 @@ import com.exraion.beu.adapter.menu_list_horizontal.MenuListHorizontalListener
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.common.initLinearHorizontal
 import com.exraion.beu.databinding.FragmentHomeBinding
+import com.exraion.beu.ui.daily_check_in.DailyCheckInActivity
 import com.exraion.beu.ui.detail.DetailActivity
 import com.exraion.beu.util.ScreenOrientation
 import com.exraion.beu.util.hideWhen
@@ -83,6 +84,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
         
         categoryAdapter.submitList(viewModel.categories)
+
+        includeBeuPayHome.btnCheckin.setOnClickListener {
+            val intent = Intent(requireContext(), DailyCheckInActivity::class.java)
+            startActivity(intent)
+        }
     }
     
     override fun onBackPressedBehaviour() {
