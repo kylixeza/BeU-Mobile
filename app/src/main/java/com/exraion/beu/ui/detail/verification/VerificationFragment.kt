@@ -1,8 +1,10 @@
 package com.exraion.beu.ui.detail.verification
 
+import android.content.Intent
 import android.view.ViewGroup
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentVerificationBinding
+import com.exraion.beu.ui.history.HistoryActivity
 import com.exraion.beu.util.ScreenOrientation
 
 class VerificationFragment : BaseFragment<FragmentVerificationBinding>() {
@@ -18,6 +20,12 @@ class VerificationFragment : BaseFragment<FragmentVerificationBinding>() {
             ivArrowBack.setOnClickListener {
                 activity?.finish()
             }
+        }
+
+        btnHistory.setOnClickListener {
+            val intent = Intent(activity, HistoryActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
     }
 
