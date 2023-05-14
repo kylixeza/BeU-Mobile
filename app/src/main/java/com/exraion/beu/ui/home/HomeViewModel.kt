@@ -8,7 +8,9 @@ import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.MenuList
 import com.exraion.beu.model.User
 import com.exraion.beu.util.UIState
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -29,7 +31,7 @@ class HomeViewModel(
     val uiState = _uiState.asStateFlow()
     
     var message = ""
-    val categories = listOf("All", "Meat", "Vegetables", "Soup", "Cake", "Snacks")
+    val categories = listOf("All", "Meat", "Vegetables", "Rice", "Soup", "Cake", "Snacks")
     
     init {
         viewModelScope.launch {
