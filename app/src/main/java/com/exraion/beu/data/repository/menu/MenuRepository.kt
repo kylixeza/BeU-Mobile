@@ -15,6 +15,8 @@ interface MenuRepository {
     fun fetchCategorizedMenus(category: String): Flow<Resource<List<MenuList>>>
     
     fun fetchDietMenus(): Flow<Resource<List<MenuList>>>
+
+    fun fetchExclusiveMenus(): Flow<Resource<List<MenuList>>>
     
     fun fetchMenuDetail(menuId: String): Flow<Resource<MenuDetail>>
     

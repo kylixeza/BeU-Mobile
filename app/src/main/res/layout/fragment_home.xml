@@ -82,6 +82,27 @@
                 android:clipToPadding="false"
                 app:layout_constraintTop_toBottomOf="@id/tv_diet_menus"/>
 
+            <TextView
+                android:id="@+id/tv_exclusive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:text="@string/exclusive_menu"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/tv_diet_menus"
+                app:layout_constraintTop_toBottomOf="@id/rv_diet_menus"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exclusive_menus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_exclusive"/>
+
             <ProgressBar
                 android:id="@+id/pb_home"
                 android:layout_width="80dp"

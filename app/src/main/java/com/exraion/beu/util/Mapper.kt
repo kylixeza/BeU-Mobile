@@ -65,7 +65,8 @@ fun MenuListResponse.toMenuList() = MenuList(
     this.rangePrice,
     this.rating,
     this.cookTime,
-    this.isFavorite
+    this.isFavorite,
+    this.isExclusive
 )
 
 fun MenuDetailResponse.toMenuDetail() = MenuDetail(

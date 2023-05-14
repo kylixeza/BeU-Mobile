@@ -32,6 +32,9 @@ class HomeViewModel(
     
     private val _dietMenus = MutableStateFlow<List<MenuList>>(emptyList())
     val dietMenus = _dietMenus.asStateFlow()
+
+    private val _exclusiveMenus = MutableStateFlow<List<MenuList>>(emptyList())
+    val exclusiveMenus = _exclusiveMenus.asStateFlow()
     
     private val _uiState = MutableStateFlow(UIState.IDLE)
     val uiState = _uiState.asStateFlow()
@@ -56,12 +59,17 @@ class HomeViewModel(
                 menuRepository.fetchDietMenus()
             ) { menus, dietMenus ->
                 Pair(menus, dietMenus)
+            }.zip(
+                menuRepository.fetchExclusiveMenus()
+            ) { menusAndDietMenus, exclusiveMenus ->
+                Triple(menusAndDietMenus.first, menusAndDietMenus.second, exclusiveMenus)
             }.collect {
                 when (it.first) {
                     is Resource.Success -> {
                         _uiState.value = UIState.SUCCESS
                         _menu.value = it.first.data ?: listOf()
                         _dietMenus.value = it.second.data ?: listOf()
+                        _exclusiveMenus.value = it.third.data ?: listOf()
                     }
                     is Resource.Empty -> {
                         _uiState.value = UIState.EMPTY

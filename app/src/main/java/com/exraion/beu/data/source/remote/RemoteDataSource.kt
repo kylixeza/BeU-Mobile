@@ -87,6 +87,12 @@ class RemoteDataSource(
     ) = object : BaseRemoteResponse<List<MenuListResponse>>() {
         override suspend fun call(): BaseResponse<List<MenuListResponse>> = apiService.fetchDietMenus(token)
     }.asFlow()
+
+    suspend fun fetchExclusiveMenus(
+        token: String
+    ) = object : BaseRemoteResponse<List<MenuListResponse>>() {
+        override suspend fun call(): BaseResponse<List<MenuListResponse>> = apiService.fetchExclusiveMenus(token)
+    }.asFlow()
     
     suspend fun fetchMenuDetail(
         token: String,

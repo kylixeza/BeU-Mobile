@@ -32,6 +32,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
     
     private val randomMenusAdapter by inject<MenuListHorizontalAdapter>()
     private val dietMenusAdapter by inject<MenuListHorizontalAdapter>()
+    private val exclusiveAdapter by inject<MenuListHorizontalAdapter>()
     private val categoryAdapter by inject<CategoryAdapter>()
     private val viewModel by inject<HomeViewModel>()
 
@@ -61,9 +62,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
 
         randomMenusAdapter.listener = menuAdapterCallback
         dietMenusAdapter.listener = menuAdapterCallback
+        exclusiveAdapter.listener = menuAdapterCallback
         
         rvDefaultMenus.initLinearHorizontal(requireContext(), randomMenusAdapter)
         rvDietMenus.initLinearHorizontal(requireContext(), dietMenusAdapter)
+        rvExclusiveMenus.initLinearHorizontal(requireContext(), exclusiveAdapter)
         rvCategories.initLinearHorizontal(requireContext(), categoryAdapter)
         
         lifecycleScope.launch {

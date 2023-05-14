@@ -72,7 +72,20 @@ class MenuRepositoryImpl(
             }
     
         }.asFlow()
-    
+
+    override fun fetchExclusiveMenus(): Flow<Resource<List<MenuList>>> =
+        object : NetworkOnlyResource<List<MenuList>, List<MenuListResponse>?>() {
+            override suspend fun createCall(): Flow<RemoteResponse<List<MenuListResponse>?>> {
+                val token = localDataSource.readPrefToken().first().orEmpty()
+                return remoteDataSource.fetchExclusiveMenus(token)
+            }
+
+            override fun mapTransform(data: List<MenuListResponse>?): List<MenuList> {
+                return data?.map { it.toMenuList() } ?: emptyList()
+            }
+
+        }.asFlow()
+
     override fun fetchMenuDetail(menuId: String): Flow<Resource<MenuDetail>> =
         object : NetworkOnlyResource<MenuDetail, MenuDetailResponse?>() {
             override suspend fun createCall(): Flow<RemoteResponse<MenuDetailResponse?>> {

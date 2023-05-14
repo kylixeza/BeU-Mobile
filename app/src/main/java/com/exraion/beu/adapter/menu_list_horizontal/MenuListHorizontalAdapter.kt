@@ -11,6 +11,9 @@ import com.exraion.beu.R
 import com.exraion.beu.base.BaseRecyclerViewAdapter
 import com.exraion.beu.databinding.ItemListMenuHorizontalBinding
 import com.exraion.beu.model.MenuList
+import com.exraion.beu.util.hideWhen
+import com.exraion.beu.util.not
+import com.exraion.beu.util.showWhen
 
 class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalBinding, MenuList>() {
 
@@ -58,6 +61,8 @@ class MenuListHorizontalAdapter: BaseRecyclerViewAdapter<ItemListMenuHorizontalB
                 root.setOnClickListener {
                     listener.onMenuClicked(item.menuId)
                 }
+
+                ivExclusiveTag showWhen item.isExclusive hideWhen not { item.isExclusive }
             }
         }
 }

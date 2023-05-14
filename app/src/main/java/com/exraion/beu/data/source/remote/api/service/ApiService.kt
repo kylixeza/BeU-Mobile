@@ -75,6 +75,11 @@ interface ApiService {
     suspend fun fetchDietMenus(
         @Header("Authorization") token: String
     ): BaseResponse<List<MenuListResponse>>
+
+    @GET("menu/exclusive")
+    suspend fun fetchExclusiveMenus(
+        @Header("Authorization") token: String
+    ): BaseResponse<List<MenuListResponse>>
     
     @GET("menu/{menuId}")
     suspend fun fetchMenuDetail(

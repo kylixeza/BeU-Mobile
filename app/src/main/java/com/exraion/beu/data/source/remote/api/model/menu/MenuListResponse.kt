@@ -1,7 +1,6 @@
 package com.exraion.beu.data.source.remote.api.model.menu
 
 import com.google.gson.annotations.SerializedName
-import java.math.BigDecimal
 
 data class MenuListResponse(
     @field:SerializedName("menu_id")
@@ -27,4 +26,7 @@ data class MenuListResponse(
 
     @field:SerializedName("is_favorite")
     val isFavorite: Boolean,
+
+    @field:SerializedName("is_exclusive")
+    val isExclusive: Boolean,
 )

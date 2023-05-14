@@ -10,10 +10,10 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="4dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingBottom="12dp">
 
         <ImageView
             android:id="@+id/iv_food"
@@ -23,97 +23,99 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_exclusive_tag"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
-            android:layout_marginVertical="12dp">
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_exclusive_tag"
+            app:layout_constraintEnd_toEndOf="@id/iv_food"
+            app:layout_constraintTop_toTopOf="@id/iv_food" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_difficulty"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_food"
+            tools:backgroundTint="@color/success_50">
+
+            <TextView
+                android:id="@+id/tv_difficulty"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:backgroundTint="@color/success_50">
+                android:layout_height="match_parent"
+                android:fontFamily="@font/montserrat"
+                android:paddingHorizontal="2dp"
+                android:paddingVertical="2dp"
+                android:textSize="8sp"
+                tools:text="Mudah"
+                tools:textColor="@color/success_900" />
 
-                <TextView
-                    android:id="@+id/tv_difficulty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/montserrat"
-                    android:paddingHorizontal="2dp"
-                    android:paddingVertical="2dp"
-                    android:textSize="8sp"
-                    tools:text="Mudah"
-                    tools:textColor="@color/success_900" />
+        </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:textColor="@color/neutral_900"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/cv_difficulty"
+            app:layout_constraintEnd_toStartOf="@id/cv_difficulty"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_difficulty"
+            tools:text="Fried Rice" />
 
-            <TextView
-                android:id="@+id/tv_food_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_semibold"
-                android:maxLines="1"
-                android:textColor="@color/neutral_900"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/cv_difficulty"
-                app:layout_constraintEnd_toStartOf="@id/cv_difficulty"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/cv_difficulty"
-                tools:text="Fried Rice" />
+        <TextView
+            android:id="@+id/tv_range_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/error_500"
+            android:textSize="10sp"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="@id/tv_food_name"
+            app:layout_constraintEnd_toEndOf="@id/cv_difficulty"
+            app:layout_constraintTop_toBottomOf="@id/tv_food_name"
+            tools:text="Rp 15000 - Rp 45000" />
 
-            <TextView
-                android:id="@+id/tv_range_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:textColor="@color/error_500"
-                android:textSize="10sp"
-                android:maxLines="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_food_name"
-                tools:text="Rp 15000 - Rp 45000" />
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/primary_700"
+            android:textSize="10sp"
+            app:drawableStartCompat="@drawable/ic_star"
+            app:layout_constraintStart_toStartOf="@id/tv_range_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_range_price"
+            tools:text="4.8" />
 
-            <TextView
-                android:id="@+id/tv_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:drawablePadding="4dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:textColor="@color/primary_700"
-                android:textSize="10sp"
-                app:drawableStartCompat="@drawable/ic_star"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_range_price"
-                tools:text="4.8" />
+        <TextView
+            android:id="@+id/tv_cook_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/neutral_300"
+            android:textSize="10sp"
+            app:drawableStartCompat="@drawable/ic_estimated_time"
+            app:layout_constraintTop_toTopOf="@id/tv_rating"
+            app:layout_constraintEnd_toEndOf="@id/tv_range_price"
+            tools:text="15 mnt" />
 
-            <TextView
-                android:id="@+id/tv_cook_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="4dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:textColor="@color/neutral_300"
-                android:textSize="10sp"
-                app:drawableStartCompat="@drawable/ic_estimated_time"
-                app:layout_constraintTop_toTopOf="@id/tv_rating"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="15 mnt" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

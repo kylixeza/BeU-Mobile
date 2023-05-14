@@ -1,8 +1,5 @@
 package com.exraion.beu.model
 
-import com.google.gson.annotations.SerializedName
-import java.math.BigDecimal
-
 data class MenuList(
     val menuId: String,
     val image: String,
@@ -12,4 +9,5 @@ data class MenuList(
     val rating: Double,
     val cookTime: Int,
     val isFavorite: Boolean,
+    val isExclusive: Boolean
 )
