@@ -37,7 +37,7 @@ val viewModelModule = module {
     viewModel { OnBoardingViewModel() }
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
-    viewModel { HomeViewModel(get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
     viewModel { CategoryViewModel(get()) }
     viewModel { DetailMenuViewModel(get(), get()) }
     viewModel { IngredientViewModel(get()) }
