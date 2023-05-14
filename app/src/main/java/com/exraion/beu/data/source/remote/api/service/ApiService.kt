@@ -156,22 +156,22 @@ interface ApiService {
         @Body body: HistoryUpdateStarsGiven
     ): BaseResponse<String>
 
-    @GET("dailyxp/check")
+    @GET("daily-xp/check")
     suspend fun checkDailyXp(
         @Header("Authorization") token: String
     ): BaseResponse<String>
 
-    @GET("dailyxp")
+    @GET("daily-xp")
     suspend fun fetchDailyXps(
         @Header("Authorization") token: String
     ): BaseResponse<List<DailyXpResponse>>
 
-    @GET("dailyxp/today")
+    @GET("daily-xp/today")
     suspend fun fetchTodayDailyXp(
         @Header("Authorization") token: String
     ): BaseResponse<DailyXpResponse>
 
-    @POST("dailyxp/take")
+    @POST("daily-xp/take")
     suspend fun takeDailyXp(
         @Header("Authorization") token: String,
         @Body body: DailyXpRequest
