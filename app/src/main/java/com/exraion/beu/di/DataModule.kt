@@ -1,6 +1,8 @@
 package com.exraion.beu.di
 
 import androidx.room.Room
+import com.exraion.beu.data.repository.daily_xp.DailyXpRepository
+import com.exraion.beu.data.repository.daily_xp.DailyXpRepositoryImpl
 import com.exraion.beu.data.repository.leaderboard.LeaderboardRepository
 import com.exraion.beu.data.repository.leaderboard.LeaderboardRepositoryImpl
 import com.exraion.beu.data.repository.menu.MenuRepository
@@ -97,5 +99,9 @@ val repositoryModule = module {
 
     single<OrderRepository> {
         OrderRepositoryImpl(get(), get())
+    }
+
+    single<DailyXpRepository>() {
+        DailyXpRepositoryImpl(get(), get())
     }
 }
