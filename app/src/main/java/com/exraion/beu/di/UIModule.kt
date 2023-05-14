@@ -15,6 +15,7 @@ import com.exraion.beu.adapter.voucher.VoucherAdapter
 import com.exraion.beu.adapter.voucher.terms_conditions.VoucherTermsAndConditionsAdapter
 import com.exraion.beu.ui.auth.login.LoginViewModel
 import com.exraion.beu.ui.auth.register.RegisterViewModel
+import com.exraion.beu.ui.category.CategoryViewModel
 import com.exraion.beu.ui.detail.ingredient.IngredientViewModel
 import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
 import com.exraion.beu.ui.detail.order.OrderViewModel
@@ -37,6 +38,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { CategoryViewModel(get()) }
     viewModel { DetailMenuViewModel(get(), get()) }
     viewModel { IngredientViewModel(get()) }
     viewModel { OrderViewModel(get(), get(), get(), get()) }
