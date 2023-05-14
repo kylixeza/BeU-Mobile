@@ -2,13 +2,18 @@ package com.exraion.beu.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.exraion.beu.data.repository.daily_xp.DailyXpRepository
 import com.exraion.beu.data.repository.user.UserRepository
+import com.exraion.beu.data.util.Resource
+import com.exraion.beu.util.doNothing
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val repository: UserRepository
+    private val userRepository: UserRepository,
+    private val dailyXpRepository: DailyXpRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SplashUIState.Idle)
@@ -16,12 +21,19 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch {
-            repository.readPrefHaveRunAppBefore().collect { hasRun ->
+            userRepository.readPrefHaveRunAppBefore().collect { hasRun ->
                 if (hasRun) {
-                   repository.readPrefIsLogin().collect { isLogin ->
+                   userRepository.readPrefIsLogin().collect { isLogin ->
                         if (isLogin) {
-                            repository.fetchUserDetail().collect {
-                                _uiState.value = SplashUIState.LoggedIn
+                            userRepository.fetchUserDetail().zip(
+                                dailyXpRepository.checkDailyXp()
+                            ) { user, dailyXp ->
+                                Pair(user, dailyXp)
+                            }.collect {
+                                if (it.first == Resource.Success(Unit))
+                                    _uiState.value = SplashUIState.LoggedIn
+                                else
+                                    doNothing()
                             }
                         } else {
                             _uiState.value = SplashUIState.NotLoggedIn
