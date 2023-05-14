@@ -29,7 +29,7 @@ class DailyXpRepositoryImpl(
 
         }.asFlow()
 
-    override suspend fun fetchDailyXp(): Flow<Resource<List<DailyXp>>> =
+    override suspend fun fetchDailyXps(): Flow<Resource<List<DailyXp>>> =
         object : NetworkOnlyResource<List<DailyXp>, List<DailyXpResponse>?>() {
             override suspend fun createCall(): Flow<RemoteResponse<List<DailyXpResponse>?>> {
                 val token = localDataSource.readPrefToken().first().orEmpty()

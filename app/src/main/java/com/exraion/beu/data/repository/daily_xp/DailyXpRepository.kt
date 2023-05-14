@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DailyXpRepository {
     suspend fun checkDailyXp(): Flow<Resource<Unit>>
-    suspend fun fetchDailyXp(): Flow<Resource<List<DailyXp>>>
+    suspend fun fetchDailyXps(): Flow<Resource<List<DailyXp>>>
     suspend fun fetchTodayDailyXp(): Flow<Resource<DailyXp>>
     suspend fun takeDailyXp(body: DailyXpRequest): Flow<Resource<Unit>>
 }
