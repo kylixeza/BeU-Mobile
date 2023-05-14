@@ -101,6 +101,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>() {
         }
 
         lifecycleScope.launch {
+            viewModel.exclusiveMenus.collect {
+                exclusiveAdapter.submitList(it)
+            }
+        }
+
+        lifecycleScope.launch {
             viewModel.isDailyXpTaken.collect {
                 it.isNotNullThen {isDailyXpTaken ->
                     if (isDailyXpTaken) {
