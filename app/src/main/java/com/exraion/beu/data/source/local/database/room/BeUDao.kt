@@ -21,5 +21,8 @@ interface BeUDao {
 
     @Query("UPDATE user_table SET xp = :xp WHERE token = :token")
     suspend fun updateXp(token: String, xp: Int)
+
+    @Query("DELETE FROM user_table WHERE token = :token")
+    suspend fun deleteUser(token: String)
     
 }

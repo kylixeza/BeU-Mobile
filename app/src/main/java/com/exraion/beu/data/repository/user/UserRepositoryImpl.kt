@@ -51,15 +51,18 @@ class UserRepositoryImpl(
         }
     }.asFlow()
 
-    override fun signOut(): Flow<Resource<Unit>> = object : NetworkOnlyResource<Unit, String?>() {
+    override fun signOut(): Flow<Resource<Unit>> = object : NetworkBoundRequest<String?>() {
         override suspend fun createCall(): Flow<RemoteResponse<String?>> {
             val token = localDataSource.readPrefToken().firstOrNull() ?: ""
             return remoteDataSource.signOut(token)
         }
 
-        override fun mapTransform(data: String?) {
-            return
+        override suspend fun saveCallResult(data: String?) {
+            val token = localDataSource.readPrefToken().firstOrNull().orEmpty()
+            localDataSource.deleteToken(token)
+            localDataSource.deleteUser(token)
         }
+
     }.asFlow()
     
     override fun fetchUserDetail(): Flow<Resource<Unit>> = object : NetworkBoundRequest<UserResponse?>() {

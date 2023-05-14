@@ -37,6 +37,10 @@ class LocalDataSource(
         }
     }.doObservable()
 
+    suspend fun deleteUser(token: String) {
+        dao.deleteUser(token)
+    }
+
     fun getUserXp(token: String) = dao.getUserXp(token)
 
     suspend fun increaseXp(token: String, givenXp: Int) {
