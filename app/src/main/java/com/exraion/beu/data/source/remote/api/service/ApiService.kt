@@ -4,6 +4,8 @@ import com.exraion.beu.data.source.remote.api.model.BaseResponse
 import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
 import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.source.remote.api.model.auth.TokenResponse
+import com.exraion.beu.data.source.remote.api.model.dailyxp.DailyXpRequest
+import com.exraion.beu.data.source.remote.api.model.dailyxp.DailyXpResponse
 import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
 import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
 import com.exraion.beu.data.source.remote.api.model.history.HistoryUpdateStarsGiven
@@ -152,6 +154,27 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("orderId") orderId: String,
         @Body body: HistoryUpdateStarsGiven
+    ): BaseResponse<String>
+
+    @GET("dailyxp/check")
+    suspend fun checkDailyXp(
+        @Header("Authorization") token: String
+    ): BaseResponse<String>
+
+    @GET("dailyxp")
+    suspend fun fetchDailyXps(
+        @Header("Authorization") token: String
+    ): BaseResponse<List<DailyXpResponse>>
+
+    @GET("dailyxp/today")
+    suspend fun fetchTodayDailyXp(
+        @Header("Authorization") token: String
+    ): BaseResponse<DailyXpResponse>
+
+    @POST("dailyxp/take")
+    suspend fun takeDailyXp(
+        @Header("Authorization") token: String,
+        @Body body: DailyXpRequest
     ): BaseResponse<String>
 
 }

@@ -1,6 +1,7 @@
 package com.exraion.beu.util
 
 import com.exraion.beu.data.source.local.database.entity.UserEntity
+import com.exraion.beu.data.source.remote.api.model.dailyxp.DailyXpResponse
 import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
 import com.exraion.beu.data.source.remote.api.model.ingredient.IngredientResponse
 import com.exraion.beu.data.source.remote.api.model.leaderboard.LeaderboardResponse
@@ -11,6 +12,7 @@ import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
+import com.exraion.beu.model.DailyXp
 import com.exraion.beu.model.History
 import com.exraion.beu.model.Ingredient
 import com.exraion.beu.model.Leaderboard
@@ -124,4 +126,11 @@ fun HistoryResponse.toHistory() = History(
     ingredients,
     status,
     starsGiven
+)
+
+fun DailyXpResponse.toDailyXp() = DailyXp(
+    dailyXpId,
+    dailyXp,
+    day,
+    isTaken
 )

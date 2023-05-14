@@ -5,6 +5,8 @@ import com.exraion.beu.data.source.remote.api.model.BaseResponse
 import com.exraion.beu.data.source.remote.api.model.auth.LoginBody
 import com.exraion.beu.data.source.remote.api.model.auth.RegisterBody
 import com.exraion.beu.data.source.remote.api.model.auth.TokenResponse
+import com.exraion.beu.data.source.remote.api.model.dailyxp.DailyXpRequest
+import com.exraion.beu.data.source.remote.api.model.dailyxp.DailyXpResponse
 import com.exraion.beu.data.source.remote.api.model.favorite.FavoriteBody
 import com.exraion.beu.data.source.remote.api.model.history.HistoryResponse
 import com.exraion.beu.data.source.remote.api.model.history.HistoryUpdateStarsGiven
@@ -180,5 +182,30 @@ class RemoteDataSource(
         body: HistoryUpdateStarsGiven
     ) = object : BaseRemoteResponse<String>() {
         override suspend fun call(): BaseResponse<String> = apiService.rateOrder(token, orderId, body)
+    }.asFlow()
+
+    suspend fun checkDailyXp(
+        token: String
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.checkDailyXp(token)
+    }.asFlow()
+
+    suspend fun fetchDailyXps(
+        token: String
+    ) = object : BaseRemoteResponse<List<DailyXpResponse>>() {
+        override suspend fun call(): BaseResponse<List<DailyXpResponse>> = apiService.fetchDailyXps(token)
+    }.asFlow()
+
+    suspend fun fetchTodayDailyXp(
+        token: String
+    ) = object : BaseRemoteResponse<DailyXpResponse>() {
+        override suspend fun call(): BaseResponse<DailyXpResponse> = apiService.fetchTodayDailyXp(token)
+    }.asFlow()
+
+    suspend fun takeDailyXp(
+        token: String,
+        body: DailyXpRequest
+    ) = object : BaseRemoteResponse<String>() {
+        override suspend fun call(): BaseResponse<String> = apiService.takeDailyXp(token, body)
     }.asFlow()
 }
