@@ -32,7 +32,7 @@ class ImageRecognitionViewModel(
     fun fetchRelatedMenus() {
         _uiState.value = UIState.LOADING
         viewModelScope.launch {
-            repository.fetchSearchedMenus("Fried Rice").collect {
+            repository.fetchSearchedMenus(_query.value).collect {
                 when(it) {
                     is Resource.Loading -> _uiState.value = UIState.LOADING
                     is Resource.Success -> {
