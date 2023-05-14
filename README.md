@@ -16,3 +16,6 @@ Kami berharap, dengan adanya BeU, dapat memberikan kemudahan, efektivitas, efisi
 
 # Download
 [BeU.apk](https://drive.google.com/file/d/1muZ7WPX18ZyzK6pPZmTlvImEPTy3BfCw/view?usp=sharing)
+
+# Spesifikasi
+Android Studio Canary Build (latest version)
