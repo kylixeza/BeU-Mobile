@@ -30,10 +30,11 @@ class SplashViewModel(
                             ) { user, dailyXp ->
                                 Pair(user, dailyXp)
                             }.collect {
-                                if (it.first == Resource.Success(Unit))
-                                    _uiState.value = SplashUIState.LoggedIn
-                                else
-                                    doNothing()
+                                when(it.first) {
+                                    is Resource.Success -> _uiState.value = SplashUIState.LoggedIn
+                                    is Resource.Error -> _uiState.value = SplashUIState.LoggedIn
+                                    else -> doNothing()
+                                }
                             }
                         } else {
                             _uiState.value = SplashUIState.NotLoggedIn
