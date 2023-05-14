@@ -42,19 +42,19 @@ class VoucherViewModel(
 
     fun expandShippingVouchers() {
         _isShippingExpanded.value = !_isShippingExpanded.value
-        _isShippingExpanded.value then {
-            _shippingVoucher.value = _shippingVoucherFullData.value
+        _shippingVoucher.value = _isShippingExpanded.value then {
+            _shippingVoucherFullData.value
         } otherwise {
-            _shippingVoucher.value = _shippingVoucherFullData.value.take(2)
+            _shippingVoucherFullData.value.take(2)
         }
     }
 
     fun expandProductVouchers() {
         _isProductExpanded.value = !_isProductExpanded.value
-        _isProductExpanded.value then {
-            _productVoucher.value = _productVoucherFullData.value
+        _productVoucher.value = _isProductExpanded.value then {
+            _productVoucherFullData.value
         } otherwise {
-            _productVoucher.value = _productVoucherFullData.value.take(2)
+            _productVoucherFullData.value.take(2)
         }
     }
 
