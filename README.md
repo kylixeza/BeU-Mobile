@@ -13,3 +13,6 @@ Kami berharap, dengan adanya BeU, dapat memberikan kemudahan, efektivitas, efisi
 ## Repository Lain
 - Backend       : https://github.com/KylixEza/BeU-Backend
 - Deep Learning : https://github.com/KylixEza/BeU-DL
+
+# Download
+[BeU.apk](https://drive.google.com/file/d/1muZ7WPX18ZyzK6pPZmTlvImEPTy3BfCw/view?usp=sharing)
