@@ -1,6 +1,7 @@
 package com.exraion.beu.di
 
 import com.exraion.beu.adapter.category.CategoryAdapter
+import com.exraion.beu.adapter.daily_xp.DailyXpAdapter
 import com.exraion.beu.adapter.history.HistoryAdapter
 import com.exraion.beu.adapter.ingredient.IngredientAdapter
 import com.exraion.beu.adapter.ingredient_tool.IngredientToolAdapter
@@ -16,6 +17,7 @@ import com.exraion.beu.adapter.voucher.terms_conditions.VoucherTermsAndCondition
 import com.exraion.beu.ui.auth.login.LoginViewModel
 import com.exraion.beu.ui.auth.register.RegisterViewModel
 import com.exraion.beu.ui.category.CategoryViewModel
+import com.exraion.beu.ui.daily_check_in.DailyCheckInViewModel
 import com.exraion.beu.ui.detail.ingredient.IngredientViewModel
 import com.exraion.beu.ui.detail.menu.DetailMenuViewModel
 import com.exraion.beu.ui.detail.order.OrderViewModel
@@ -49,6 +51,7 @@ val viewModelModule = module {
     viewModel { DetailVoucherViewModel(get(),get()) }
     viewModel { HistoryViewModel(get()) }
     viewModel { ImageRecognitionViewModel(get()) }
+    viewModel { DailyCheckInViewModel(get()) }
 }
 
 val adapterModule = module {
@@ -65,4 +68,5 @@ val adapterModule = module {
     factory { VoucherTermsAndConditionsAdapter() }
     factory { HistoryAdapter() }
     factory { PaymentMethodAdapter() }
+    factory { DailyXpAdapter() }
 }
