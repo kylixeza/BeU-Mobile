@@ -5,13 +5,20 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.exraion.beu.R
 import com.exraion.beu.adapter.voucher.VoucherAdapter
 import com.exraion.beu.adapter.voucher.VoucherAdapterListener
 import com.exraion.beu.base.BaseFragment
 import com.exraion.beu.databinding.FragmentVoucherBinding
 import com.exraion.beu.ui.voucher.detail.DetailVoucherActivity
 import com.exraion.beu.util.ScreenOrientation
-import com.exraion.beu.util.UIState
+import com.exraion.beu.util.hideWhen
+import com.exraion.beu.util.isErrorDo
+import com.exraion.beu.util.isLoading
+import com.exraion.beu.util.isSuccess
+import com.exraion.beu.util.otherwise
+import com.exraion.beu.util.showWhen
+import com.exraion.beu.util.then
 import io.github.tonnyl.light.Light
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -58,13 +65,9 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
 
         lifecycleScope.launch {
             viewModel.uiState.collect {
-                when(it) {
-                    UIState.IDLE -> doNothing()
-                    UIState.LOADING -> { }
-                    UIState.SUCCESS -> { }
-                    UIState.ERROR -> Light.error(requireView(), viewModel.message, Light.LENGTH_SHORT).show()
-                    UIState.EMPTY -> { }
-                }
+                tvShowMoreLessShippingVoucher showWhen it.isSuccess() hideWhen it.isLoading()
+                tvShowMoreLessProductVoucher showWhen it.isSuccess() hideWhen it.isLoading()
+                it.isErrorDo { Light.error(requireView(), viewModel.message, Light.LENGTH_SHORT).show() }
             }
         }
 
@@ -80,10 +83,36 @@ class VoucherFragment : BaseFragment<FragmentVoucherBinding>() {
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.isShippingExpended.collect {
+                tvShowMoreLessShippingVoucher.text = it then { "Show Less" } otherwise { "Show More" }
+                tvShowMoreLessShippingVoucher.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0, 0, it then { R.drawable.ic_arrow_up } otherwise { R.drawable.ic_arrow_down }, 0
+                )
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.isProductExpended.collect {
+                tvShowMoreLessProductVoucher.text = it then { "Show Less" } otherwise { "Show More" }
+                tvShowMoreLessProductVoucher.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    0, 0, it then { R.drawable.ic_arrow_up } otherwise { R.drawable.ic_arrow_down }, 0
+                )
+            }
+        }
+
         appBarVoucher.ivMyVoucher.setOnClickListener {
             findNavController().navigate(
                 VoucherFragmentDirections.actionNavigationVoucherToNavigationMyVoucher()
             )
+        }
+
+        tvShowMoreLessShippingVoucher.setOnClickListener {
+            viewModel.expandShippingVouchers()
+        }
+
+        tvShowMoreLessProductVoucher.setOnClickListener {
+            viewModel.expandProductVouchers()
         }
     }
     
