@@ -119,6 +119,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
         lifecycleScope.launch {
             viewModel.total.collect {
                 tvTotal.text = "Rp$it"
+                includeBottomBarDetail.availabilityStatus.text = "Rp$it"
             }
         }
 
@@ -139,8 +140,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
             }
         }
 
-        includeBottomBarDetail.btnOrder.setOnClickListener {
-            viewModel.postOrder()
+        includeBottomBarDetail.apply {
+            btnOrder.setOnClickListener { viewModel.postOrder() }
+            availability.text = "Total Payment"
         }
 
         ivArrowVoucher.setOnClickListener {
