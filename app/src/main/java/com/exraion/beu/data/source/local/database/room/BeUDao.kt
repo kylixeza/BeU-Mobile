@@ -20,6 +20,6 @@ interface BeUDao {
     fun getUserXp(token: String): Flow<Int>
 
     @Query("UPDATE user_table SET xp = :xp WHERE token = :token")
-    fun updateXp(token: String, xp: Int)
+    suspend fun updateXp(token: String, xp: Int)
     
 }
