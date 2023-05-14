@@ -23,8 +23,8 @@ class SplashViewModel(
         viewModelScope.launch {
             userRepository.readPrefHaveRunAppBefore().collect { hasRun ->
                 if (hasRun) {
-                   userRepository.readPrefIsLogin().collect { isLogin ->
-                        if (isLogin) {
+                   userRepository.readPrefToken().collect { isTokenAvailable ->
+                        if (isTokenAvailable != null)  {
                             userRepository.fetchUserDetail().zip(
                                 dailyXpRepository.checkDailyXp()
                             ) { user, dailyXp ->
@@ -36,7 +36,7 @@ class SplashViewModel(
                                     else -> doNothing()
                                 }
                             }
-                        } else {
+                        } else  {
                             _uiState.value = SplashUIState.NotLoggedIn
                         }
                     }
