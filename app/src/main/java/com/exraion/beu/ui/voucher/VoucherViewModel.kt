@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.exraion.beu.data.repository.voucher.VoucherRepository
 import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.VoucherList
+import com.exraion.beu.model.VoucherSecret
 import com.exraion.beu.util.UIState
+import com.exraion.beu.util.doNothing
 import com.exraion.beu.util.otherwise
 import com.exraion.beu.util.then
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +26,12 @@ class VoucherViewModel(
 
     private val _uiState = MutableStateFlow(UIState.IDLE)
     val uiState = _uiState.asStateFlow()
+
+    private val _searchedVoucherUiState = MutableStateFlow(UIState.IDLE)
+    val searchedVoucherUiState = _searchedVoucherUiState.asStateFlow()
+
+    private val _voucherSecret = MutableStateFlow<VoucherSecret?>(null)
+    val voucherSecret = _voucherSecret.asStateFlow()
 
     private val _shippingVoucherFullData = MutableStateFlow(listOf<VoucherList>())
     private val _shippingVoucher = MutableStateFlow(listOf<VoucherList>())
@@ -58,7 +66,7 @@ class VoucherViewModel(
         }
     }
 
-    fun fetchAvailableVouchers() = run {
+    fun fetchAvailableVouchers() {
         viewModelScope.launch {
             repository.fetchAvailableVouchers().collect {
                 when(it) {
@@ -76,6 +84,25 @@ class VoucherViewModel(
                         message = it.message.orEmpty()
                     }
                     else -> {}
+                }
+            }
+        }
+    }
+
+    fun searchVoucher(query: String) {
+        _searchedVoucherUiState.value = UIState.LOADING
+        viewModelScope.launch {
+            repository.redeemVoucherBySecretKey(query).collect {
+                when(it) {
+                    is Resource.Success -> {
+                        _searchedVoucherUiState.value = UIState.SUCCESS
+                        _voucherSecret.value = it.data
+                    }
+                    is Resource.Error -> {
+                        _searchedVoucherUiState.value = UIState.ERROR
+                        message = it.message.orEmpty()
+                    }
+                    else -> doNothing()
                 }
             }
         }

@@ -8,13 +8,16 @@ import com.exraion.beu.data.source.remote.RemoteResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherSecretResponse
 import com.exraion.beu.data.util.Resource
 import com.exraion.beu.model.VoucherAvailable
 import com.exraion.beu.model.VoucherDetail
 import com.exraion.beu.model.VoucherList
+import com.exraion.beu.model.VoucherSecret
 import com.exraion.beu.util.toVoucherAvailable
 import com.exraion.beu.util.toVoucherDetail
 import com.exraion.beu.util.toVoucherList
+import com.exraion.beu.util.toVoucherSecret
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
@@ -89,15 +92,15 @@ class VoucherRepositoryImpl(
 
         }.asFlow()
 
-    override fun redeemVoucherBySecretKey(secretKey: String): Flow<Resource<String>> =
-        object : NetworkOnlyResource<String, String?>() {
-            override suspend fun createCall(): Flow<RemoteResponse<String?>> {
+    override fun redeemVoucherBySecretKey(secretKey: String): Flow<Resource<VoucherSecret>> =
+        object : NetworkOnlyResource<VoucherSecret, VoucherSecretResponse?>() {
+            override suspend fun createCall(): Flow<RemoteResponse<VoucherSecretResponse?>> {
                 val token = localDataSource.readPrefToken().first().orEmpty()
                 return remoteDataSource.redeemVoucherBySecretKey(token, secretKey)
             }
 
-            override fun mapTransform(data: String?): String {
-                return data.orEmpty()
+            override fun mapTransform(data: VoucherSecretResponse?): VoucherSecret {
+                return data?.toVoucherSecret()!!
             }
 
         }.asFlow()

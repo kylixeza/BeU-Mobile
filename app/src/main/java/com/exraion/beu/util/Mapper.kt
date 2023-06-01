@@ -12,6 +12,7 @@ import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherSecretResponse
 import com.exraion.beu.model.DailyXp
 import com.exraion.beu.model.History
 import com.exraion.beu.model.Ingredient
@@ -23,6 +24,7 @@ import com.exraion.beu.model.User
 import com.exraion.beu.model.VoucherAvailable
 import com.exraion.beu.model.VoucherDetail
 import com.exraion.beu.model.VoucherList
+import com.exraion.beu.model.VoucherSecret
 
 fun UserResponse.toUser() = User(
     this.location,
@@ -116,6 +118,10 @@ fun VoucherDetailResponse.toVoucherDetail() = VoucherDetail(
 
 fun VoucherList.toVoucherDetail() = VoucherDetail(
     voucherId, category, xpCost, validUntil, discount, minimumSpend, maximumDiscount
+)
+
+fun VoucherSecretResponse.toVoucherSecret() = VoucherSecret(
+    isSuccessRedeemed, message
 )
 
 fun HistoryResponse.toHistory() = History(

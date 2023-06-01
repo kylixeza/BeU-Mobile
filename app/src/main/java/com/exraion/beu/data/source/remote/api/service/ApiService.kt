@@ -18,6 +18,7 @@ import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherSecretResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -135,7 +136,7 @@ interface ApiService {
     suspend fun redeemVoucherBySecretKey(
         @Header("Authorization") token: String,
         @Path("secretKey") secretKey: String
-    ): BaseResponse<String>
+    ): BaseResponse<VoucherSecretResponse>
 
     @POST("user/order")
     suspend fun postOrder(

@@ -36,6 +36,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        mlModelBinding true
     }
 }
 
@@ -119,9 +120,11 @@ dependencies {
     implementation "androidx.camera:camera-view:1.3.0-alpha06"
 
     //TFLite
-    implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly')
-    implementation('org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly')
-    implementation('org.tensorflow:tensorflow-lite-support:0.0.0-nightly')
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:+'
+    implementation 'org.tensorflow:tensorflow-lite-support:+'
 
     //Custom UI
     implementation 'com.tbuonomo:dotsindicator:4.2'

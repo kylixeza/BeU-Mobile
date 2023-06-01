@@ -19,6 +19,7 @@ import com.exraion.beu.data.source.remote.api.model.user.UserResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherAvailableResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherDetailResponse
 import com.exraion.beu.data.source.remote.api.model.voucher.VoucherListResponse
+import com.exraion.beu.data.source.remote.api.model.voucher.VoucherSecretResponse
 import com.exraion.beu.data.source.remote.api.service.ApiService
 
 class RemoteDataSource(
@@ -158,8 +159,8 @@ class RemoteDataSource(
     suspend fun redeemVoucherBySecretKey(
         token: String,
         secretKey: String
-    ) = object : BaseRemoteResponse<String>() {
-        override suspend fun call(): BaseResponse<String> = apiService.redeemVoucherBySecretKey(token, secretKey)
+    ) = object : BaseRemoteResponse<VoucherSecretResponse>() {
+        override suspend fun call(): BaseResponse<VoucherSecretResponse> = apiService.redeemVoucherBySecretKey(token, secretKey)
     }.asFlow()
 
     suspend fun postOrder(

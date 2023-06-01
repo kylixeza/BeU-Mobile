@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_voucher_shop">
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/sv_home"
+            android:id="@+id/sv_voucher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawablePadding="8dp"
